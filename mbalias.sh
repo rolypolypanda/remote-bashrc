@@ -1,3 +1,5 @@
+# Begin setup env.
+
 if [[ $(hostname | egrep -Ec '(snafu|mac)') == 1 ]]; then
     echo "You're at home, not setting up aliases, etc..." ;
     sleep 3 ;
@@ -9,20 +11,24 @@ else
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
     alias vim="vim -u vimrc" ;
+    zzgetvimrc ;
 fi
 
+
+# Begin functions.
+
 zzgetvimrc() {
-    if [[ -f vimrc ]]; then
+    if [[ -f /root/vimrc ]]; then
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
-        mv vimrc{,.bak}
+        mv /root/vimrc{,.bak}
         sleep 3
 fi
-    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc ;
+    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc /root/vimrc ;
 }
 
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc\n"
-    echo -e "\nzzsetnsdvps\nzzmysqltune\nzzapachetune\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\n"
 }
 
 zzphpini() {
@@ -54,6 +60,9 @@ zzmemload() {
     echo "\`\`\`" ;
     free -m ;
     echo "\`\`\`" ;
+}
+
+zzdiskuse() {
     echo -e "\n- Disk usage and inode count \`(df -h / df -i)\`:\n" ;
     echo "\`\`\`" ;
     df -h ;
