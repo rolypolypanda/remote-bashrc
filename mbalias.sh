@@ -118,13 +118,15 @@ zzmkbackup() {
     find /backup -maxdepth 4 -type d -name "${ACT}" -print
     read -p "Enter the path of the backup you would like to create: " PTH
     read -p "Daily, Weekly, or Monthly backup? " DTE
+    mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     cd $PTH ;
     cd ..
-    tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/
+    tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | /home/.hd/logs/$TID/$ACT/backup.log ;
     echo -e "\`mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account $ACT created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`\n" ;
+    echo -e "**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup.log\`\n" ;
 }
 
 zzmysqltune() {
