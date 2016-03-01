@@ -1,8 +1,8 @@
+# mbalias.sh
 # Begin setup env.
 
 if [[ $(hostname | egrep -Ec '(snafu|mac)') == 1 ]]; then
     echo "You're at home, not setting up aliases, etc..." ;
-    sleep 3 ;
 else
     echo -ne "\033k$HOSTNAME\033\\" ;
     export PS1='\n\[\e[1;32m\]\u\[\e[1;37m\]@\[\e[0;37m\]\H\[\e[0;36m\]: \w\[\e[0;0m\]\$ ' ;
@@ -21,21 +21,19 @@ zzgetvimrc() {
     if [[ -f /root/vimrc ]]; then
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
         mv /root/vimrc{,.bak}
-        sleep 3
 fi
     wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc /root/vimrc ;
 }
 
 zzcommands() {
-    echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc\n"
+    echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\n"
 }
 
 zzphpini() {
-    read -p "Enter cPanel account name: " ACT
     cp /usr/local/lib/$1.ini . ;
     echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
-    chown $ACT: .htaccess ;
+    chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): .htaccess ;
 }
 
 zzphphandler() {
@@ -43,9 +41,8 @@ zzphphandler() {
 }
 
 zzphpinfo() {
-    read -p "Enter cPanel account name: " ACT ;
     echo -e "<?php phpinfo.php(); ?>" > phpinfo.php ;
-    chown $ACT: phpinfo.php ;
+    chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): phpinfo.php ;
 }
 
 zzmemload() {
@@ -73,30 +70,36 @@ zzdiskuse() {
 }
 
 zzfixtmp() {
+    read -p "Enter ticket ID number: " TID
+    mkdir -p /home/.hd/logs/$TID
     chmod 1777 /tmp ;
-    find /tmp -type f -mmin +30 -exec rm -vf {} \;
+    find /tmp -type f -mmin +30 -exec rm -vf {} \; | tee -a /home/.hd/logs/$TID/tmpremovedfiles.log
+    echo -e "\n- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles.log\`\n"
 }
 
 zzacctdom() {
-    grep $1 /etc/*domains
+    echo -e "Account Owner: $(grep $1 /etc/trueuserdomains | cut -d':' -f2)"
+    egrep -Hrn $1 /etc/*domains
 }
 
 zzacctpkg() {
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
+    mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
-    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original ;
-#    echo -e "\nAccount $ACT packaged in /home/.hd/ticket/$TID/cpmove-$ACT.tar.gz\n" ;
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct.log ;
     echo -e "For Notes:\n"
     echo -e "\`mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`/usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
     echo -e "\n- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/cpmove-$ACT.tar.gz\`\n" ;
+    echo -e "\n**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct.log\`\n" ;
 }
 
 zzversions() {
     echo -e "\`Software Versions:\`\n"
     echo "\`\`\`"
     cat /etc/redhat-release ;
+    echo "Kernel Version: $(uname -r)" ;
     echo "cPanel version: $(cat /usr/local/cpanel/version)" ;
     echo "MySQL version: $(mysql -V | awk '{ print $5 }' | tr -d ',')" ;
     echo "PHP version: $(php -v | head -n 1 | awk '{ print $2 }')" ;
@@ -125,17 +128,7 @@ zzmkbackup() {
 }
 
 zzmysqltune() {
-    read -p "Use the simple or advanced script? " SEL
-    if [[ SEL == "simple" ]]; then
-        simple=1 ;
-    else
-        simple=2 ;
-    fi
-    if [[ SEL == 1 ]]; then
     perl <(curl -k -L http://raw.github.com/rackerhacker/MySQLTuner-perl/master/mysqltuner.pl) ;
-else
-    bash <(curl -ks https://launchpadlibrarian.net/78745738/tuning-primer.sh) ;
-fi
 }
 
 zzapachetune() {
