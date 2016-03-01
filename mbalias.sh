@@ -10,7 +10,7 @@ else
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
-    alias vim="vim -u vimrc" ;
+    alias vim="vim -u /root/vimrc" ;
     zzgetvimrc ;
 fi
 
