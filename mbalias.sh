@@ -96,10 +96,10 @@ zzacctpkg() {
 }
 
 zzversions() {
-    echo -e "\`Software Versions:\`\n"
+    echo -e "- Software Versions:\n"
     echo "\`\`\`"
     cat /etc/redhat-release ;
-    echo "Kernel Version: $(uname -r)" ;
+    echo "Kernel version: $(uname -r)" ;
     echo "cPanel version: $(cat /usr/local/cpanel/version)" ;
     echo "MySQL version: $(mysql -V | awk '{ print $5 }' | tr -d ',')" ;
     echo "PHP version: $(php -v | head -n 1 | awk '{ print $2 }')" ;
