@@ -22,7 +22,7 @@ zzgetvimrc() {
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
         mv /root/vimrc{,.bak}
 fi
-    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc /root/vimrc ;
+    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc && mv vimrc /root/vimrc ;
 }
 
 zzcommands() {
@@ -31,9 +31,23 @@ zzcommands() {
 }
 
 zzphpini() {
+    if [[ $(/usr/local/cpanel/bin/rebuild_phpconf --current | grep -c dso) == 1 ]]; then
+        echo -i "This server is using DSO, you must set PHP directives in the $(pwd)/.htaccess file.\n" ;
+        sleep 10 ;
+    fi
     cp /usr/local/lib/$1.ini . ;
-    echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
-    chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): .htaccess ;
+    if [[ $(grep -qwc suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
+        echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
+            else
+        echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
+        chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): .htaccess ;
+    fi
+    echo -e "\nFor notes:\n"
+    echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini .\`"
+    echo -e "- Added the following to \`$(pwd)/.htaccess\`"
+    echo -e "\`\`\`"
+    echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n"
+    echo -e "\`\`\`"
 }
 
 zzphphandler() {
@@ -138,6 +152,14 @@ zzapachetune() {
 }
 
 zzsetnsdvps() {
+    echo -e "\nNOT READY FOR USE YET!\n" ;
+    sleep 1 ;
+    echo -e "\nNOT READY FOR USE YET!\n" ;
+    sleep 1 ;
+    echo -e "\nNOT READY FOR USE YET!\n" ;
+    sleep 1
+    echo -e "\nNOT READY FOR USE YET!\n" ;
+    sleep 10 ;
     if [[ $(/scripts/setupnameserver --current | grep -c nsd) = 1 ]]; then
         chkconfig --list | egrep -E '(named|nsd)' ;
         service named stop;service nsd restart;chkconfig --level 2345 named off ;
