@@ -101,12 +101,12 @@ zzacctpkg() {
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
-    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct.log ;
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log ;
     echo -e "For Notes:\n"
-    echo -e "\`mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-    echo -e "\`/usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
+    echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
     echo -e "\n- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/cpmove-$ACT.tar.gz\`\n" ;
-    echo -e "\n**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct.log\`\n" ;
+    echo -e "\n**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
 
 zzversions() {
@@ -136,11 +136,11 @@ zzmkbackup() {
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     cd $PTH ;
     cd ..
-    tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | /home/.hd/logs/$TID/$ACT/backup.log ;
-    echo -e "\`mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-    echo -e "\`tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
+    tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
+    echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`[root@$(hostname):$(pwd) #] tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account $ACT created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`\n" ;
-    echo -e "**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup.log\`\n" ;
+    echo -e "**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 }
 
 zzmysqltune() {
