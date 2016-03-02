@@ -101,7 +101,6 @@ zzacctpkg() {
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
-    screen -S ticket_$TID ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log ;
     echo -e "For Notes:\n"
     echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
@@ -135,7 +134,6 @@ zzmkbackup() {
     read -p "Daily, Weekly, or Monthly backup? " DTE
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
-    screen -S ticket_$TID ;
     cd $PTH ;
     cd ..
     tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
