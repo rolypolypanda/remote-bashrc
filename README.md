@@ -2,7 +2,10 @@
 - Aliases, functions and environment setup, subject to change and breakage, use
 at your own risk.
 
---|--|--
+| command | description |
+| ------- | ----------- |
+| zzphpini | test       |
+
 zzphpini
 zzphphandler
 zzphpinfo
