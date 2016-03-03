@@ -27,7 +27,7 @@ zzgetvimrc
 
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\n"
 }
 
 zzphpini() {
@@ -177,4 +177,14 @@ zzsetnsdvps() {
     else
         echo -e "\nThis server is either not configured to resolve DNS queries or is using a non-standard nameserver service.\n"
     fi
+}
+
+zzquicknotes() {
+    echo -e "\n## -- Change home/siteurl mysql-cli -- ##"
+    echo -e "select * from wp_options where option_value = 'SITEURL';"
+    echo -e "update wp_options set option_value = 'SITEURL' where option_id = 2;"
+    echo -e "update wp_options set option_value = 'SITEURL' where option_id = 1;"
+    echo -e "\n## - Create db user and assign database -- ##"
+    echo -e "create user 'USER'@'HOSTNAME' identified by 'PASSWORD';"
+    echo -e "grant all privileges on DATABASE.* to 'USER'@'HOSTNAME';"
 }
