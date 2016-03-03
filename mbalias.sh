@@ -31,10 +31,6 @@ zzcommands() {
 }
 
 zzphpini() {
-    if [[ $(/usr/local/cpanel/bin/rebuild_phpconf --current | grep -zc dso) == 1 ]]; then
-        echo -i "This server is using DSO, you must set PHP directives in the $(pwd)/.htaccess file.\n" ;
-        sleep 10 ;
-    fi
     cp /usr/local/lib/$1.ini . ;
     if [[ $(grep -qwc suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
