@@ -60,14 +60,14 @@ zzphpinfo() {
 }
 
 zzmemload() {
-    echo -e "- Current server load \`(w / sar -q 1 5):\`\n" ;
+    echo -e "- Current server load \`(w / sar -q 1 5):\`" ;
     echo "\`\`\`" ;
     CPUCOUNT=$(grep -c proc /proc/cpuinfo)
     echo -e "CPU count: $CPUCOUNT\n"
     w ;
     sar -q 1 5 ;
     echo "\`\`\`" ;
-    echo -e "\n- Free memory \`(free -m)\`:\n" ;
+    echo -e "\n- Free memory \`(free -m):\`" ;
     echo "\`\`\`" ;
     free -m ;
     echo "\`\`\`" ;
