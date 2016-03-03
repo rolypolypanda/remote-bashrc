@@ -55,8 +55,8 @@ zzphphandler() {
 }
 
 zzphpinfo() {
-    echo -e "<?php phpinfo.php(); ?>" > phpinfo.php ;
-    chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): phpinfo.php ;
+    echo -e "<?php phpinfo(); ?>" > phpinfo.php ;
+    chown $(stat . | grep -w 'Uid:' | awk '{ print $5 }' | cut -d'/' -f2 | tr -d ')'): phpinfo.php ;
 }
 
 zzmemload() {
