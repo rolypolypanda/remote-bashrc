@@ -31,7 +31,7 @@ zzcommands() {
 }
 
 zzphpini() {
-    if [[ $(/usr/local/cpanel/bin/rebuild_phpconf --current | grep -c dso) == 1 ]]; then
+    if [[ $(/usr/local/cpanel/bin/rebuild_phpconf --current | grep -zc dso) == 1 ]]; then
         echo -i "This server is using DSO, you must set PHP directives in the $(pwd)/.htaccess file.\n" ;
         sleep 10 ;
     fi
@@ -110,7 +110,7 @@ zzacctpkg() {
 }
 
 zzversions() {
-    echo -e "- Software Versions:\n"
+    echo -e "- \`Software Versions:\`"
     echo "\`\`\`"
     cat /etc/redhat-release ;
     echo "Kernel version: $(uname -r)" ;
