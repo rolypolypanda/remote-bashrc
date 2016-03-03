@@ -19,7 +19,7 @@ fi
 zzgetvimrc() {
     if [[ -f /root/vimrc ]]; then
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
-        mv /root/vimrc{,.bak}
+        mv -f /root/vimrc{,.bak}
 fi
     wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc && mv vimrc /root/vimrc ;
 }
@@ -27,7 +27,7 @@ zzgetvimrc
 
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\n"
 }
 
 zzphpini() {
@@ -60,7 +60,7 @@ zzphpinfo() {
 }
 
 zzmemload() {
-    echo -e "- Current server load \`(w / sar -q 15)\`:\n" ;
+    echo -e "- Current server load \`(w / sar -q 1 5):\`\n" ;
     echo "\`\`\`" ;
     CPUCOUNT=$(grep -c proc /proc/cpuinfo)
     echo -e "CPU count: $CPUCOUNT\n"
@@ -74,7 +74,7 @@ zzmemload() {
 }
 
 zzdiskuse() {
-    echo -e "\n- Disk usage and inode count \`(df -h / df -i)\`:\n" ;
+    echo -e "\n- Disk usage and inode count \`(df -h / df -i):\`\n" ;
     echo "\`\`\`" ;
     df -h ;
     echo "\`\`\`" ;
@@ -87,8 +87,8 @@ zzfixtmp() {
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID
     chmod 1777 /tmp ;
-    find /tmp -type f -mmin +30 -exec rm -vf {} \; | tee -a /home/.hd/logs/$TID/tmpremovedfiles.log
-    echo -e "\n- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles.log\`\n"
+    find /tmp -type f -mmin +30 -exec rm -vf {} \; | tee -a /home/.hd/logs/$TID/tmpremovedfiles-$(date +%s).log
+    echo -e "\n- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles-$(date +%s).log\`\n"
 }
 
 zzacctdom() {
@@ -105,8 +105,8 @@ zzacctpkg() {
     echo -e "For Notes:\n"
     echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
-    echo -e "\n- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/cpmove-$ACT.tar.gz\`\n" ;
-    echo -e "\n**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
+    echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/cpmove-$ACT.tar.gz\`" ;
+    echo -e "**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
 
 zzversions() {
@@ -139,7 +139,7 @@ zzmkbackup() {
     tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
     echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`[root@$(hostname):$(pwd) #] tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
-    echo -e "- Backup for account $ACT created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`\n" ;
+    echo -e "- Backup for account $ACT created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
     echo -e "**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 }
 
@@ -152,13 +152,13 @@ zzapachetune() {
 }
 
 zzsetnsdvps() {
-    echo -e "\nNOT READY FOR USE YET!\n" ;
+    echo -e "NOT READY FOR USE YET!" ;
     sleep 1 ;
-    echo -e "\nNOT READY FOR USE YET!\n" ;
+    echo -e "NOT READY FOR USE YET!" ;
     sleep 1 ;
-    echo -e "\nNOT READY FOR USE YET!\n" ;
+    echo -e "NOT READY FOR USE YET!" ;
     sleep 1
-    echo -e "\nNOT READY FOR USE YET!\n" ;
+    echo -e "NOT READY FOR USE YET!" ;
     sleep 10 ;
     if [[ $(/scripts/setupnameserver --current | grep -c nsd) = 1 ]]; then
         chkconfig --list | egrep -E '(named|nsd)' ;
@@ -177,4 +177,14 @@ zzsetnsdvps() {
     else
         echo -e "\nThis server is either not configured to resolve DNS queries or is using a non-standard nameserver service.\n"
     fi
+}
+
+zzquicknotes() {
+    echo -e "\n## -- Change home/siteurl mysql-cli -- ##"
+    echo -e "select * from wp_options where option_value = 'SITEURL';"
+    echo -e "update wp_options set option_value = 'SITEURL' where option_id = 2;"
+    echo -e "update wp_options set option_value = 'SITEURL' where option_id = 1;"
+    echo -e "\n## - Create db user and assign database -- ##"
+    echo -e "create user 'USER'@'HOSTNAME' identified by 'PASSWORD';"
+    echo -e "grant all privileges on DATABASE.* to 'USER'@'HOSTNAME';"
 }
