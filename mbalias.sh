@@ -5,7 +5,7 @@ if [[ $(hostname | egrep -Ec '(snafu|mac|fedora-srv)') == 1 ]]; then
     echo "You're at home, not setting up aliases, etc..." ;
 else
     echo -ne "\033k$HOSTNAME\033\\" ;
-    export PS1='\[\e[1;32m\]\u\[\e[1;37m\]@\[\e[0;37m\]\H\[\e[0;36m\]: \w\[\e[0;0m\] \$ ' ;
+    export PS1='\[\e[1;32m\]\u\[\e[1;37m\]@\[\e[0;37m\]\H\[\e[0;36m\]:\w\[\e[0;0m\] \$ ' ;
     export EDITOR="vim" ;
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
@@ -31,7 +31,7 @@ zzcommands() {
 }
 
 zzphpini() {
-    cp /usr/local/lib/$1.ini . ;
+    cp /usr/local/lib/$1.ini php.ini ;
     if [[ $(grep -qwc suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
             else
@@ -52,7 +52,7 @@ zzphphandler() {
 
 zzphpinfo() {
     echo -e "<?php phpinfo(); ?>" > phpinfo.php ;
-    chown $(stat . | grep -w 'Uid:' | awk '{ print $5 }' | cut -d'/' -f2 | tr -d ')'): phpinfo.php ;
+    chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): phpinfo.php ;
 }
 
 zzmemload() {
