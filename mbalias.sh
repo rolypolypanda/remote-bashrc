@@ -11,6 +11,8 @@ else
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
     alias vim="vim -u /root/vimrc" ;
+    alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog"
+    alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)"
 fi
 
 
@@ -27,7 +29,7 @@ zzgetvimrc
 
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\n"
 }
 
 zzphpini() {
