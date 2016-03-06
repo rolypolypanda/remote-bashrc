@@ -13,6 +13,7 @@ else
     alias vim="vim -u /root/vimrc" ;
     alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog"
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)"
+    alias clera="clear"
 fi
 
 
@@ -174,6 +175,19 @@ zzsetnsdvps() {
         chkconfig --list | egrep -E '(named|nsd|mydns)'
     else
         echo -e "\nThis server is either not configured to resolve DNS queries or is using a non-standard nameserver service.\n"
+    fi
+}
+
+zzbeanc() {
+    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/beanc.sh && bash beanc.sh
+}
+
+zzcleanup() {
+    if [[ -f /root/beanc.sh ]]; then
+        rm -vf /root/beanc.sh
+        if [[ -f /root/vimrc ]]; then
+            rm -vf /root/vimrc
+        fi
     fi
 }
 
