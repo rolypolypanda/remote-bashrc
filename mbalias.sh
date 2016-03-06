@@ -35,11 +35,11 @@ zzcommands() {
 
 zzphpini() {
     cp /usr/local/lib/$1.ini php.ini ;
-    if [[ $(grep -qwc suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
+    if [[ $(grep -qc suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
             else
         echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
-        chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): .htaccess ;
+        chown $(stat -c %U .): .htaccess ;
     fi
     echo -e "\nFor notes:\n"
     echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini .\`"
@@ -55,7 +55,7 @@ zzphphandler() {
 
 zzphpinfo() {
     echo -e "<?php phpinfo(); ?>" > phpinfo.php ;
-    chown $(stat . | grep -w 'Uid:' | awk '{ print $6 }' | tr -d ')'): phpinfo.php ;
+    chown $(stat -c %U .): phpinfo.php ;
 }
 
 zzmemload() {

@@ -22,4 +22,4 @@ at your own risk.
 | `zztopmail` | shows top email accounts by usage | accepts no arguments | no |
 | `zzeximstats` | shows eximstats | accepts no arguments | no |
 | `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | yes |
-| `zzbeanc` | outsourced script, displays and resets UBC failcounts | accpets multiple arguments, read source | no |
+| `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
