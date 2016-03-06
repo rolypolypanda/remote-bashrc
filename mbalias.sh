@@ -196,7 +196,9 @@ zzquicknotes() {
     echo -e "select * from wp_options where option_value = 'SITEURL';"
     echo -e "update wp_options set option_value = 'SITEURL' where option_id = 2;"
     echo -e "update wp_options set option_value = 'SITEURL' where option_id = 1;"
-    echo -e "\n## - Create db user and assign database -- ##"
+    echo -e "\n## -- Create db user and assign database -- ##"
     echo -e "create user 'USER'@'HOSTNAME' identified by 'PASSWORD';"
     echo -e "grant all privileges on DATABASE.* to 'USER'@'HOSTNAME';"
+    echo -e "\n## -- MySQL user password update -- ##"
+    echo -e "UPDATE mysql.user SET Password=PASSWORD('[PASSWORD]') WHERE User='[USER]';"
 }
