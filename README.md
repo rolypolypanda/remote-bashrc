@@ -19,3 +19,7 @@ at your own risk.
 | `zzmysqltune` | downloads and executes the perl MySQL tuner script | accepts no arguments | no |
 | `zzapachetune` | downloads and executes the perl Apache tuner script | accepts no arguments | no |
 | `zzdiskuse` | shows disk and inode usage for all mounted partitions | accepts no arguments | yes |
+| `zztopmail` | shows top email accounts by usage | accepts no arguments | no |
+| `zzeximstats` | shows eximstats | accepts no arguments | no |
+| `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | yes |
+| `zzbeanc` | outsourced script, displays and resets UBC failcounts | accpets multiple arguments, read source | no |
