@@ -23,4 +23,3 @@ at your own risk.
 | `zzeximstats` | shows eximstats | accepts no arguments | no |
 | `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | no |
 | `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
-| `zzcmsdbinfo` | displays database user and password, database and table prefix for various CMSes | supply cms type | no |
