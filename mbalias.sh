@@ -182,7 +182,9 @@ zzsetnsdvps() {
 }
 
 zzbeanc() {
-    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/beanc.sh && bash beanc.sh
+    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/beanc.sh ;
+    chmod +x beanc.sh ;
+    bash beanc.sh ;
 }
 
 zzcleanup() {
