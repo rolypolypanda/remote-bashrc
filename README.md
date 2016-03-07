@@ -21,5 +21,6 @@ at your own risk.
 | `zzdiskuse` | shows disk and inode usage for all mounted partitions | accepts no arguments | yes |
 | `zztopmail` | shows top email accounts by usage | accepts no arguments | no |
 | `zzeximstats` | shows eximstats | accepts no arguments | no |
-| `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | yes |
+| `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | no |
 | `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
+| `zzcmsdbinfo` | displays database user and password, database and table prefix for various CMSes | supply cms type | no |

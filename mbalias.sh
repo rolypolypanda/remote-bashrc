@@ -31,7 +31,7 @@ zzgetvimrc
 
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\n"
 }
 
 zzphpini() {
@@ -194,6 +194,12 @@ zzcleanup() {
             rm -vf /root/vimrc
         fi
     fi
+}
+
+zzcmsdbinfo() {
+ # Joomla format - grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';'
+ # WordPress format - grep DB ~/public_html/wp/wp-config.php | awk '{ print $2 }' | tr -d "'" | tr -d ')' | tr -d ';'
+ # Drupal format - 
 }
 
 zzquicknotes() {
