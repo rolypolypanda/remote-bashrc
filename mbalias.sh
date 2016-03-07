@@ -35,10 +35,12 @@ zzcommands() {
 
 zzphpini() {
     cp /usr/local/lib/$1.ini php.ini ;
-    if [[ $(grep -qc suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
+    if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
             else
+        mv .htaccess{,.bak}
         echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
+        cat .htaccess.bak >> .htaccess
         chown $(stat -c %U .): .htaccess ;
     fi
     echo -e "\nFor notes:\n"
