@@ -11,9 +11,10 @@ else
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
     alias vim="vim -u /root/vimrc" ;
-    alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog"
-    alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)"
-    alias clera="clear"
+    alias rm="rm -v" ;
+    alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog" ;
+    alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
+    alias clera="clear" ;
 fi
 
 
@@ -192,13 +193,10 @@ zzcleanup() {
 }
 
 zzquicknotes() {
-    echo -e "\n## -- Change home/siteurl mysql-cli -- ##"
+    echo -e "\n## -- Change home/siteurl -- ##"
     echo -e "select * from wp_options where option_value = 'SITEURL';"
     echo -e "update wp_options set option_value = 'SITEURL' where option_id = 2;"
     echo -e "update wp_options set option_value = 'SITEURL' where option_id = 1;"
-    echo -e "\n## -- Create db user and assign database -- ##"
-    echo -e "create user 'USER'@'HOSTNAME' identified by 'PASSWORD';"
-    echo -e "grant all privileges on DATABASE.* to 'USER'@'HOSTNAME';"
     echo -e "\n## -- MySQL user password update -- ##"
     echo -e "UPDATE mysql.user SET Password=PASSWORD('[PASSWORD]') WHERE User='[USER]';"
 }
