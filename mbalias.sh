@@ -104,7 +104,7 @@ zzacctpkg() {
     echo -e "For Notes:\n"
     echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
-    echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/cpmove-$ACT.tar.gz\`" ;
+    echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
     echo -e "**Additional Info:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
 
