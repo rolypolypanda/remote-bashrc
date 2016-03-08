@@ -150,6 +150,13 @@ zzmysqltune() {
     perl <(curl -k -L http://raw.github.com/rackerhacker/MySQLTuner-perl/master/mysqltuner.pl) ;
 }
 
+zzmysqltuneup() {
+    screen -S ticket_$1
+    for db in $(find /var/lib/mysql -type f -name '*.MYI');do myisamchk -r $db;done
+    mysqlcheck -rA
+    mysqlcheck -oA
+}
+
 zzapachetune() {
     curl -L http://apachebuddy.pl/ | perl
 }
