@@ -245,10 +245,9 @@ zzcmsdbinfo() {
     echo "--wordpress -wp [ Extract DB information from a WordPress installation ]"
     echo "--joomla -jm [ Extract DB information from a Joomla installation ]"
     echo "--drupal -dr [ Extract DB information from a Drupal installation ]"
-    echo "--note -n [ Print in AAS format ]"
     ;;
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --help / -h | --note / -n ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --help / -h ]"
     ;;
   esac
 }
