@@ -122,8 +122,14 @@ zzversions() {
     echo "PHP version: $(php -v | head -n 1 | awk '{ print $2 }')" ;
     echo "Apache version: $(httpd -v | head -n 1 | cut -d'/' -f2 | awk '{ print $1 }')" ;
     if
+        # CentOS 6 and lower - SysV
         [[ -f /etc/init.d/nginx ]]; then
         nginx -v ;
+        if
+          # CentOS 7 - Systemd
+          [[ -f /usr/lib/systemd/system/nginx.service ]]; then
+          nginx -v ;
+        fi
     fi
     echo "\`\`\`"
 }
