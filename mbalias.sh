@@ -255,4 +255,7 @@ zzquicknotes() {
     echo -e "update wp_options set option_value = 'SITEURL' where option_id = 1;"
     echo -e "\n## -- MySQL user password update -- ##"
     echo -e "UPDATE mysql.user SET Password=PASSWORD('[PASSWORD]') WHERE User='[USER]';"
+    echo -e "\n## -- Disable WordPress plugins through MySQL -- ##"
+    echo -e "SELECT * FROM wp_options WHERE option_name = 'active_plugins';"
+    echo -e "UPDATE wp_options SET option_value = '' WHERE option_name = 'active_plugins';"
 }
