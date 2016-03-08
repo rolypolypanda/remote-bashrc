@@ -207,13 +207,22 @@ zzcmsdbinfo() {
       DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       TBL_PREFIX="$(grep table_prefix wp-config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+      echo -e "\nWordpress"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
-      echo "Table Prefix: ${TBL_PREFIX}"
+      echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
    --joomla)
-    echo "joomla"
+      DB_NAME="$(grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_USER="$(grep db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_PASS="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      TBL_PREFIX="$(grep dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      echo -e "\nJoomla"
+      echo "Database Name: ${DB_NAME}"
+      echo "Database User: ${DB_USER}"
+      echo "Database Password: ${DB_PASS}"
+      echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
   --drupal)
     echo "drupal"
