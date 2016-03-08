@@ -199,7 +199,7 @@ zzcleanup() {
 zzcmsdbinfo() {
  # Joomla format - grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';'
  # WordPress format - grep DB ~/public_html/wp/wp-config.php | awk '{ print $2 }' | tr -d "'" | tr -d ')' | tr -d ';'
- # Drupal format - drupal/sites/default/settings.php
+ # Drupal format - grep -w "database" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ","
  CMS="$1"
  case $CMS in
    --wordpress)
@@ -225,8 +225,15 @@ zzcmsdbinfo() {
       echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
   --drupal)
+    DB_NAME="$(grep -w "database" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
+    DB_USER="$(grep -w "username" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
+    DB_PASS="$(grep -w "password" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
+    TBL_PREFIX="$(grep -w "prefix" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     echo -e "\nDrupal"
-    echo -e "This is a tricky one, stay tuned for updates.\n"
+    echo "Database Name: ${DB_NAME}"
+    echo "Database User: ${DB_USER}"
+    echo "Database Password: ${DB_PASS}"
+    echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
   *)
     echo "usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal ]"
