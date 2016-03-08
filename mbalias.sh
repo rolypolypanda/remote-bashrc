@@ -19,7 +19,6 @@ fi
 
 
 # Begin functions.
-
 zzgetvimrc() {
     if [[ -f /root/vimrc ]]; then
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
@@ -27,6 +26,8 @@ zzgetvimrc() {
 fi
     wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc && mv vimrc /root/vimrc ;
 }
+
+# Call zzgetvimrc function.
 zzgetvimrc
 
 zzcommands() {
@@ -233,7 +234,7 @@ zzcmsdbinfo() {
     echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
   *)
-    echo "usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal ]"
     ;;
   esac
 }
