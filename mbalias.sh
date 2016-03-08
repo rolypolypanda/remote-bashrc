@@ -215,9 +215,9 @@ zzcmsdbinfo() {
     ;;
    --joomla)
       DB_NAME="$(grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      DB_USER="$(grep db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_USER="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_PASS="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      TBL_PREFIX="$(grep dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      TBL_PREFIX="$(grep -w dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       echo -e "\nJoomla"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
