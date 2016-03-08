@@ -134,7 +134,7 @@ zzmkbackup() {
     find /backup -maxdepth 4 -type f -name "${ACT}*" -print
     find /backup -maxdepth 4 -type d -name "${ACT}" -print
     read -p "Enter the path of the backup you would like to create: " PTH
-    read -p "Daily, Weekly, or Monthly backup? " DTE
+    read -p "daily, weekly, or monthly backup? " DTE
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     cd $PTH ;
