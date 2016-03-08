@@ -193,6 +193,9 @@ zzcleanup() {
         rm -vf /root/beanc.sh
         if [[ -f /root/vimrc ]]; then
             rm -vf /root/vimrc
+            if [[ -f /root/vimrc.bak ]]; then
+              mv /root/vimrc{.bak,}
+            fi
         fi
     fi
 }
