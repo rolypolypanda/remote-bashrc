@@ -17,7 +17,6 @@ else
     alias clera="clear" ;
 fi
 
-
 # Begin functions.
 zzgetvimrc() {
     if [[ -f /root/vimrc ]]; then
@@ -30,6 +29,7 @@ fi
 # Call zzgetvimrc function.
 zzgetvimrc
 
+# Begin main functions.
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\n"
@@ -208,7 +208,7 @@ zzcmsdbinfo() {
       DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       TBL_PREFIX="$(grep table_prefix wp-config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
-      echo -e "\nWordpress"
+      echo -e "\nWordpress version: $(grep wp_version wp-includes/version.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ';')"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
@@ -219,7 +219,7 @@ zzcmsdbinfo() {
       DB_USER="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_PASS="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       TBL_PREFIX="$(grep -w dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      echo -e "\nJoomla"
+      echo -e "\Joomla version: $(grep RELEASE libraries/cms/version/version.php | head -n 1 | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
@@ -230,7 +230,7 @@ zzcmsdbinfo() {
     DB_USER="$(grep -w "username" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     DB_PASS="$(grep -w "password" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     TBL_PREFIX="$(grep -w "prefix" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
-    echo -e "\nDrupal"
+    echo -e "\nDrupal $(grep -w version core/modules/contact/contact.info.yml | tail -n 1 | tr -d "'")"
     echo "Database Name: ${DB_NAME}"
     echo "Database User: ${DB_USER}"
     echo "Database Password: ${DB_PASS}"
