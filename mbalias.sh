@@ -241,6 +241,7 @@ zzcmsdbinfo() {
     echo "--wordpress [ Extract DB information from a WordPress installation ]"
     echo "--joomla [ Extract DB information from a Joomla installation ]"
     echo "--drupal [ Extract DB information from a Drupal installation ]"
+    ;;
   *)
     echo "Usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal | --help ]"
     ;;
