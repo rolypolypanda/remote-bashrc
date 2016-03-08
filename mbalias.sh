@@ -225,7 +225,8 @@ zzcmsdbinfo() {
       echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
   --drupal)
-    echo "drupal"
+    echo -e "\nDrupal"
+    echo -e "This is a tricky one, stay tuned for updates.\n"
     ;;
   *)
     echo "usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal ]"
