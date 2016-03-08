@@ -220,7 +220,7 @@ zzcmsdbinfo() {
       DB_USER="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_PASS="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       TBL_PREFIX="$(grep -w dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      echo -e "\Joomla version: $(grep RELEASE libraries/cms/version/version.php | head -n 1 | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      echo -e "\nJoomla version: $(grep RELEASE libraries/cms/version/version.php | head -n 1 | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
