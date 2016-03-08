@@ -159,11 +159,11 @@ zzmysqltune() {
 zzmysqltuneup() {
     mkdir -p /home/.hd/ticket/$1/logs
     screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmyisamchk\n"'
-      for db in $(find /var/lib/mysql -type f -name '*.MYI'); do myisamchk -r $db; done | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log
-      echo -e "\nmysqlcheck repair\n"
-      mysqlcheck -rA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log
-      echo -e "\nmysqlcheck optimize\n"
-      mysqlcheck -oA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-optimize-$(date +%s).log
+    screen -S ticket_$1 -d -m /bin/bash -c 'for db in $(find /var/lib/mysql -type f -name '*.MYI'); do myisamchk -r $db; done | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
+    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmysqlcheck repair\n"'
+    screen -S ticket_$1 -d -m /bin/bash -c 'mysqlcheck -rA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
+    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmysqlcheck optimize\n"'
+    screen -S ticket_$1 -d -m /bin/bash -c 'mysqlcheck -oA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-optimize-$(date +%s).log'
 }
 
 zzapachetune() {
