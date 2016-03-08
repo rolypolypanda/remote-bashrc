@@ -202,8 +202,9 @@ zzcleanup() {
 
 zzcmsdbinfo() {
  CMS="$1"
+ NOTE="$2"
  case $CMS in
-   --wordpress)
+   --wordpress|-wp)
       DB_NAME="$(grep DB_NAME wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
@@ -214,7 +215,7 @@ zzcmsdbinfo() {
       echo "Database Password: ${DB_PASS}"
       echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
-   --joomla)
+   --joomla|-jm)
       DB_NAME="$(grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_USER="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_PASS="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
@@ -225,7 +226,7 @@ zzcmsdbinfo() {
       echo "Database Password: ${DB_PASS}"
       echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
-  --drupal)
+  --drupal|-dr)
     DB_NAME="$(grep -w "database" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     DB_USER="$(grep -w "username" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     DB_PASS="$(grep -w "password" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
@@ -236,14 +237,15 @@ zzcmsdbinfo() {
     echo "Database Password: ${DB_PASS}"
     echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
-  --help)
+  --help|-h)
     echo "Run this function in the directory of the CMS installation."
-    echo "--wordpress [ Extract DB information from a WordPress installation ]"
-    echo "--joomla [ Extract DB information from a Joomla installation ]"
-    echo "--drupal [ Extract DB information from a Drupal installation ]"
+    echo "--wordpress -wp [ Extract DB information from a WordPress installation ]"
+    echo "--joomla -jm [ Extract DB information from a Joomla installation ]"
+    echo "--drupal -dr [ Extract DB information from a Drupal installation ]"
+    echo "--note -n [ Print in AAS format ]"
     ;;
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal | --help ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --help / -h | --note / -n ]"
     ;;
   esac
 }
