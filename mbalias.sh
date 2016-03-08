@@ -203,10 +203,10 @@ zzcmsdbinfo() {
  CMS="$1"
  case $CMS in
    --wordpress)
-      DB_NAME="$(grep DB_NAME wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
-      DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
-      DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
-      TBL_PREFIX="$(grep table_prefix wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
+      DB_NAME="$(grep DB_NAME wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
+      DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
+      DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
+      TBL_PREFIX="$(grep table_prefix wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
