@@ -236,8 +236,10 @@ zzcmsdbinfo() {
     echo "Database Password: ${DB_PASS}"
     echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
+  --help)
+    echo "Run this function in the directory of the CMS installation."
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal | --help ]"
     ;;
   esac
 }
