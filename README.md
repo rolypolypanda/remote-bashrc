@@ -24,3 +24,4 @@ at your own risk.
 | `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | no |
 | `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
 | `zzcmsdbinfo` | displays database, database prefix, database user and password | specify CMS, --wordpress, --joomla, --drupal | no |
+| `zzcleanup` | clean up files created from invoking `mbalias.sh` | accepts no arguments | no |
