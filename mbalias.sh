@@ -158,13 +158,15 @@ zzmysqltune() {
 
 zzmysqltuneup() {
     #read -p "Enter ticket ID number" TID
-    mkdir -p /home/.hd/ticket/$1/logs
-    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmyisamchk\n"'
-    screen -S ticket_$1 -d -m /bin/bash -c 'for db in $(find /var/lib/mysql -type f -name "*.MYI"); do myisamchk -r $db; done | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
-    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmysqlcheck repair\n"'
-    screen -S ticket_$1 -d -m /bin/bash -c 'mysqlcheck -rA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
-    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmysqlcheck optimize\n"'
-    screen -S ticket_$1 -d -m /bin/bash -c 'mysqlcheck -oA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-optimize-$(date +%s).log'
+    screen -S ticket_$1 -d -m /bin/bash -c 'echo "30 Seconds until the checks begin"';
+      sleep 30;
+      echo "MyISAM Check currently running";
+      nice -19 find /var/lib/mysql/ -type f -name '*.MYI' | xargs nice -19 myisamchk -r ;
+
+      echo "MySQL Check and repair currently running" ;
+      nice -19 mysqlcheck -A --auto-repair ;
+
+      wall -n "MySQL check/repair finished. Please check over and add the MySQL Logs created during checks to your note" ;
 }
 
 zzapachetune() {
