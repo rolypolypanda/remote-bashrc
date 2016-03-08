@@ -158,9 +158,10 @@ zzmysqltune() {
 
 zzmysqltuneup() {
     screen -S ticket_$1
-    for db in $(find /var/lib/mysql -type f -name '*.MYI');do myisamchk -r $db;done
-    mysqlcheck -rA
-    mysqlcheck -oA
+    mkdir -p /home/.hd/ticket/$1/logs
+    for db in $(find /var/lib/mysql -type f -name '*.MYI');do myisamchk -r $db;done | tee -a /home/.hd/ticket/$1/logs/myisamchk-$(date +%s).log
+    mysqlcheck -rA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log
+    mysqlcheck -oA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-optimize-$(date +%s).log
 }
 
 zzapachetune() {
