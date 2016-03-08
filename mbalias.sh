@@ -157,6 +157,7 @@ zzmysqltune() {
 }
 
 zzmysqltuneup() {
+    #read -p "Enter ticket ID number" TID
     mkdir -p /home/.hd/ticket/$1/logs
     screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmyisamchk\n"'
     screen -S ticket_$1 -d -m /bin/bash -c 'for db in $(find /var/lib/mysql -type f -name "*.MYI"); do myisamchk -r $db; done | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
