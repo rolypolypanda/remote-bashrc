@@ -199,7 +199,29 @@ zzcleanup() {
 zzcmsdbinfo() {
  # Joomla format - grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';'
  # WordPress format - grep DB ~/public_html/wp/wp-config.php | awk '{ print $2 }' | tr -d "'" | tr -d ')' | tr -d ';'
- # Drupal format - 
+ # Drupal format - drupal/sites/default/settings.php
+ CMS="$1"
+ case $CMS in
+   --wordpress)
+      DB_NAME="$(grep DB_NAME wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
+      DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
+      DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
+      TBL_PREFIX="$(grep table_prefix wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d')' | tr -d ';')"
+      echo "Database Name: ${DB_NAME}"
+      echo "Database User: ${DB_USER}"
+      echo "Database Password: ${DB_PASS}"
+      echo "Table Prefix: ${TBL_PREFIX}"
+    ;;
+   --joomla)
+    echo "joomla"
+    ;;
+  --drupal)
+    echo "drupal"
+    ;;
+  *)
+    echo "usage: zzcmsdbinfo [ --wordpress  | --joomla | --drupal ]"
+    ;;
+  esac
 }
 
 zzquicknotes() {
