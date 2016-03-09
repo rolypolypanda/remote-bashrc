@@ -157,14 +157,17 @@ zzmysqltune() {
 }
 
 zzmysqltuneup() {
-    #read -p "Enter ticket ID number" TID
-    mkdir -p /home/.hd/ticket/$1/logs
-    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmyisamchk\n"'
-    screen -S ticket_$1 -d -m /bin/bash -c 'for db in $(find /var/lib/mysql -type f -name "*.MYI"); do myisamchk -r $db; done | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
-    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmysqlcheck repair\n"'
-    screen -S ticket_$1 -d -m /bin/bash -c 'mysqlcheck -rA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-$(date +%s).log'
-    screen -S ticket_$1 -d -m /bin/bash -c 'echo -e "\nmysqlcheck optimize\n"'
-    screen -S ticket_$1 -d -m /bin/bash -c 'mysqlcheck -oA | tee -a /home/.hd/ticket/$1/logs/mysqlcheck-optimize-$(date +%s).log'
+    echo -e "\nMake sure to run in a screen session." ;
+    sleep 5 ;
+    read -p "Enter ticket ID number: " TIC
+    mkdir -p /home/.hd/ticket/$TIC/logs
+    for db in $(find /var/lib/mysql -type f -name "*.MYI"); do myisamchk -r $db; done | tee /home/.hd/ticket/$TIC/logs/myisamchk-repair-$(date +%s).log ;
+    mysqlcheck -rA | tee /home/.hd/ticket/$TIC/logs/mysqlcheck-repair-$(date +%s).log ;
+    mysqlcheck -oA | tee /home/.hd/ticket/$TIC/logs/mysqlcheck-optimize-$(date +%s).log ;
+    wall "MySQL table repair and optimize complete"
+    wall "- Log located in \`/home/.hd/ticket/$TIC/logs/mysqlcheck-repair-$(date +%s).log\`"
+    wall "- Log located in \`/home/.hd/ticket/$TIC/logs/myisamchk-repair-$(date +%s).log\`"
+    wall "- Log located in \`/home/.hd/ticket/$TIC/logs/mysqlcheck-optimize-$(date +%s).log\`"
 }
 
 zzapachetune() {
