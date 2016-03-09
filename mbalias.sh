@@ -157,7 +157,7 @@ zzmysqltune() {
 }
 
 zzmysqltuneup() {
-    echo -e "\nMake sure to run in a screen session.\n" ;
+    echo -e "\nMake sure to run in a screen session." ;
     sleep 5 ;
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/ticket/$TID/logs ;
