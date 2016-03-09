@@ -164,10 +164,10 @@ zzmysqltuneup() {
     for db in $(find /var/lib/mysql -type f -name "*.MYI"); do myisamchk -r $db; done | tee /home/.hd/ticket/$TIC/logs/myisamchk-repair-$(date +%s).log ;
     mysqlcheck -rA | tee /home/.hd/ticket/$TIC/logs/mysqlcheck-repair-$(date +%s).log ;
     mysqlcheck -oA | tee /home/.hd/ticket/$TIC/logs/mysqlcheck-optimize-$(date +%s).log ;
-    wall -n "MySQL table repair and optimize complete"
-    wall -n "- Log located in \`/home/.hd/ticket/$TID/logs/mysqlcheck-repair-$(date +%s).log\`"
-    wall -n "- Log located in \`/home/.hd/ticket/$TID/logs/myisamchk-repair-$(date +%s).log\`"
-    wall -n "- Log located in \`/home/.hd/ticket/$TID/logs/mysqlcheck-optimize-$(date +%s).log\`"
+    wall -n "MySQL table repair and optimize complete."
+    wall -n "Log located in \`/home/.hd/ticket/$TID/logs/mysqlcheck-repair-$(date +%s).log\`"
+    wall -n "Log located in \`/home/.hd/ticket/$TID/logs/myisamchk-repair-$(date +%s).log\`"
+    wall -n "Log located in \`/home/.hd/ticket/$TID/logs/mysqlcheck-optimize-$(date +%s).log\`"
 }
 
 zzapachetune() {
