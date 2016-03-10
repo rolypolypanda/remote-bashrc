@@ -26,3 +26,4 @@ at your own risk.
 | `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
 | `zzcmsdbinfo` | displays database, database prefix, database user, CMS version and password | specify CMS, --wordpress, --joomla, --drupal | no |
 | `zzcleanup` | clean up files created from invoking `mbalias.sh` | accepts no arguments | no |
+| `zzaxonparse` | L2 Axon log parser | menu driven | no |

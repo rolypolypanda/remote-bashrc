@@ -32,7 +32,7 @@ zzgetvimrc
 # Begin main functions.
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse\n"
 }
 
 zzphpini() {
@@ -270,6 +270,11 @@ zzcmsdbinfo() {
     echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --help / -h ]"
     ;;
   esac
+}
+
+
+zzaxonparse() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/Axon)
 }
 
 zzquicknotes() {
