@@ -32,7 +32,8 @@ zzgetvimrc
 # Begin main functions.
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse\n"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
+    echo -e "zzxmlrpcget\n"
 }
 
 zzphpini() {
@@ -275,6 +276,12 @@ zzcmsdbinfo() {
 
 zzaxonparse() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/Axon)
+}
+
+zzxmlrpcget() {
+    read -p "Enter domain name: " ACT
+    DOMAIN="$(grep $ACT /etc/trueuserdomains | cut -d':' -f1)
+    grep xmlrpc.php /usr/local/apache/domlogs/$ACT/$DOMAIN | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10 | awk '{ print $2 }'
 }
 
 zzquicknotes() {

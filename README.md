@@ -27,3 +27,4 @@ at your own risk.
 | `zzcmsdbinfo` | displays database, database prefix, database user, CMS version and password | specify CMS, --wordpress, --joomla, --drupal | no |
 | `zzcleanup` | clean up files created from invoking `mbalias.sh` | accepts no arguments | no |
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
+| `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
