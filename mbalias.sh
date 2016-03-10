@@ -281,7 +281,7 @@ zzaxonparse() {
 zzxmlrpcget() {
     read -p "Enter domain name: " ACT
     DOMAIN="$(grep $ACT /etc/trueuserdomains | cut -d':' -f1)
-    grep xmlrpc.php /usr/local/apache/domlogs/$ACT/$DOMAIN | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10 | awk '{ print $2 }'
+    grep xmlrpc.php /usr/local/apache/domlogs/$ACT/$DOMAIN | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10 | awk '{ print $2 }'"
 }
 
 zzquicknotes() {
