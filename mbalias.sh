@@ -38,6 +38,9 @@ zzcommands() {
 
 zzphpini() {
     cp /usr/local/lib/$1.ini php.ini ;
+    if [[ -f $(pwd)/php.ini ]]; then
+        mv $(pwd)php.ini{,.bak}
+    fi
     if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
             else
@@ -47,7 +50,9 @@ zzphpini() {
         chown $(stat -c %U .): .htaccess ;
     fi
     echo -e "\nFor notes:\n"
-    echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini .\`"
+    echo -e "- Backed up existing \`php.ini\`:"
+    echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak}\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini php.ini\`"
     echo -e "- Added the following to \`$(pwd)/.htaccess\`"
     echo -e "\`\`\`"
     echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n"
