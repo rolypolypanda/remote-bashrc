@@ -4,6 +4,7 @@
 if [[ $(hostname | egrep -Ec '(snafu|mac|fedora-srv)') == 1 ]]; then
     echo "You're at home, not setting up aliases, etc..." ;
 else
+    eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)" ;
     echo -ne "\033k$HOSTNAME\033\\" ;
     export PS1='\[\e[1;32m\]\u\[\e[1;37m\]@\[\e[0;37m\]\H\[\e[0;36m\]:\w\[\e[0;0m\] \$ ' ;
     export EDITOR="vim" ;
@@ -181,31 +182,26 @@ zzapachetune() {
 }
 
 zzsetnsdvps() {
-    echo -e "NOT READY FOR USE YET!" ;
-    sleep 1 ;
-    echo -e "NOT READY FOR USE YET!" ;
-    sleep 1 ;
-    echo -e "NOT READY FOR USE YET!" ;
-    sleep 1
-    echo -e "NOT READY FOR USE YET!" ;
-    sleep 10 ;
-    if [[ $(/scripts/setupnameserver --current | grep -c nsd) = 1 ]]; then
-        chkconfig --list | egrep -E '(named|nsd)' ;
-        service named stop;service nsd restart;chkconfig --level 2345 named off ;
-        chkconfig --list | egrep -E '(named|nsd)' ;
+    echo -e "Current NameServer set to $G1$(/scripts/setupnameserver --current | awk '{ print $4 }')$RESET."
+    if [[ $(/scripts/setupnameserver --current | awk '{ print $4 }') == bind ]];then
+        echo "Disabling nsd and mydns in init..."
+        chkconfig nsd off 2&>1 /dev/null ;
+        chkconfig mydns off 2&>1 /dev/null ;
+            if [[ -f /var/lock/nsd ]]; then
+                service nsd stop ;
+                service named restart ;
+            fi
     elif
-        [[ $(/scripts/setupnameserver --current | grep -c bind) = 1 ]];then
-        chkconfig --list | egrep -E '(named|nsd)' ;
-        service nsd stop;service named restart;chkconfig --level 2345 nsd off ;
-        chkconfig --list | egrep -E '(named|nsd)' ;
-    elif
-        [[ $(/scripts/setupnameserver --current | grep -c mydns) = 1 ]]; then
-        chkconfig --list | egrep -E '(named|nsd|mydns)'
-        service nsd stop;service named stop;service mydns restart;chkconfig --level 2345 nsd off;chkconfig --level 2345 named off;
-        chkconfig --list | egrep -E '(named|nsd|mydns)'
-    else
-        echo -e "\nThis server is either not configured to resolve DNS queries or is using a non-standard nameserver service.\n"
+        [[ $(/scripts/setupnameserver --current | awk '{ print $4 }') == nsd ]];then
+            echo "Disabling named and mynds in init..."
+            chkconfig mydns off 2&>1 /dev/null ;
+            chkconfig named off 2&>1 /dev/null ;
+                if [[ -f /var/lock/named ]]; then
+                    service named stop ;
+                    service nsd restart ;
+                fi
     fi
+
 }
 
 zzbeanc() {
