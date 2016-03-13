@@ -211,21 +211,17 @@ zzbeanc() {
 }
 
 zzcleanup() {
+    if [[ -f /root/vmirc ]]; then
+        rm -vf /root/vimrc
+    fi
+    if [[ -f /root/vimrc.bak ]]; then
+        mv /root/vimrc{.bak,}
+    fi
     if [[ -f /root/beanc.sh ]]; then
         rm -vf /root/beanc.sh
-        if [[ -f /root/vimrc ]]; then
-            rm -vf /root/vimrc
-            if [[ -f /root/vimrc.bak ]]; then
-              mv /root/vimrc{.bak,}
-              if [[ -f /root/strace.k ]]; then
-                  rm -vf /root/strace.k
-                  if
-                      [[ -f $(pwd)/strace.k ]]; then
-                        rm -vf strace.k
-                    fi
-                fi
-            fi
-        fi
+    fi
+    if [[ -f /root/strace.k ]]; then
+        rm -vf /root/strace.k
     fi
 }
 
