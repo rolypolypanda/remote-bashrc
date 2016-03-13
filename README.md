@@ -15,7 +15,7 @@ at your own risk.
 | `zzmkbackup` | searches for New and Legacy style backups, sets up HD working dir and compresses a backup | supply cPanel account, ticket ID number and type of backup | yes and log |
 | `zzversions` | shows CentOS version, kernel version, cPanel version, PHP version, MySQL version and NGINX version | accepts no arguments | yes |
 | `zzgetvimrc` | wgets my personal `.vimrc` file to `/root/vimrc` creates backup if one already exists | accepts no argments | no |
-| `zzsetnsdvps` | auto detects and configures nameserver service to avoid issues with misconfiguration | accepts no arguments - BETA | no |
+| `zzsetnsdvps` | auto detects and configures nameserver service to avoid issues with misconfiguration | accepts no arguments | no |
 | `zzmysqltune` | downloads and executes the perl MySQL tuner script | accepts no arguments | no |
 | `zzmysqltuneup` | runs myisamchk and mysqlcheck repair and optimize on all databases | enter ticket ID number | yes and log |
 | `zzapachetune` | downloads and executes the perl Apache tuner script | accepts no arguments | no |
