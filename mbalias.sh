@@ -179,7 +179,7 @@ zzapachetune() {
     curl -L http://apachebuddy.pl/ | perl ;
 }
 
-zzsetnsdvps() {
+zzsetdnsvps() {
     echo -e "Current NameServer set to $G1$(/scripts/setupnameserver --current | awk '{ print $4 }')$RESET."
     if [[ $(/scripts/setupnameserver --current | awk '{ print $4 }') == bind ]];then
         echo "Disabling nsd and mydns in init..."
