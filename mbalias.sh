@@ -217,6 +217,13 @@ zzcleanup() {
             rm -vf /root/vimrc
             if [[ -f /root/vimrc.bak ]]; then
               mv /root/vimrc{.bak,}
+              if [[ -f /root/strace.k ]]; then
+                  rm -vf /root/strace.k
+                  if
+                      [[ -f $(pwd)/strace.k ]]; then
+                        rm -vf strace.k
+                    fi
+                fi
             fi
         fi
     fi
