@@ -93,6 +93,11 @@ zzdiskuse() {
     echo "\`\`\`" ;
 }
 
+zzhardcheck() {
+    echo "CPU      Actual  High   Critical"
+    sensors | grep "Core" | awk '{ print $1,$2,$3,$6,$9 }' | tr -d ')' ;
+}
+
 zzfixtmp() {
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID
