@@ -34,7 +34,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\n"
+    echo -e "zzxmlrpcget\n\zzcpucheck\n"
 }
 
 zzphpini() {
@@ -99,7 +99,7 @@ zzcpucheck() {
     echo "- \`CPU Information:\`"
     echo -e "\`\`\`"
     echo -e "Clock Speeds: ${CLK_ACT} - ${CLK_MAX}"
-    dmidecode -t processor | grep Version | sed -e 's/^[ \t]*//'
+    dmidecode -t processor | grep Version | sed -e 's/^[ \t]*//' ;
     echo - "\`\`\`"
     echo -e "\n- \`Core Temperatures:\`"
     echo -e "\`\`\`"
