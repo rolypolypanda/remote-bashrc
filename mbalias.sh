@@ -246,9 +246,9 @@ zzcmsdbinfo() {
     ;;
    --joomla|-jm)
       DB_VER="$(grep RELEASE libraries/cms/version/version.php | head -n 1 | awk '{ print $4 }' | tr -d "'" | tr -d '    ;')"
-      DB_NAME="$(grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      DB_USER="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      DB_PASS="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_PASS="$(grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_NAME="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_USER="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       TBL_PREFIX="$(grep -w dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       echo -e "\nJoomla version: ${DB_VER}"
       echo "Database Name: ${DB_NAME}"
