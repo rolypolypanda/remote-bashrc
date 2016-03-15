@@ -93,9 +93,16 @@ zzdiskuse() {
     echo "\`\`\`" ;
 }
 
-zzhardcheck() {
+zzcpucheck() {
+    CLK_ACT="$(dmidecode -t processor | grep "Current Speed" | sed -e 's/^[ \t]*//')"
+    CLK_MAX="$(dmidecode -t processor | grep "Max Speed" | sed -e 's/^[ \t]*//')"
+    echo "- CPU Information"
+    echo -e "\`\`\`"
+    echo -e "Clock Speeds: ${CLK_ACT} - ${CLK_MAX}"
+    dmidecode -t processor | grep Version | sed -e 's/^[ \t]*//'
     echo "CPU      Actual  High   Critical"
     sensors | grep "Core" | awk '{ print $1,$2,$3,$6,$9 }' | tr -d ')' ;
+    echo "\`\`\`"
 }
 
 zzfixtmp() {

@@ -28,3 +28,4 @@ at your own risk.
 | `zzcleanup` | clean up files created from invoking `mbalias.sh` | accepts no arguments | no |
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
 | `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
+| `zzcpucheck` | shows cpu core temperatures, cpu type, current and maximum clock speeds | accepts no arguments | yes |
