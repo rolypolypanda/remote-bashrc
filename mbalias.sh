@@ -16,6 +16,8 @@ else
     alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog" ;
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
     alias clera="clear" ;
+    alias zzwatchapache="tail -f /etc/httpd/logs/error_log"
+    alias zzwatchmysql="tail -f /var/lib/mysql/$(hostname).err"
 fi
 
 # Begin functions.
