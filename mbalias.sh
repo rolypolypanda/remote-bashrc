@@ -268,14 +268,27 @@ zzcmsdbinfo() {
     echo "Database Password: ${DB_PASS}"
     echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
+   --littlefoot|-lf)
+    DB_VER="$(cat lf/system/version)"
+    DB_NAME="$(grep name lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+    DB_USER="$(grep user lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+    DB_PASS="$(grep pass lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+    TBL_PREFIX="$(grep prefix lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+    echo -e "\nLittlefoot ${DB_VER}"
+    echo "Database Name: ${DB_NAME}"
+    echo "Database User: ${DB_USER}"
+    echo "Database Password: ${DB_PASS}"
+    echo -e "Table Prefix: ${TBL_PREFIX}\n"
+    ;;
   --help|-h)
     echo "Run this function in the directory of the CMS installation."
     echo "--wordpress -wp [ Extract DB information from a WordPress installation ]"
     echo "--joomla -jm [ Extract DB information from a Joomla installation ]"
     echo "--drupal -dr [ Extract DB information from a Drupal installation ]"
+    echo "--littlefoot -lf [ Extract DB information from a Littlefoot installation ]"
     ;;
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --help / -h ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --help / -h ]"
     ;;
   esac
 }

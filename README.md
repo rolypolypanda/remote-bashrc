@@ -24,7 +24,7 @@ at your own risk.
 | `zzeximstats` | shows eximstats | accepts no arguments | no |
 | `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | no |
 | `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
-| `zzcmsdbinfo` | displays database, database prefix, database user, CMS version and password | specify CMS, --wordpress, --joomla, --drupal | no |
+| `zzcmsdbinfo` | displays database, database prefix, database user, CMS version and password | specify CMS, currently supports joomla, littlefoot, drupal and wordpress  | no |
 | `zzcleanup` | clean up files created from invoking `mbalias.sh` | accepts no arguments | no |
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
 | `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
