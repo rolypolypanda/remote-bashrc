@@ -312,7 +312,7 @@ zzaxonparse() {
 
 zzxmlrpcget() {
     read -p "Enter domain name: " DOM
-    ACT="$(grep $DOM /etc/trueuserdomains | awk '{ print $2 }')"
+    ACT="$(grep -w ^$DOM /etc/userdatadomains | cut -d':' -f2 | cut -d '=' -f1 | sed 's/^[ \t]*//')"
     grep xmlrpc.php /usr/local/apache/domlogs/$ACT/$DOM | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10
 }
 
