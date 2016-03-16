@@ -58,7 +58,7 @@ zzphpini() {
     echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini php.ini\`"
     echo -e "- Added the following to \`$(pwd)/.htaccess\`"
     echo -e "\`\`\`"
-    echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n"
+    echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>"
     echo -e "\`\`\`"
 }
 
