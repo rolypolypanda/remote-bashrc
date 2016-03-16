@@ -82,11 +82,12 @@ zzmemload() {
     echo -e "\n- Free memory \`(free -m):\`\n" ;
     echo "\`\`\`" ;
     free -m ;
+    echo "Swappiness Value: $(cat /proc/sys/vm/swappiness)"
     echo "\`\`\`" ;
 }
 
 zzdiskuse() {
-    echo -e "\n- Disk usage and inode count \`(df -h / df -i):\`\n" ;
+    echo -e "\n- Disk usage and inode count \`(df -h / df -i):\`" ;
     echo "\`\`\`" ;
     df -h ;
     echo "\`\`\`" ;
