@@ -120,8 +120,10 @@ zzfixtmp() {
 }
 
 zzacctdom() {
-    echo -e "Account Owner: $(grep $1 /etc/trueuserdomains | cut -d':' -f2)"
-    egrep -Hrn $1 /etc/*domains
+    echo -e "Account Owner: $(for i in $(grep $1 /etc/trueuserdomains | cut -d':' -f2);do grep $i /etc/trueuserowners | cut -d':' -f2 | sed -e 's/^[ \t]*//';done)" ;
+    echo -e "Account Name: $(grep $1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
+    echo -e "Document Root: $(grep $1 /etc/userdatadomains | cut -d'=' -f9)" ;
+    echo -e "IP Address: $(grep $1 /etc/userdatadomains | cut -d'=' -f11)" ;
 }
 
 zzacctpkg() {
