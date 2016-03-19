@@ -71,6 +71,15 @@ zzphpinfo() {
     chown $(stat -c %U .): phpinfo.php ;
 }
 
+zzmailperms() {
+    read -p "Enter cPanel account: " ACT
+    echo -e "Reparing mail permissions for $ACT"
+    HOMEDIR=$(egrep ^$ACT: /etc/passwd | cut -d: -f6)
+    chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail
+    chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/*
+    /scripts/mailperm --verbose $ACT
+}
+
 zzmemload() {
     echo -e "- Current server load \`(w / sar -q 1 5):\`\n" ;
     echo "\`\`\`" ;
