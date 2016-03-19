@@ -43,7 +43,7 @@ zzphpini() {
     if [[ -f $(pwd)/php.ini ]]; then
         mv $(pwd)/php.ini{,.bak}
     fi
-    cp /usr/local/lib/$1.ini phpini ;
+    cp /usr/local/lib/$1.ini php.ini ;
     if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
             else
