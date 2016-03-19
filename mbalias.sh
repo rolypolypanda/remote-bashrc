@@ -73,11 +73,20 @@ zzphpinfo() {
 
 zzmailperms() {
     read -p "Enter cPanel account: " ACT
+    read -p "Enter ticket ID number: " TID
     echo -e "Reparing mail permissions for $ACT"
     HOMEDIR=$(egrep ^$ACT: /etc/passwd | cut -d: -f6)
-    chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail
-    chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/*
-    /scripts/mailperm --verbose $ACT
+    mkdir -p /home/.hd/ticket/$TID/$ACT/logs
+    chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms0-$(date +%s).log
+    chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/* | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms1-$(date +%s).log
+    /scripts/mailperm --verbose $ACT | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms2-$(date +%s).log
+    echo -e "\n- Reset permissions on the following directories:"
+    echo -e "\`[root@$(hostname):$(pwd) #] chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms0-$(date +%s).log\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/*\`"
+    echo -e "\n- Logs located in:"
+    echo -e "\`/home/.hd/ticket/$TID/$ACT/logs/mailperms0-$(date +%s).log\`"
+    echo -e "\`/home/.hd/ticket/$TID/$ACT/logs/mailperms1-$(date +%s).log\`"
+    echo -e "\`/home/.hd/ticket/$TID/$ACT/logs/mailperms2-$(date +%s).log\`"
 }
 
 zzmemload() {
