@@ -36,7 +36,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\nzzcpucheck\n"
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\n"
 }
 
 zzphpini() {

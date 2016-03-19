@@ -31,3 +31,4 @@ at your own risk.
 | `zzcpucheck` | shows cpu core temperatures, cpu type, current and maximum clock speeds | accepts no arguments | yes |
 | `zzwatchapache` | alias to tail -f main Apache log | pipe to standard Linux commands | no |
 | `zzwatchmysql` | alias to tail -f MySQL log | pipe to standard Linux commands | no |
+| `zzmailperms` | corrects mail permissions | supply ticket ID and cPanel account | yes and log |
