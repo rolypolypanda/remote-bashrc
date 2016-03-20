@@ -35,7 +35,7 @@ zzgetvimrc
 # Begin main functions.
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
-    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
+    echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\n"
 }
 
@@ -218,13 +218,16 @@ zzmkbackup() {
 
 zzmysqltune() {
     SQL="$1"
-    case SQL in
+    case $SQL in
         --primer|-p)
             bash <(curl -s http://day32.com/MySQL/tuning-primer.sh) ;
+            ;;
         --tuner|-t)
             perl <(curl -k -L http://raw.github.com/rackerhacker/MySQLTuner-perl/master/mysqltuner.pl) ;
+            ;;
                  *)
             echo "Usage: [ --primer / -p | --tuner / -t ]"
+            ;;
     esac
 }
 
@@ -264,7 +267,6 @@ zzsetdnsvps() {
                     service nsd restart ;
                 fi
     fi
-
 }
 
 zzbeanc() {
