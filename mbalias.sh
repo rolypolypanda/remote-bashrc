@@ -36,7 +36,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\n"
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\n"
 }
 
 zzphpini() {
@@ -69,6 +69,14 @@ zzphphandler() {
 zzphpinfo() {
     echo -e "<?php phpinfo(); ?>" > phpinfo.php ;
     chown $(stat -c %U .): phpinfo.php ;
+}
+
+zzhomeperms() {
+    read -p "Enter ticket ID number: " TID
+    read -p "Enter cPanel account name: " ACT
+    mkdir -p /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixhome) $ACT | tee -a /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
+    echo -e "\n- Log located in \`/home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log\`"
 }
 
 zzmailperms() {
@@ -131,13 +139,13 @@ zzcpucheck() {
 
 zzdusort() {
     FILE='/root/$(date +%s)-unsorted-du.tmp'
-    du -h --max-depth=1 > "$FILE" ;
+    du -h --max-depth=1 $1 > "$FILE" ;
     cat "$FILE" | awk '$1 ~ /T/' | sort -nrk1 ;
     cat "$FILE" | awk '$1 ~ /G/' | sort -nrk1 ;
     cat "$FILE" | awk '$1 ~ /M/' | sort -nrk1 ;
     cat "$FILE" | awk '$1 ~ /K/' | sort -nrk1 ;
     cat "$FILE" | awk '$1 ~ /[0-9]$/' | sort -nrk1 ;
-    rm -f "$FILE" ;
+    \rm -f "$FILE" ;
 }
 
 zzfixtmp() {
