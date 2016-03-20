@@ -36,7 +36,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\n"
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\n"
 }
 
 zzphpini() {
@@ -355,6 +355,14 @@ zzcmsdbinfo() {
   esac
 }
 
+zzmonitordisk() {
+    watch -n 1 'w ; \
+    echo -e "\nProcesses hitting disk:" ; \
+    ps faux | awk '"'"'$8 ~ /D/'"'"' | tee /root/processeshittingdisk.tmp ; \
+    echo -e "\nNumber of processes hitting disk:" ; \
+    cat /root/processeshittingdisk.tmp | wc -l ; rm -f /root/processeshittingdisk.tmp ; \
+    echo"" ; iostat -x' ;
+}
 
 zzaxonparse() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/Axon)

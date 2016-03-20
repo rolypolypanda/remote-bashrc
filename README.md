@@ -32,5 +32,6 @@ at your own risk.
 | `zztailahapache` | alias to tail -f main Apache log | pipe to standard Linux commands | no |
 | `zztailmysql` | alias to tail -f MySQL log | pipe to standard Linux commands | no |
 | `zzmailperms` | corrects mail permissions | supply ticket ID and cPanel account | yes and log |
-| `zzdusort` | sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
+| `zzdusort` | from Kevin B.s aliases - sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
 | `zzhomeperms` | executes codex fix homedir permissions script | supply cPanel account name and ticket ID number | yes and log |
+| `zzmonitordisk` | from Kevin B.s aliases - shows number of processes accesing the disk(s) using iostat | no | no |
