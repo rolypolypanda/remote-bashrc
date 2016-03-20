@@ -36,7 +36,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\n"
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\n"
 }
 
 zzphpini() {
@@ -129,6 +129,17 @@ zzcpucheck() {
     echo "\`\`\`"
 }
 
+zzdusort() {
+    FILE='/root/$(date +%s)-unsorted-du.tmp'
+    du -h --max-depth=1 > "$FILE" ;
+    cat "$FILE" | awk '$1 ~ /T/' | sort -nrk1 ;
+    cat "$FILE" | awk '$1 ~ /G/' | sort -nrk1 ;
+    cat "$FILE" | awk '$1 ~ /M/' | sort -nrk1 ;
+    cat "$FILE" | awk '$1 ~ /K/' | sort -nrk1 ;
+    cat "$FILE" | awk '$1 ~ /[0-9]$/' | sort -nrk1 ;
+    rm -f "$FILE" ;
+}
+
 zzfixtmp() {
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID
@@ -198,7 +209,15 @@ zzmkbackup() {
 }
 
 zzmysqltune() {
-    perl <(curl -k -L http://raw.github.com/rackerhacker/MySQLTuner-perl/master/mysqltuner.pl) ;
+    SQL="$1"
+    case SQL in
+        --primer|-p)
+            bash <(curl -s http://day32.com/MySQL/tuning-primer.sh) ;
+        --tuner|-t)
+            perl <(curl -k -L http://raw.github.com/rackerhacker/MySQLTuner-perl/master/mysqltuner.pl) ;
+                 *)
+            echo "Usage: [ --primer / -p | --tuner / -t ]"
+    esac
 }
 
 zzmysqltuneup() {
