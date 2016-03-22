@@ -29,7 +29,7 @@ at your own risk.
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
 | `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
 | `zzcpucheck` | shows cpu core temperatures, cpu type, current and maximum clock speeds | accepts no arguments | yes |
-| `zztailahapache` | alias to tail -f main Apache log | pipe to standard Linux commands | no |
+| `zztailapache` | alias to tail -f main Apache log | pipe to standard Linux commands | no |
 | `zztailmysql` | alias to tail -f MySQL log | pipe to standard Linux commands | no |
 | `zzmailperms` | corrects mail permissions | supply ticket ID and cPanel account | yes and log |
 | `zzdusort` | from Kevin B.s aliases - sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
