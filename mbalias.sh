@@ -394,3 +394,56 @@ zzquicknotes() {
     echo -e "SELECT * FROM wp_options WHERE option_name='template' OR option_name='stylesheet';"
     echo -e "UPDATE wp_options SET option_value='' WHERE option_name='template' OR option_name='stylesheet' LIMIT 2;\n"
 }
+
+zzpiniset() {
+    MEM="$(egrep -w '^memory_limit' php.ini)"
+    POST="$(egrep -w '^post_max_size' php.ini)"
+    FOPEN="$(egrep -w '^allow_url_fopen' php.ini)"
+    UPL="$(egrep -w '^upload_max_filesize' php.ini)"
+
+    cp -p php.ini{,-$(date +%s).bak}
+
+    echo -e "\nCurrent PHP values:"
+    echo "1. ${MEM}"
+    echo "2. ${POST}"
+    echo "3. ${UPL}"
+    echo "4. ${FOPEN}"
+    echo -e "5. Exit \n"
+    read -p "Which value would you like to change? " VAL
+        case $VAL in
+            1)
+                echo "You selected ${MEM}"
+                read -p "Enter new value: " PMEM
+                sed -i '/memory_limit/d' php.ini
+                echo "memory_limit = ${PMEM}" >> php.ini
+                echo "memory_limit is now ${PMEM}"
+            ;;
+            2)
+                echo "You selected ${POST}"
+                read -p "Enter new value: " PST
+                sed -i '/post_max_size/d' php.ini
+                echo "post_max_size = ${PST}" >> php.ini
+                echo "post_max_size is now ${PST}"
+            ;;
+            3)
+                echo "You selected ${UPL}"
+                read -p "Enter new value: " UPLD
+                sed -i '/upload_max_filesize/d' php.ini
+                echo "upload_max_filesize = ${UPLD}" >> php.ini
+                echo "upload_max_filesize is now ${UPLD}"
+            ;;
+            4)
+                echo "You selected ${FOPEN}"
+                read -p "Enter new value [Off/On]: " FOP
+                sed -i '/allow_url_fopen/d' php.ini
+                echo "allow_url_fopen = ${FOP}" >> php.ini
+                echo "allow_url_fopen is now ${FOP}"
+            ;;
+            5)
+                echo "Exiting..."
+            ;;
+            *) 
+                echo "Invalid selection"
+            ;;
+esac
+}
