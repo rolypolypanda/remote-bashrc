@@ -83,18 +83,19 @@ zzmailperms() {
     read -p "Enter cPanel account: " ACT
     read -p "Enter ticket ID number: " TID
     echo -e "Reparing mail permissions for $ACT"
-    HOMEDIR=$(egrep ^$ACT: /etc/passwd | cut -d: -f6)
-    mkdir -p /home/.hd/ticket/$TID/$ACT/logs
-    chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms0-$(date +%s).log
-    chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/* | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms1-$(date +%s).log
-    /scripts/mailperm --verbose $ACT | tee -a /home/.hd/ticket/$TID/$ACT/logs/mailperms2-$(date +%s).log
+    HOMEDIR=$(egrep -w ^$ACT: /etc/passwd | cut -d':' -f6)
+    mkdir -p /home/.hd/logs/$TID/$ACT
+    chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail | tee -a /home/.hd/logs/$TID/$ACT/mailperms0-$(date +%s).log
+    chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/* | tee -a /home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log
+    /scripts/mailperm --verbose $ACT | tee -a /home/.hd/logs/$TID/$ACT/mailperms2-$(date +%s).log
     echo -e "\n- Reset permissions on the following directories:"
     echo -e "\`[root@$(hostname):$(pwd) #] chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail\`"
     echo -e "\`[root@$(hostname):$(pwd) #] chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/*\`"
+    echo -e "\`/scripts/mailperm --vrbose $ACT\`"
     echo -e "\n- Logs located in:"
-    echo -e "\`/home/.hd/ticket/$TID/$ACT/logs/mailperms0-$(date +%s).log\`"
-    echo -e "\`/home/.hd/ticket/$TID/$ACT/logs/mailperms1-$(date +%s).log\`"
-    echo -e "\`/home/.hd/ticket/$TID/$ACT/logs/mailperms2-$(date +%s).log\`"
+    echo -e "\`/home/.hd/logs/$TID/$ACT/mailperms0-$(date +%s).log\`"
+    echo -e "\`/home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log\`"
+    echo -e "\`/home/.hd/logs/$TID/$ACT/mailperms2-$(date +%s).log\`"
 }
 
 zzmemload() {
@@ -235,12 +236,12 @@ zzmysqltuneup() {
     echo -e "\nMake sure to run in a screen session." ;
     sleep 5 ;
     read -p "Enter ticket ID number: " TID
-    mkdir -p /home/.hd/ticket/$TID/logs ;
-    mysqlcheck -rA | tee -a /home/.hd/ticket/$TID/logs/mysqlcheck-repair-$(date +%s).log ;
-    mysqlcheck -oA | tee -a /home/.hd/ticket/$TID/logs/mysqlcheck-optimize-$(date +%s).log ;
+    mkdir -p /home/.hd/logs/$TID ;
+    mysqlcheck -rA | tee -a /home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log ;
+    mysqlcheck -oA | tee -a /home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log ;
     wall -n "MySQL table repair and optimize complete." ;
-    wall -n "Log located in \`/home/.hd/ticket/$TID/logs/myisamchk-repair-$(date +%s).log\`" ;
-    wall -n "Log located in \`/home/.hd/ticket/$TID/logs/mysqlcheck-optimize-$(date +%s).log\`" ;
+    wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log\`" ;
+    wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log\`" ;
 }
 
 zzapachetune() {
