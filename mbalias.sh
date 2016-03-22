@@ -342,15 +342,28 @@ zzcmsdbinfo() {
     echo "Database Password: ${DB_PASS}"
     echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
-  --help|-h)
+   --owncloud|-oc)
+    DB_VER="$(grep version config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    DB_NAME="$(grep dbname config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    DB_USER="$(grep dbuser config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    DB_PASS="$(grep dbpassword config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    TBL_PREFIX="$(grep dbtableprefix config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    echo -e "\nOwncloud: ${DB_VER}"
+    echo "Database Name: ${DB_NAME}"
+    echo "Database User: ${DB_USER}"
+    echo "Database Password: ${DB_PASS}"
+    echo -e "Table Prefix: ${TBL_PREFIX}\n"
+    ;;
+   --help|-h)
     echo "Run this function in the directory of the CMS installation."
     echo "--wordpress -wp [ Extract DB information from a WordPress installation ]"
     echo "--joomla -jm [ Extract DB information from a Joomla installation ]"
     echo "--drupal -dr [ Extract DB information from a Drupal installation ]"
     echo "--littlefoot -lf [ Extract DB information from a Littlefoot installation ]"
+    echo "--owncloud -oc [ Extract DB information from an Owncloud installation ]"
     ;;
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --help / -h ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --owncloud / -oc | --help / -h ]"
     ;;
   esac
 }
