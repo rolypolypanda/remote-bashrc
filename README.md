@@ -24,7 +24,7 @@ at your own risk.
 | `zzeximstats` | shows eximstats | accepts no arguments | no |
 | `zzquicknotes` | echos notes, MySQL syntax | accepts no arguments | no |
 | `zzbeanc` | outsourced script, displays and resets UBC failcounts | accepts multiple arguments, read source | no |
-| `zzcmsdbinfo` | displays database, database prefix, database user, CMS version and password | specify CMS, currently supports joomla, littlefoot, drupal and wordpress  | no |
+| `zzcmsdbinfo` | displays database, database prefix, database user, CMS version and password | specify CMS, see --help for usage | no |
 | `zzcleanup` | clean up files created from invoking `mbalias.sh` | accepts no arguments | no |
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
 | `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
@@ -34,4 +34,8 @@ at your own risk.
 | `zzmailperms` | corrects mail permissions | supply ticket ID and cPanel account | yes and log |
 | `zzdusort` | from Kevin B.s aliases - sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
 | `zzhomeperms` | executes codex fix homedir permissions script | supply cPanel account name and ticket ID number | yes and log |
+<<<<<<< HEAD
 | `zzmonitordisk` | from Kevin B.s aliases - shows number of processes accesing the disk(s) using iostat | no | no |
+=======
+| `zzpiniset` | allows setting of various PHP configuration directives | menu driven | no |
+>>>>>>> 08eaf0ad8fe4e1d94685fd816c3fb3da35d39d9f

@@ -36,7 +36,11 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
+<<<<<<< HEAD
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\n"
+=======
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzpiniset\n"
+>>>>>>> 08eaf0ad8fe4e1d94685fd816c3fb3da35d39d9f
 }
 
 zzphpini() {
@@ -342,15 +346,28 @@ zzcmsdbinfo() {
     echo "Database Password: ${DB_PASS}"
     echo -e "Table Prefix: ${TBL_PREFIX}\n"
     ;;
-  --help|-h)
+   --owncloud|-oc)
+    DB_VER="$(grep version config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    DB_NAME="$(grep dbname config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    DB_USER="$(grep dbuser config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    DB_PASS="$(grep dbpassword config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    TBL_PREFIX="$(grep dbtableprefix config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    echo -e "\nOwncloud: ${DB_VER}"
+    echo "Database Name: ${DB_NAME}"
+    echo "Database User: ${DB_USER}"
+    echo "Database Password: ${DB_PASS}"
+    echo -e "Table Prefix: ${TBL_PREFIX}\n"
+    ;;
+   --help|-h)
     echo "Run this function in the directory of the CMS installation."
     echo "--wordpress -wp [ Extract DB information from a WordPress installation ]"
     echo "--joomla -jm [ Extract DB information from a Joomla installation ]"
     echo "--drupal -dr [ Extract DB information from a Drupal installation ]"
     echo "--littlefoot -lf [ Extract DB information from a Littlefoot installation ]"
+    echo "--owncloud -oc [ Extract DB information from an Owncloud installation ]"
     ;;
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --help / -h ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --owncloud / -oc | --help / -h ]"
     ;;
   esac
 }
@@ -388,4 +405,57 @@ zzquicknotes() {
     echo -e "\n## -- Display current theme / Change current theme -- ##"
     echo -e "SELECT * FROM wp_options WHERE option_name='template' OR option_name='stylesheet';"
     echo -e "UPDATE wp_options SET option_value='' WHERE option_name='template' OR option_name='stylesheet' LIMIT 2;\n"
+}
+
+zzpiniset() {
+    MEM="$(egrep -w '^memory_limit' php.ini)"
+    POST="$(egrep -w '^post_max_size' php.ini)"
+    FOPEN="$(egrep -w '^allow_url_fopen' php.ini)"
+    UPL="$(egrep -w '^upload_max_filesize' php.ini)"
+
+    cp -p php.ini{,-$(date +%s).bak}
+
+    echo -e "\nCurrent PHP values:"
+    echo "1. ${MEM}"
+    echo "2. ${POST}"
+    echo "3. ${UPL}"
+    echo "4. ${FOPEN}"
+    echo -e "5. Exit \n"
+    read -p "Which value would you like to change? " VAL
+        case $VAL in
+            1)
+                echo "You selected ${MEM}"
+                read -p "Enter new value: " PMEM
+                sed -i '/memory_limit/d' php.ini
+                echo "memory_limit = ${PMEM}" >> php.ini
+                echo "memory_limit is now ${PMEM}"
+            ;;
+            2)
+                echo "You selected ${POST}"
+                read -p "Enter new value: " PST
+                sed -i '/post_max_size/d' php.ini
+                echo "post_max_size = ${PST}" >> php.ini
+                echo "post_max_size is now ${PST}"
+            ;;
+            3)
+                echo "You selected ${UPL}"
+                read -p "Enter new value: " UPLD
+                sed -i '/upload_max_filesize/d' php.ini
+                echo "upload_max_filesize = ${UPLD}" >> php.ini
+                echo "upload_max_filesize is now ${UPLD}"
+            ;;
+            4)
+                echo "You selected ${FOPEN}"
+                read -p "Enter new value [Off/On]: " FOP
+                sed -i '/allow_url_fopen/d' php.ini
+                echo "allow_url_fopen = ${FOP}" >> php.ini
+                echo "allow_url_fopen is now ${FOP}"
+            ;;
+            5)
+                echo "Exiting..."
+            ;;
+            *) 
+                echo "Invalid selection"
+            ;;
+esac
 }
