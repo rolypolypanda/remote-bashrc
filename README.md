@@ -36,3 +36,4 @@ at your own risk.
 | `zzhomeperms` | executes codex fix homedir permissions script | supply cPanel account name and ticket ID number | yes and log |
 | `zzmonitordisk` | from Kevin B.s aliases - shows number of processes accessing the disk(s) using iostat | no | no |
 | `zzpiniset` | allows setting of various PHP configuration directives | menu driven | no |
+| `zztophttpd` | shows top 10 httpd connections by IP | no | no |

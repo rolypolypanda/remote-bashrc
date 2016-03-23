@@ -18,6 +18,7 @@ else
     alias clera="clear" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
+    alias zztophttpd="netstat -pltuna | grep httpd | grep -v ':::' | grep -v '0.0.0.0' |  awk '{ print $5 }' | cut -d':' -f1 | sort -nk1 | uniq -c | sort -nrk1 | head -n 10"
 fi
 
 # Begin functions.
@@ -36,7 +37,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\n"
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\n"
 }
 
 zzphpini() {
