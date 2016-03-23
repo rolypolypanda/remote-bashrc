@@ -18,7 +18,6 @@ else
     alias clera="clear" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
-    alias zztophttpd="netstat -pltuna | grep httpd | grep -v ':::' | grep -v '0.0.0.0' |  awk '{ print $5 }' | cut -d':' -f1 | sort -nk1 | uniq -c | sort -nrk1 | head -n 10"
 fi
 
 # Begin functions.
@@ -65,6 +64,11 @@ zzphpini() {
 
 zzphphandler() {
     /usr/local/cpanel/bin/rebuild_phpconf --current
+}
+
+
+zztophttpd() {
+    netstat -pltuna | grep httpd | awk '{ print $5 }' | cut -d':' -f1 | grep -v '0.0.0.0' | grep -v ':::' | sort -nk1 | uniq -c | sort -nrk1
 }
 
 zzphpinfo() {
