@@ -36,7 +36,7 @@ zzgetvimrc
 zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
-    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\n"
+    echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\n"
 }
 
 zzphpini() {
@@ -176,6 +176,28 @@ zzacctdom() {
         echo -e "Document Root: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)" ;
         echo -e "IP Address: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f11)" ;
     fi
+}
+
+zzbackuprest() {
+    read -p "Enter cPanel account name: " ACT
+    read -p "Enter ticket ID number: " TID
+    read -p "Enter location of backup: " BKP
+    if [[ -d /home/$ACT ]];then
+        echo -e "\ncPanel account home still exists, either the account was not removed or there may be immutable files present"
+        echo -e "Ensure the account has been completely removed before proceeding"
+        echo -e "Ctrl+C to exit\n"
+        sleep 100
+    fi
+    mkdir -p /home/.hd/logs/$TID/$ACT ;
+    echo -e "Copying ${BKP} to /home"
+    CPMOVE="$(ls -lah $BKP | rev | cut -d'/' -f1 | rev)"
+    cp -vP $BKP /home/$CPMOVE ;
+    cd /home ;
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
+    rm -rvf /home/$CPMOVE ;
+    echo -e "\n- Restored account \`${ACT}:\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
+    echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
 }
 
 zzacctpkg() {

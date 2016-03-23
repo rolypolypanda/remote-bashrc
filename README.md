@@ -37,3 +37,4 @@ at your own risk.
 | `zzmonitordisk` | from Kevin B.s aliases - shows number of processes accessing the disk(s) using iostat | no | no |
 | `zzpiniset` | allows setting of various PHP configuration directives | menu driven | no |
 | `zztophttpd` | shows top 10 httpd connections by IP | no | no |
+| `zzbackuprest` | restore an account from a cPanel style backup | supply cPanel account name, backup location and ticket ID number | yes and log |
