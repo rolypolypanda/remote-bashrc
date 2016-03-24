@@ -164,13 +164,14 @@ zzfixtmp() {
 
 zzacctdom() {
     if [[ $(egrep -w $1  /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//' | while read list;do grep -cw $list /var/cpanel/resellers;done | cut -d':' -f1) == 1 ]];then
-        echo -e "Reseller: Yes"
+        echo -e "Reseller:$G1 Yes $RS" ;
+        echo -e "Resold Accounts: $(for i in $(grep $1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//');do grep $i /etc/trueuserowners | cut -d':' -f1 | grep -v $i | wc -l;done)" ;
         echo -e "Account Owner: $(for i in $(egrep -w $1 /etc/trueuserdomains | cut -d':' -f1);do egrep -w ^$i /etc/userdatadomains | grep main | cut -d'=' -f3;done)" ;
-        echo -e "Account Name:  $(grep $1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
+        echo -e "Account Name: $(grep $1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
         echo -e "Document Root: $(egrep -w ^$(egrep -w $1 /etc/trueuserdomains | cut -d':' -f1) /etc/userdatadomains | grep main | cut -d'=' -f9)" ;
         echo -e "IP Address: $(egrep -w ^$(egrep -w $1 /etc/trueuserdomains | cut -d':' -f1) /etc/userdatadomains | grep main | cut -d'=' -f11)" ;
     else
-        echo -e "Reseller: No"
+        echo -e "Reseller:$R1 No $RS" ;
         echo -e "Account Owner: $(for i in $(grep $1 /etc/trueuserdomains | cut -d':' -f2);do grep $i /etc/trueuserowners | cut -d':' -f2 | sed -e 's/^[ \t]*//';done)" ;
         echo -e "Account Name: $(grep $1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
         echo -e "Document Root: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)" ;
