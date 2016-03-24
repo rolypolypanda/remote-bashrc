@@ -163,10 +163,10 @@ zzfixtmp() {
 }
 
 zzacctdom() {
-    if [[ $(egrep -w ^$1 /var/cpanel/resellers | cut -d':' -f1) == $1 ]];then
+    if [[ $(egrep -w $1  /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//' | while read list;do grep -cw $list /var/cpanel/resellers;done | cut -d':' -f1) == 1 ]];then
         echo -e "Reseller: Yes"
         echo -e "Account Owner: $(for i in $(egrep -w $1 /etc/trueuserdomains | cut -d':' -f1);do egrep -w ^$i /etc/userdatadomains | grep main | cut -d'=' -f3;done)" ;
-        echo -e "Account Name:  $(grep -w ^$1 /var/cpanel/resellers | cut -d':' -f1)" ;
+        echo -e "Account Name:  $(grep $1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
         echo -e "Document Root: $(egrep -w ^$(egrep -w $1 /etc/trueuserdomains | cut -d':' -f1) /etc/userdatadomains | grep main | cut -d'=' -f9)" ;
         echo -e "IP Address: $(egrep -w ^$(egrep -w $1 /etc/trueuserdomains | cut -d':' -f1) /etc/userdatadomains | grep main | cut -d'=' -f11)" ;
     else
@@ -194,7 +194,7 @@ zzbackuprest() {
     cp -vP $BKP /home/$CPMOVE ;
     cd /home ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
-    rm -rvf /home/$CPMOVE ;
+    rm -f /home/$CPMOVE ;
     echo -e "\n- Restored account \`${ACT}:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
