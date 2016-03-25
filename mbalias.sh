@@ -446,11 +446,11 @@ zzquicknotes() {
 }
 
 zzpiniset() {
-    MEM="$(egrep -w '^memory_limit' php.ini)"
-    POST="$(egrep -w '^post_max_size' php.ini)"
-    FOPEN="$(egrep -w '^allow_url_fopen' php.ini)"
-    UPL="$(egrep -w '^upload_max_filesize' php.ini)"
-    MAGQ="$(egrep -w '^magic_quotes_gpc' php.ini)"
+    MEM="$(egrep -w '^memory_limit' php.ini | grep -v ';')"
+    POST="$(egrep -w '^post_max_size' php.ini | grep -v ';')"
+    FOPEN="$(egrep -w '^allow_url_fopen' php.ini | grep -v ';')"
+    UPL="$(egrep -w '^upload_max_filesize' php.ini | grep -v ';')"
+    MAGQ="$(egrep -w '^magic_quotes_gpc' php.ini | grep -v ';')"
 
     cp -p php.ini{,-$(date +%s).bak}
 
