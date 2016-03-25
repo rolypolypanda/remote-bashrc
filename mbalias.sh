@@ -450,6 +450,7 @@ zzpiniset() {
     POST="$(egrep -w '^post_max_size' php.ini)"
     FOPEN="$(egrep -w '^allow_url_fopen' php.ini)"
     UPL="$(egrep -w '^upload_max_filesize' php.ini)"
+    MAGQ="$(egrep -w '^magic_quotes_gpc' php.ini)"
 
     cp -p php.ini{,-$(date +%s).bak}
 
@@ -458,7 +459,8 @@ zzpiniset() {
     echo "2. ${POST}"
     echo "3. ${UPL}"
     echo "4. ${FOPEN}"
-    echo -e "5. Exit \n"
+    echo "5. ${MAGQ}"
+    echo -e "6. Exit \n"
     read -p "Which value would you like to change? " VAL
         case $VAL in
             1)
@@ -490,6 +492,13 @@ zzpiniset() {
                 echo "allow_url_fopen is now ${FOP}"
             ;;
             5)
+                echo "You selected ${MAGQ}"
+                read -p "Enter new value [Off/On]: " MGQ
+                sed -i '/magic_quotes_gpc/d' php.ini
+                echo "magic_quotes_gpc = ${MGQ}" >> php.ini
+                echo "magic_quotes_gpc is now ${MGQ}"
+            ;;
+            6)
                 echo "Exiting..."
             ;;
             *) 
