@@ -196,7 +196,7 @@ zzbackuprest() {
     cd /home ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm -f /home/$CPMOVE ;
-    echo -e "\n- Copied backup from ${BKP} to \`/home:\`"
+    echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
     echo -e "\n- Restored account \`${ACT}:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
