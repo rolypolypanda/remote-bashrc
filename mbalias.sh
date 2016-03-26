@@ -85,23 +85,8 @@ zzhomeperms() {
 }
 
 zzmailperms() {
-    read -p "Enter cPanel account: " ACT
-    read -p "Enter ticket ID number: " TID
-    echo -e "Reparing mail permissions for $ACT"
-    HOMEDIR=$(egrep -w ^$ACT: /etc/passwd | cut -d':' -f6)
-    mkdir -p /home/.hd/logs/$TID/$ACT
-    chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail | tee -a /home/.hd/logs/$TID/$ACT/mailperms0-$(date +%s).log
-    chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/* | tee -a /home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log
-    /scripts/mailperm --verbose $ACT | tee -a /home/.hd/logs/$TID/$ACT/mailperms2-$(date +%s).log
-    echo -e "\n- Reset permissions on the following directories:"
-    echo -e "\`[root@$(hostname):$(pwd) #] chown -vR $ACT:$ACT $HOMEDIR/etc $HOMEDIR/mail\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] chown -v $ACT:mail $HOMEDIR/etc $HOMEDIR/etc/* $HOMEDIR/etc/*/shadow* $HOMEDIR/etc/*/passwd* $HOMEDIR/mail/*/*/maildirsize $HOMEDIR/etc/*/*pwcache $HOMEDIR/etc/*/*pwcache/*\`"
-    echo -e "\`/scripts/mailperm --vrbose $ACT\`"
-    echo -e "\n- Logs located in:"
-    echo -e "\`/home/.hd/logs/$TID/$ACT/mailperms0-$(date +%s).log\`"
-    echo -e "\`/home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log\`"
-    echo -e "\`/home/.hd/logs/$TID/$ACT/mailperms2-$(date +%s).log\`"
-}
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixservermail) ;
+    }
 
 zzmemload() {
     echo -e "- Current server load \`(w / sar -q 1 5):\`\n" ;
