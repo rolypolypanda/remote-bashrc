@@ -249,6 +249,11 @@ zzmkbackup() {
     read -p "daily, weekly, or monthly backup? " DTE
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
+    if [[ -f ${DTE} ]];then
+        echo "This function does not currently work with compressed backups"
+        echo "Press Ctrl+C to exit"
+        sleep 100 ;
+    fi
     cd $PTH ;
     cd ..
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
