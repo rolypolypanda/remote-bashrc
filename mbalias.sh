@@ -249,7 +249,7 @@ zzmkbackup() {
     read -p "daily, weekly, or monthly backup? " DTE
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
-    if [[ -f ${DTE} ]];then
+    if [[ -f ${PTH} ]];then
         echo "This function does not currently work with compressed backups"
         echo "Press Ctrl+C to exit"
         sleep 100 ;
