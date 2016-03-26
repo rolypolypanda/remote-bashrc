@@ -302,19 +302,17 @@ zzsetdnsvps() {
         echo "Disabling nsd and mydns in init..."
         chkconfig nsd off 2&>1 /dev/null ;
         chkconfig mydns off 2&>1 /dev/null ;
-            if [[ -f /var/lock/nsd ]]; then
-                service nsd stop ;
-                service named restart ;
-            fi
+        echo "Restarting Bind..."
+                service nsd stop 2&>1 /dev/null ;
+                service named restart 2&>1 /dev/null ;
     elif
         [[ $(/scripts/setupnameserver --current | awk '{ print $4 }') == nsd ]];then
             echo "Disabling named and mynds in init..."
             chkconfig mydns off 2&>1 /dev/null ;
             chkconfig named off 2&>1 /dev/null ;
-                if [[ -f /var/lock/named ]]; then
-                    service named stop ;
-                    service nsd restart ;
-                fi
+            echo "Restarting NSD..."
+                    service named stop 2&>1 /dev/null ;
+                    service nsd restart 2&>1 /dev/null ;
     fi
 }
 
