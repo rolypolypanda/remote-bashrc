@@ -252,7 +252,7 @@ zzmkbackup() {
     if [[ -f ${PTH} ]];then
         echo "This function does not currently work with compressed backups"
         echo "Press Ctrl+C to exit"
-        sleep 100 ;
+            sleep 100 ;
     fi
     cd $PTH ;
     cd ..
