@@ -253,7 +253,7 @@ zzmkbackup() {
         CPMOVE="$(ls -lah $PTH | rev | cut -d'/' -f1 | rev)"
         cp -vP $PTH /home/.hd/ticket/$TID/$DTE ;
         echo -e "\n- Copied ${PTH} to \`/home/.hd/ticket/${TID}/${DTE}:\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`"
+        echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`\n"
     else
     cd $PTH ;
     cd ..
