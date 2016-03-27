@@ -243,7 +243,7 @@ zzmkbackup() {
     cd $PTH ;
     cd ..
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
-    echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\n\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
