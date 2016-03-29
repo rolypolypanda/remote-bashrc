@@ -46,15 +46,8 @@ zzphpini() {
     cp /usr/local/lib/$1.ini php.ini ;
     if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
-    fi
-	mv .htaccess{,.-$(date +%Y)-bak} ;
-	if [[ -f .htaccess.-$(date +%Y)-bak ]];then
-    		mv .htaccess{.-$(date +%Y)-bak,} ;
-	    	echo "File is immutable, check file attributes first"
-    		echo "Ctrl+C to exit"
-    		sleep 100
-	else
-	mv .htaccess{,.bak}
+            else
+        mv .htaccess{,.bak}
         echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
         cat .htaccess.bak >> .htaccess
         chown $(stat -c %U .): .htaccess ;
