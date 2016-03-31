@@ -39,3 +39,4 @@ at your own risk.
 | `zztophttpd` | shows top 10 httpd connections by IP | no | no |
 | `zzbackuprest` | restore an account from a cPanel style backup | supply cPanel account name, backup location and ticket ID number | yes and log |
 | `zzapachestrace` | strace PHP processes for a user, output to `strace.k` | supply cPanel account name | no |
+| `zzsetupsandbox` | sets up a dizbox sandbox with my custom configuration | no | no |
