@@ -37,7 +37,7 @@ zzcommands() {
     echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace\n"
-    echo -e "zzsetupsandbox\n"
+    echo -e "zzdizboxsetup\n"
 }
 
 zzphpini() {
@@ -502,7 +502,7 @@ zzapachestrace() {
     ps aufx | grep $1 | grep -v 'root' | grep 'php' | awk '{ print "-p " $2 }' | paste -sd ' ' | xargs strace -vfs 4096 -o strace.k
 }
 
-zzsetupsandbox() {
+zzdizboxsetup() {
     echo -e "\n$R1 Only run this in a sandbox! $RESET" ;
     echo -e "Ctrl+C to exit\n"
     sleep 5 ;
