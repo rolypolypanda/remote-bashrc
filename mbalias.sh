@@ -503,13 +503,14 @@ zzapachestrace() {
 }
 
 zzdizboxsetup() {
-    echo -e "\n$R1 Only run this in a sandbox! $RESET" ;
+    echo -e "\n$R1Only run this in a sandbox! $RESET" ;
     echo -e "Ctrl+C to exit\n"
     sleep 5 ;
 	hostname sandbox.donthurt.us ;
 	sed -i 's/sandbox.donthurt.us/$(hostname)/g' /etc/localdomains ;
-	wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz /home ;
-	cd /home; /scripts/restorepkg cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
+    wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz /home/cpmove-donthurt.tar.gz ;
+    sleep 2 ;
+	cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
 	do 
 	    sed -ri "s/198.49.72.[0-9]+/$LOCAL_IP/g" $line
