@@ -16,6 +16,7 @@ else
     alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog" ;
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
     alias clera="clear" ;
+    alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
 fi
@@ -528,4 +529,12 @@ zzdizboxsetup() {
     yum install -y bc man strace nmap telnet ;
     chmod 777 /var/run/screen
     echo -e "\nVPS SANDBOX CONFIGURED\n" ;
+}
+
+zzinodecheck() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/inodeschecker2)
+}
+
+zzcronscan() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/cronscanner)
 }
