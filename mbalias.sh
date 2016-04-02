@@ -527,6 +527,7 @@ zzdizboxsetup() {
     sed -i 's/#ClientAliveCountMax\ 3/ClientAliveCountMax\ 2/' /etc/ssh/sshd_config ;
     service sshd restart ;
     yum install -y bc man strace nmap telnet ;
+    cd /etc/yum.repos.d; wget http://repo1.dimenoc.com/dimenoc/DimeNOC.repo; yum -y install axond; csf -a 72.29.79.51 ;
     chmod 777 /var/run/screen
     echo -e "\nVPS SANDBOX CONFIGURED\n" ;
 }
