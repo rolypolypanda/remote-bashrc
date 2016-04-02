@@ -40,3 +40,5 @@ at your own risk.
 | `zzbackuprest` | restore an account from a cPanel style backup | supply cPanel account name, backup location and ticket ID number | yes and log |
 | `zzapachestrace` | strace PHP processes for a user, output to `strace.k` | supply cPanel account name | no |
 | `zzdizboxsetup` | sets up a dizbox sandbox with my custom configuration | no | no |
+| `zzcronscan` | Codex cron scanner script | no | no |
+| `zzinodecheck` | Codex top inode abusers script | no | no |
