@@ -87,8 +87,29 @@ zzhomeperms() {
 }
 
 zzmailperms() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixservermail) ;
-    }
+    unset $ACT
+    unset $TID
+    read -p "Enter cPanel account name: " ACT
+    read -p "Enter ticket ID number: " TID
+
+    if [ ! -f /var/cpanel/users/$ACT ]; then
+        echo -e "${ACT} is not present on this server"
+    else
+        mkdir -p /home/.hd/logs/$TID/$ACT
+        mkdir -p /home/.hd/ticket/$TID/$ACT/original
+        echo -e "\nBacking up /etc first\n"
+        sleep 5 ;
+        cp -Rp /etc /home/.hd/ticket/$TID/$ACT/original
+        cd /home/$ACT ;
+        chown -vR $ACT:$ACT etc/ mail/ | tee -a /home/.hd/logs/$TID/$ACT/mailperms0-$(date +%s).log ;
+        chown -v $ACT:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/* | tee -a /home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log ;
+        /scripts/mailperm --verbose $ACT | tee -a /home/.hd/logs/$TID/$ACT/mailperms2-$(date +%s).log ;
+        echo -e "\n- Reset maildir permissions:"
+        echo -e "\`[root@$(hostname):$(pwd) #] chown -vR ${ACT}:${ACT} etc mail\`"
+        echo -e "\`[root@$(hostname):$(pwd) #] chown -v ${ACT}:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/*\`"
+        echo -e "\`[root@$(hostname):$(pwd) #] /scripts/mailperm --verbose ${ACT}\`\n"
+    fi        
+}
 
 zzmemload() {
     echo -e "- Current server load \`(w / sar -q 1 5):\`\n" ;
