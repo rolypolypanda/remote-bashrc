@@ -534,10 +534,15 @@ zzdizboxsetup() {
 	sed -i 's/sandbox.donthurt.us/$(hostname)/g' /etc/localdomains ;
     sleep 2 ;
     wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz /home/cpmove-donthurt.tar.gz ;
-    wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz /home/cpmove-donthurt.tar.gz ;
     sleep 2 ;
-	cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
-    sleep 2 ;
+    if [[ -f /home/cpmove-donthurt.tar.gz ]]; then
+	    cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
+        sleep 2 ;
+    else
+        cd /home ;
+        wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz
+        /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
+    fi
     sed -i "s/node10.explus4host.com/$(hostname)/g" /etc/localdomains ;
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
 	do 
