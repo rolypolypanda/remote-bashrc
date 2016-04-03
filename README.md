@@ -16,7 +16,7 @@ at your own risk.
 | `zzversions` | shows CentOS version, kernel version, cPanel version, PHP version, MySQL version and NGINX version | accepts no arguments | yes |
 | `zzgetvimrc` | wgets my personal `.vimrc` file to `/root/vimrc` creates backup if one already exists | accepts no argments | no |
 | `zzsetdnsvps` | auto detects and configures nameserver service to avoid issues with misconfiguration | accepts no arguments | no |
-| `zzmysqltune` | downloads and executes the perl MySQL tuner script | accepts no arguments | no |
+| `zzmysqltune` | downloads and executes the perl MySQL tuner script | specify tuner script, see --help for usage | no |
 | `zzmysqltuneup` | runs mysqlcheck repair and optimize on all databases | enter ticket ID number | yes and log |
 | `zzapachetune` | downloads and executes the perl Apache tuner script | accepts no arguments | no |
 | `zzdiskuse` | shows disk and inode usage for all mounted partitions | accepts no arguments | yes |

@@ -167,6 +167,8 @@ zzfixtmp() {
     mkdir -p /home/.hd/logs/$TID
     chmod 1777 /tmp ;
     find /tmp -type f -mmin +30 -exec rm -vf {} \; | tee -a /home/.hd/logs/$TID/tmpremovedfiles-$(date +%s).log
+    echo -e "\n- Cleared \`/tmp:\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] find /tmp -type f -mmin +30 -exec rm -vf {} \;\`"
     echo -e "\n- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles-$(date +%s).log\`\n"
 }
 
@@ -195,7 +197,7 @@ zzbackuprest() {
         echo -e "\ncPanel account home still exists, either the account was not removed or there may be immutable files present"
         echo -e "Ensure the account has been completely removed before proceeding"
         echo -e "Ctrl+C to exit\n"
-        sleep 100
+        sleep 100 ;
     fi
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     echo -e "Copying ${BKP} to /home"
@@ -439,7 +441,7 @@ zzaxonparse() {
 zzxmlrpcget() {
     read -p "Enter domain name: " DOM
     ACT="$(grep -w ^$DOM /etc/userdatadomains | cut -d':' -f2 | cut -d '=' -f1 | sed 's/^[ \t]*//')"
-    grep xmlrpc.php /usr/local/apache/domlogs/$ACT/$DOM | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10
+    grep "POST /xmlrpc.php" /usr/local/apache/domlogs/$ACT/$DOM | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10
 }
 
 zzquicknotes() {
@@ -452,7 +454,7 @@ zzquicknotes() {
     echo -e "\n## -- Disable WordPress plugins through MySQL -- ##"
     echo -e "SELECT * FROM wp_options WHERE option_name = 'active_plugins';"
     echo -e "UPDATE wp_options SET option_value = 'a:0:{}' WHERE option_name = 'active_plugins';"
-    echo -e "UPDATE wp_options SET option_value = '' WHERE option_name = 'active_plugins';"i
+    echo -e "UPDATE wp_options SET option_value = '' WHERE option_name = 'active_plugins';"
     echo -e "\n## -- Display current theme / Change current theme -- ##"
     echo -e "SELECT * FROM wp_options WHERE option_name='template' OR option_name='stylesheet';"
     echo -e "UPDATE wp_options SET option_value='' WHERE option_name='template' OR option_name='stylesheet' LIMIT 2;\n"
@@ -536,9 +538,10 @@ zzdizboxsetup() {
     sleep 2 ;
 	cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
     sleep 2 ;
+    sed -i "s/node10.explus4host.com/$(hostname)/g" /etc/localdomains ;
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
 	do 
-	    sed -ri "s/198.49.72.[0-9]+/$LOCAL_IP/g" $line
+	    sed -ri "s/198.49.72.[0-9]+/$(hostname -i)/g" $line
 	    echo "$line has been updated"
 	done
     /scripts/rebuildhttpdconf ;
