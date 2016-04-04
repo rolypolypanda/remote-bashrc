@@ -635,9 +635,13 @@ mkdir -p /home/.hd/logs/$TID/$ACT ;
 /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;
 }
 function all {
+    echo -e "\nCreate Backup"
     backup
+    echo -e "\nPackage Account"
     package
+    echo -e "\nRemove Account"
     killact
+    echo -e "\nRestore Account"
     restore
 }
 for i in "$@"
