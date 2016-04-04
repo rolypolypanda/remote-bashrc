@@ -532,8 +532,6 @@ zzdizboxsetup() {
 	hostname sandbox.donthurt.us ;
 	sed -i 's/sandbox.donthurt.us/$(hostname)/g' /etc/localdomains ;
     sleep 2 ;
-    wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz /home/cpmove-donthurt.tar.gz ;
-    sleep 2 ;
     if [[ -f /home/cpmove-donthurt.tar.gz ]]; then
 	    cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
         sleep 2 ;
