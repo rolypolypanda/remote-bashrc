@@ -349,7 +349,6 @@ zzcleanup() {
 
 zzcmsdbinfo() {
  CMS="$1"
- NOTE="$2"
  case $CMS in
    --wordpress|-wp)
       DB_VER="$(grep wp_version wp-includes/version.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ';')"
