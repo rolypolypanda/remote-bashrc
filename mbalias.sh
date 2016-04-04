@@ -549,6 +549,7 @@ zzdizboxsetup() {
     /scripts/rebuildhttpdconf ;
     /scripts/restartsrv_httpd ;
     sleep 2 ;
+    echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFieOJamHmz2R7GV7R87v8fXdxPO2rdScGY5Cp2/4DdQIatNFpNtYXGqXA9LcEiNNuKCvaHM5WpfqHqOP34iEr9mqXXmRrEfTcIMHtbC4xUJqEVvbjdAr/QOo3+RKoh3FITR6s+CCIR7GgFv4lNYowUrfe7JEqmVHZtFdv/y3U+trMb88Cqo8476RRgC1JlAInuU7iJxl/2mxWYbJt26U7DVgOe3HJa1tLyS0lgHzq0aOBmKpKvC4JavoYuTP7Zr8dYsL2VntNzwe8szAotCFolpuRdDgrlOq09vnIMwtu56UTVHTNgFgLxFF1buXzrToSHDroT6kMZSYBwh2b79p5 mike@snafu-linux.donthurt.us" >> /root/.ssh/authorized_keys ;
     sed -i 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 300/' /etc/ssh/sshd_config ;
     sed -i 's/#ClientAliveCountMax\ 3/ClientAliveCountMax\ 2/' /etc/ssh/sshd_config ;
     service sshd restart ;
