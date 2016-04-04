@@ -42,3 +42,4 @@ at your own risk.
 | `zzdizboxsetup` | sets up a dizbox sandbox with my custom configuration | no | no |
 | `zzcronscan` | Codex cron scanner script | no | no |
 | `zzinodecheck` | Codex top inode abusers script | no | no |
+| `zzeasybackup` | Packages a cPanel backup, packages a live cPanel account, kills a live cPanel account and restores the account from the created backup - BETA AF | accepts multiple arguments, see --help for usage | yes and log |
