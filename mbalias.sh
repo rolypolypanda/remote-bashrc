@@ -568,12 +568,6 @@ zzcronscan() {
 
 zzeasybackup() {
 function backup { 
-    read -p "Enter cPanel account name: " ACT
-    read -p "Enter ticket ID number: " TID
-    find /backup -maxdepth 4 -type f -name "${ACT}*" -print
-    find /backup -maxdepth 4 -type d -name "${ACT}" -print
-    read -p "Enter the path of the backup you would like to create: " PTH
-    read -p "daily, weekly, or monthly backup? " DTE
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     if [[ -f $PTH ]];then
@@ -592,8 +586,6 @@ function backup {
 fi
 }
 function package {
-    read -p "Enter cPanel account name: " ACT
-    read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log ;
@@ -604,9 +596,6 @@ function package {
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
 function restore {
-    read -p "Enter cPanel account name: " ACT
-    read -p "Enter ticket ID number: " TID
-    read -p "Enter location of backup: " BKP
     if [[ -d /home/$ACT ]];then
         echo -e "\ncPanel account home still exists, either the account was not removed or there may be immutable files present"
         echo -e "Ensure the account has been completely removed before proceeding"
@@ -629,8 +618,6 @@ function restore {
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
 }
 function killact {
-read -p "Enter cPanel account name: " ACT
-read -p "Enter ticket ID number: " TID
 mkdir -p /home/.hd/logs/$TID/$ACT ;
 /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;
 }
@@ -648,15 +635,28 @@ for i in "$@"
 do
     case $i in
         -b|--backup)
+	    read -p "Enter cPanel account name: " ACT
+    	    read -p "Enter ticket ID number: " TID
+            find /backup -maxdepth 4 -type f -name "${ACT}*" -print
+            find /backup -maxdepth 4 -type d -name "${ACT}" -print
+            read -p "Enter the path of the backup you would like to create: " PTH
+            read -p "daily, weekly, or monthly backup? " DTE
             backup
             ;;
         -p|--package)
+             read -p "Enter cPanel account name: " ACT
+             read -p "Enter ticket ID number: " TID
             package
             ;;
         -r|--restore)
-            restore
+             read -p "Enter cPanel account name: " ACT
+             read -p "Enter ticket ID number: " TID
+             read -p "Enter location of backup: " BKP
+           restore
             ;;
         -k|--kill)
+	    read -p "Enter cPanel account name: " ACT
+	    read -p "Enter ticket ID number: " TID
             killact
             ;;
         -a|--all)
