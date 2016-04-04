@@ -567,11 +567,105 @@ zzcronscan() {
 }
 
 zzeasybackup() {
-    # create backup
-    # package account
-    # kill account
-    # restore account from backup
-    # options for each
-    # help output
-    # note output
+backup() { 
+    read -p "Enter cPanel account name: " ACT
+    read -p "Enter ticket ID number: " TID
+    find /backup -maxdepth 4 -type f -name "${ACT}*" -print
+    find /backup -maxdepth 4 -type d -name "${ACT}" -print
+    read -p "Enter the path of the backup you would like to create: " PTH
+    read -p "daily, weekly, or monthly backup? " DTE
+    mkdir -p /home/.hd/logs/$TID/$ACT ;
+    mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
+    if [[ -f $PTH ]];then
+        CPMOVE="$(ls -lah $PTH | rev | cut -d'/' -f1 | rev)"
+        cp -vP $PTH /home/.hd/ticket/$TID/$DTE ;
+        echo -e "\n- Copied ${PTH} to \`/home/.hd/ticket/${TID}/${DTE}:\`"
+       	echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`\n"
+    else
+    cd $PTH ;
+    cd ..
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
+    echo -e "\n\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
+    echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
+    echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
+fi
+}
+package() {
+    read -p "Enter cPanel account name: " ACT
+    read -p "Enter ticket ID number: " TID
+    mkdir -p /home/.hd/logs/$TID/$ACT ;
+    mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log ;
+    echo -e "For Notes:\n"
+    echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
+    echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
+    echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
+}
+restore() {
+    read -p "Enter cPanel account name: " ACT
+    read -p "Enter ticket ID number: " TID
+    read -p "Enter location of backup: " BKP
+    if [[ -d /home/$ACT ]];then
+        echo -e "\ncPanel account home still exists, either the account was not removed or there may be immutable files present"
+        echo -e "Ensure the account has been completely removed before proceeding"
+        echo -e "Ctrl+C to exit\n"
+       	sleep 100 ;
+    fi
+    mkdir -p /home/.hd/logs/$TID/$ACT ;
+    echo -e "Copying ${BKP} to /home"
+    CPMOVE="$(ls -lah $BKP | rev | cut -d'/' -f1 | rev)"
+    \cp -vP $BKP /home/$CPMOVE ;
+    cd /home ;
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
+    \rm -f /home/$CPMOVE ;
+    echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
+    echo -e "\n- Restored account \`${ACT}:\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
+    echo -e "\n- Removed backup from \`/home:\`"
+    echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
+    echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
+}
+killact() {
+
+}
+all() {
+    backup
+    package
+    killact
+    restore
+}
+for i in "$@"
+do
+    case $i in
+        -b|--backup)
+            backup
+            ;;
+        -p|--package)
+            package
+            ;;
+        -r|--restore)
+            restore
+            ;;
+        -k|--kill)
+            killact
+            ;;
+        -a|--all)
+            all
+            ;;
+        -h|--help)
+            echo "easybackup:"
+            echo "--backup / -b  | Create a cPanel backup"
+            echo "--package / -p | Package a live cPanel account"
+            echo "--restore / -r | Restore a cPanel account from a backup"
+            echo "--kill / -k    | Remove a live cPanel account"
+            echo "--all / -a     | Create a backup, package a live account, kill a live account and restore account from backup"
+            ;;
+                *)
+            echo "Usage: [ --backup / -b | --package / -p | --restore / -r | --all / -a | --help /-h ]"
+            ;;
+    esac
+done
 }
