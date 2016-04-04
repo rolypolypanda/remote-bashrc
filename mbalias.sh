@@ -567,7 +567,7 @@ zzcronscan() {
 }
 
 zzeasybackup() {
-backup() { 
+function backup { 
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
     find /backup -maxdepth 4 -type f -name "${ACT}*" -print
@@ -591,7 +591,7 @@ backup() {
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 fi
 }
-package() {
+function package {
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT ;
@@ -603,7 +603,7 @@ package() {
     echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
-restore() {
+function restore {
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
     read -p "Enter location of backup: " BKP
@@ -628,10 +628,13 @@ restore() {
     echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
 }
-killact() {
-
+function killact {
+read -p "Enter cPanel account name: " ACT
+read -p "Enter ticket ID number: " TID
+mkdir -p /home/.hd/logs/$TID/$ACT ;
+/usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;
 }
-all() {
+function all {
     backup
     package
     killact
