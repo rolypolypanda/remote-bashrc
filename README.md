@@ -5,7 +5,7 @@ at your own risk.
 
 | **command** | **description** | **usage** | **Note output** |
 | ------- | ----------- | ----- | --------- | --------------- |
-| `zzphpini` | creates a local `php.ini` | use by specifying `php` or `php53` if using dual PHP | yes |
+| `zzphpini` | creates a local `php.ini` | use by specifying `php` or `php53,54,etc` if using dual PHP | yes |
 | `zzphphandler` | displays current and avaliable PHP handlers | accepts no arguments | no |
 | `zzphpinfo` | creates a `phpinfo.php` file | accepts no arguments | yes |
 | `zzmemload` | shows number of `CPU` cores, `w` and `sar -q` over 5 seconds | accepts no arguments | yes |
