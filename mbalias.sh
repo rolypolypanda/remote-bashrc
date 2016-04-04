@@ -566,3 +566,13 @@ zzinodecheck() {
 zzcronscan() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/cronscanner)
 }
+
+zzeasybackup() {
+    # create backup
+    # package account
+    # kill account
+    # restore account from backup
+    # options for each
+    # help output
+    # note output
+}
