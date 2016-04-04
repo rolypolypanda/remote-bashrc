@@ -635,7 +635,7 @@ for i in "$@"
 do
     case $i in
         -b|--backup)
-	    read -p "Enter cPanel account name: " ACT
+	        read -p "Enter cPanel account name: " ACT
     	    read -p "Enter ticket ID number: " TID
             find /backup -maxdepth 4 -type f -name "${ACT}*" -print
             find /backup -maxdepth 4 -type d -name "${ACT}" -print
@@ -655,11 +655,17 @@ do
            restore
             ;;
         -k|--kill)
-	    read -p "Enter cPanel account name: " ACT
-	    read -p "Enter ticket ID number: " TID
+	        read -p "Enter cPanel account name: " ACT
+	        read -p "Enter ticket ID number: " TID
             killact
             ;;
         -a|--all)
+	        read -p "Enter cPanel account name: " ACT
+            read -p "Enter ticket ID number: " TID
+            find /backup -maxdepth 4 -type f -name "${ACT}*" -print
+            find /backup -maxdepth 4 -type d -name "${ACT}" -print
+            read -p "Enter the path of the backup you would like to create: " PTH
+            read -p "daily, weekly, or monthly backup? " DTE
             all
             ;;
         -h|--help)
