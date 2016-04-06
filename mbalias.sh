@@ -565,3 +565,7 @@ zzinodecheck() {
 zzcronscan() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/cronscanner)
 }
+
+zzrpmquery() {
+    rpm -aq --queryformat '%{installtime} (%{installtime:date}) %{name}\n' | grep -i $1
+}

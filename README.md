@@ -42,3 +42,4 @@ at your own risk.
 | `zzdizboxsetup` | sets up a dizbox sandbox with my custom configuration | no | no |
 | `zzcronscan` | Codex cron scanner script | no | no |
 | `zzinodecheck` | Codex top inode abusers script | no | no |
+| `zzrpmquery` | `rpm -qa` with timestamps | supply rpm name | no |
