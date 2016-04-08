@@ -8,6 +8,11 @@ else
     echo -ne "\033k$HOSTNAME\033\\" ;
     export PS1='\[\e[1;32m\]\u\[\e[1;37m\]@\[\e[0;37m\]\H\[\e[0;36m\]:\w\[\e[0;0m\] \$ ' ;
     export EDITOR="vim" ;
+    unset TID
+    unset ACT
+    unset CPMOVE
+    unset PTH
+    unset BKP
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
@@ -581,6 +586,7 @@ function backup {
     cd $PTH ;
     cd ..
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
+    echo "/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz" > /root/cpmove.lst 
     echo -e "\n\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
@@ -632,6 +638,11 @@ function all {
     echo -e "\nRemove Account"
     killact
     echo -e "\nRestore Account"
+    if [[ -f /root/cpmove.lst ]]; then
+        echo "Previously created backup:"
+        cat /root/cpmove.lst ;
+        echo ""
+    fi
     restore
 }
 for i in "$@"
@@ -707,6 +718,11 @@ do
             ;;
     esac
 done
+unset TID
+unset ACT
+unset BKP
+unset CPMOVE
+unset PTH
 }
 
 zzrpmquery() {
