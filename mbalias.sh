@@ -604,6 +604,7 @@ function restore {
         echo -e "Ctrl+C to exit\n"
        	sleep 100 ;
     fi
+    read -p "Enter the path of the backup you would like to restore: " BKP
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     echo -e "Copying ${BKP} to /home"
     CPMOVE="$(ls -lah $BKP | rev | cut -d'/' -f1 | rev)"
@@ -669,6 +670,29 @@ do
             read -p "Enter the path of the backup you would like to create: " PTH
             read -p "daily, weekly, or monthly backup? " DTE
             all
+        echo -e "\nFULL NOTES:\n"
+        echo -e "\n"
+		echo -e "\n- Created backup:"
+		echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
+		echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
+		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
+		echo -e "\n- Packaged current cPanel account:"
+		echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
+		echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
+		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
+		echo -e "- Removed current cPanel account:"
+		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;\`" 
+		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log\`" ;
+		echo -e "\n- Restored account from backup:"
+		echo -e "- Copied backup from \`${BKP}\` to \`/home:\`"
+		echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
+		echo -e "\n- Restored account \`${ACT}:\`"
+		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
+		echo -e "\n- Removed backup from \`/home:\`"
+		echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
+		echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
             ;;
         -h|--help)
             echo "easybackup:"
@@ -687,4 +711,12 @@ done
 
 zzrpmquery() {
     rpm -aq --queryformat '%{installtime} (%{installtime:date}) %{name}\n' | grep -i $1
+}
+
+zzopenvzdu() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/OpenVZDiskUsage)
+}
+
+zzchkdrivehealth() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/CheckDriveHealth)
 }
