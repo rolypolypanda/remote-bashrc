@@ -528,6 +528,7 @@ esac
 
 zzapachestrace() {
     ps aufx | grep $1 | grep -v 'root' | grep 'php' | awk '{ print "-p " $2 }' | paste -sd ' ' | xargs strace -vfs 4096 -o strace.k
+    echo 'Strace located in $(pwd)/strace.k'
 }
 
 zzdizboxsetup() {

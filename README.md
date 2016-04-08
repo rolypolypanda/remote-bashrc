@@ -44,6 +44,5 @@ at your own risk.
 | `zzinodecheck` | Codex top inode abusers script | no | no |
 | `zzrpmquery` | `rpm -qa` with timestamps | supply rpm name | no |
 | `zzeasybackup` | Packages a cPanel backup, packages a live cPanel account, kills a live cPanel account and restores the account from the created backup - BETA AF | accepts multiple arguments, see --help for usage | yes and log |
-| `zzrpmquery` | `rpm -qa` with timestamps | yes | no |
 | `zzopenvzdu` | Codex script, calculates container disk usage | no | no |
 | `zzchkdiskhealth` | Codex script, check status of raid arrays and disks | no | no |
