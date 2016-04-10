@@ -43,7 +43,8 @@ zzcommands() {
     echo -e "\nzzbeanc\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
-    echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\zzopenvzdu\nzzchkdrivehealth\nzzeasybackup\n"
+    echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\zzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep\n"
+    echo -e "zzexirmlfd\n"
 }
 
 zzphpini() {
@@ -74,6 +75,10 @@ zzphphandler() {
 
 zzexigrep() {
     exigrep $1 /var/log/exim_mainlog 
+}
+
+zzexirmlfd() {
+    grep -lr 'lfd on' /var/spool/exim/input | sed -e 's/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g' | xargs exim -Mrm
 }
 
 zztophttpd() {
