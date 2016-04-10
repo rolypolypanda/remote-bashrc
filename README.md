@@ -43,8 +43,8 @@ at your own risk.
 | `zzcronscan` | Codex cron scanner script | no | no |
 | `zzinodecheck` | Codex top inode abusers script | no | no |
 | `zzrpmquery` | `rpm -qa` with timestamps | supply rpm name | no |
-| `zzeasybackup` | Packages a cPanel backup, packages a live cPanel account, kills a live cPanel account and restores the account from the created backup - BETA AF | accepts multiple arguments, see --help for usage | yes and log |
+| `zzeasybackup` | Packages a cPanel backup, packages a live cPanel account, kills a live cPanel account and restores the account from the created backup | accepts multiple arguments, see --help for usage | yes and log |
 | `zzopenvzdu` | Codex script, calculates container disk usage | no | no |
 | `zzchkdiskhealth` | Codex script, check status of raid arrays and disks | no | no |
-| `zzexigrep` | use exigrep without specifying the log path | supply email address | no |
-| `zzexirmlfd` | removes queued/frozen lfd emails | no | no |
+| `zzexigrep` | use `exigrep` without specifying the log path | supply email address | no |
+| `zzexirmlfd` | removes queued/frozen `lfd` emails | no | no |
