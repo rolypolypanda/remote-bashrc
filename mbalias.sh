@@ -536,7 +536,7 @@ zzdizboxsetup() {
     echo -e " Ctrl+C to exit\n"
     sleep 5 ;
 	hostname sandbox.donthurt.us ;
-	sed -i 's/sandbox.donthurt.us/$(hostname)/g' /etc/localdomains ;
+	echo "donthurt.us" > /etc/localdomains ;
     sleep 2 ;
     if [[ -f /home/cpmove-donthurt.tar.gz ]]; then
 	    cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
@@ -546,7 +546,6 @@ zzdizboxsetup() {
         wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz
         /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
     fi
-    sed -i "s/sandbox.donthurt.us/$(hostname)/g" /etc/localdomains ;
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
 	do 
 	    sed -ri "s/198.49.72.[0-9]+/$(hostname -i)/g" $line
@@ -555,6 +554,9 @@ zzdizboxsetup() {
     /scripts/rebuildhttpdconf ;
     /scripts/restartsrv_httpd ;
     sleep 2 ;
+    wget http://filez.dizinc.com/~michaelb/vps_setup/sshpubkeys ;
+    cat sshpubkeys >> /root/.ssh/authorized_keys ;
+    rm sshpubkeys ;
     echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFieOJamHmz2R7GV7R87v8fXdxPO2rdScGY5Cp2/4DdQIatNFpNtYXGqXA9LcEiNNuKCvaHM5WpfqHqOP34iEr9mqXXmRrEfTcIMHtbC4xUJqEVvbjdAr/QOo3+RKoh3FITR6s+CCIR7GgFv4lNYowUrfe7JEqmVHZtFdv/y3U+trMb88Cqo8476RRgC1JlAInuU7iJxl/2mxWYbJt26U7DVgOe3HJa1tLyS0lgHzq0aOBmKpKvC4JavoYuTP7Zr8dYsL2VntNzwe8szAotCFolpuRdDgrlOq09vnIMwtu56UTVHTNgFgLxFF1buXzrToSHDroT6kMZSYBwh2b79p5 mike@snafu-linux.donthurt.us" >> /root/.ssh/authorized_keys ;
     sed -i 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 300/' /etc/ssh/sshd_config ;
     sed -i 's/#ClientAliveCountMax\ 3/ClientAliveCountMax\ 2/' /etc/ssh/sshd_config ;
