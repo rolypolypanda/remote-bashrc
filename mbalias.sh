@@ -536,7 +536,7 @@ esac
 
 zzapachestrace() {
     ps aufx | grep $1 | grep -v 'root' | grep 'php' | awk '{ print "-p " $2 }' | paste -sd ' ' | xargs strace -vfs 4096 -o strace.k
-    echo 'Strace located in $(pwd)/strace.k'
+    echo "Strace located at $(pwd)/strace.k"
 }
 
 zzdizboxsetup() {
@@ -573,6 +573,14 @@ zzdizboxsetup() {
     yum install -y bc man strace git nmap telnet ;
     cd /etc/yum.repos.d; wget http://repo1.dimenoc.com/dimenoc/DimeNOC.repo; yum -y install axond; csf -a 72.29.79.51 ;
     chmod 775 /var/run/screen
+    echo -e "\nCONFIGURING PHP\n"
+    sleep 2 ;
+    pear channel-update pear.php.net
+    pecl channel-update pecl.php.net
+    /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 1 ;
+    /scripts/phpextensionmgr IonCubeLoaders ;
+    /scripts/phpextensionmgr PHPSuHosin ;
+    /scripts/installzendopt
     echo -e "\nVPS SANDBOX CONFIGURED\n" ;
 }
 
