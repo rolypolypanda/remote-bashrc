@@ -561,6 +561,7 @@ zzdizboxsetup() {
 	done
     /scripts/rebuildhttpdconf ;
     /scripts/restartsrv_httpd ;
+    /scripts/setupnameserver nsd ;
     sleep 2 ;
     wget http://filez.dizinc.com/~michaelb/vps_setup/sshpubkeys ;
     cat sshpubkeys >> /root/.ssh/authorized_keys ;
