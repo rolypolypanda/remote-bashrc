@@ -72,6 +72,9 @@ zzphphandler() {
     /usr/local/cpanel/bin/rebuild_phpconf --current
 }
 
+zzexigrep() {
+    exigrep $1 /var/log/exim_mainlog 
+}
 
 zztophttpd() {
     netstat -pltuna | grep httpd | awk '{ print $5 }' | cut -d':' -f1 | grep -v '0.0.0.0' | grep -v ':::' | sort -nk1 | uniq -c | sort -nrk1
