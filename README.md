@@ -8,7 +8,7 @@ at your own risk.
 | `zzphpini` | creates a local `php.ini` | use by specifying `php` or `php53,54,etc` if using dual PHP | yes |
 | `zzphphandler` | displays current and avaliable PHP handlers | accepts no arguments | no |
 | `zzphpinfo` | creates a `phpinfo.php` file | accepts no arguments | yes |
-| `zzmemload` | shows number of `CPU` cores, `w` and `sar -q` over 5 seconds | accepts no arguments | yes |
+| `zzmemload` | shows number of `CPU` cores, `w` and `sar -q` over 5 seconds; displays free memory and swappiness value | accepts no arguments | yes |
 | `zzfixtmp` | sets `/tmp` permissions to `1777` and removes files older than `30` minutes | accepts no arguments | log |
 | `zzacctdom` | shows domain owner account and searches `/etc/*domains` | supply either `FQDN` | no |
 | `zzacctpkg` | sets up HD working dir and packages a live cPanel account | enter cPanel account name and ticket ID number | yes and log |
