@@ -40,10 +40,10 @@ zzgetvimrc
 
 # Begin main functions.
 zzcommands() {
-    echo -e "\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
+    echo -e "\nzzbeanc\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
-    echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\zzopenvzdu\nzzchkdiskhealth\nzzeasybackup\n"
+    echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\zzopenvzdu\nzzchkdrivehealth\nzzeasybackup\n"
 }
 
 zzphpini() {
@@ -60,7 +60,6 @@ zzphpini() {
         chown $(stat -c %U .): .htaccess ;
     fi
     echo -e "\nFor notes:\n"
-    echo -e "- Backed up existing \`php.ini\`:"
     echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak}\`"
     echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini php.ini\`"
     echo -e "- Added the following to \`$(pwd)/.htaccess\`"
@@ -88,7 +87,8 @@ zzhomeperms() {
     read -p "Enter cPanel account name: " ACT
     mkdir -p /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixhome) $ACT | tee -a /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
-    echo -e "\n- Log located in \`/home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log\`"
+    echo -e "\n- Reset homedir permissions using the following [codex script](https://codex.dimenoc.com/scripts/download/fixhome)."
+    echo -e "- Log located in \`/home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log\`"
 }
 
 zzmailperms() {
@@ -562,7 +562,7 @@ zzdizboxsetup() {
     rpm -ihv https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm ;
     yum install -y bc man strace git glances nmap telnet ;
     cd /etc/yum.repos.d; wget http://repo1.dimenoc.com/dimenoc/DimeNOC.repo; yum -y install axond; csf -a 72.29.79.51 ;
-    chmod 777 /var/run/screen
+    chmod 775 /var/run/screen
     echo -e "\nVPS SANDBOX CONFIGURED\n" ;
 }
 
