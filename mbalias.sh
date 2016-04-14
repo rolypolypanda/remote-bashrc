@@ -111,16 +111,20 @@ zzmailperms() {
         mkdir -p /home/.hd/logs/$TID/$ACT
         mkdir -p /home/.hd/ticket/$TID/$ACT/original
         echo -e "\nBacking up /etc first\n"
-        sleep 5 ;
-        cp -Rp /etc /home/.hd/ticket/$TID/$ACT/original
+        sleep 3 ;
+        cp -Rp /etc /home/.hd/ticket/$TID/original/
+        echo -e "/etc backed up to /home/.hd/ticket/$TID/original/etc\n"
+        sleep 3 ;
         cd /home/$ACT ;
-        chown -vR $ACT:$ACT etc/ mail/ | tee -a /home/.hd/logs/$TID/$ACT/mailperms0-$(date +%s).log ;
+        chown -vR $ACT:$ACT etc/ mail/ | tee -a /home/.hd/logs/$TID/mailperms0-$(date +%s).log ;
         chown -v $ACT:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/* | tee -a /home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log ;
-        /scripts/mailperm --verbose $ACT | tee -a /home/.hd/logs/$TID/$ACT/mailperms2-$(date +%s).log ;
+        /scripts/mailperm --verbose $ACT | tee -a /home/.hd/logs/$TID/mailperms2-$(date +%s).log ;
         echo -e "\n- Reset maildir permissions:"
         echo -e "\`[root@$(hostname):$(pwd) #] chown -vR ${ACT}:${ACT} etc mail\`"
         echo -e "\`[root@$(hostname):$(pwd) #] chown -v ${ACT}:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/*\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] /scripts/mailperm --verbose ${ACT}\`\n"
+        echo -e "\`[root@$(hostname):$(pwd) #] /scripts/mailperm --verbose ${ACT}\`"
+        echo -e "\`**Additional Notes:**\n- Logs located in:\n\`/home/.hd/logs/$TID/mailperms0-$(date +%s).log\`"
+        echo -e "\`/home/.hd/logs/$TID/mailperms2-$(date +%s).log\`\n"
     fi        
 }
 
@@ -369,11 +373,13 @@ zzcmsdbinfo() {
       DB_USER="$(grep DB_USER wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       DB_PASS="$(grep DB_PASSWORD wp-config.php | awk '{ print $2}' | tr -d "'" | tr -d ')' | tr -d ';')"
       TBL_PREFIX="$(grep table_prefix wp-config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+      TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
       echo -e "\nWordpress version: ${DB_VER}"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
-      echo -e "Table Prefix: ${TBL_PREFIX}\n"
+      echo -e "Table Prefix: ${TBL_PREFIX}"
+      echo -e "Connected: ${TESTCON}\n"
     ;;
    --joomla|-jm)
       DB_VER="$(grep RELEASE libraries/cms/version/version.php | head -n 1 | awk '{ print $4 }' | tr -d "'" | tr -d '    ;')"
@@ -381,11 +387,13 @@ zzcmsdbinfo() {
       DB_NAME="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_USER="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       TBL_PREFIX="$(grep -w dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
       echo -e "\nJoomla version: ${DB_VER}"
       echo "Database Name: ${DB_NAME}"
       echo "Database User: ${DB_USER}"
       echo "Database Password: ${DB_PASS}"
-      echo -e "Table Prefix: ${TBL_PREFIX}\n"
+      echo -e "Table Prefix: ${TBL_PREFIX}"
+      echo -e "Connected: ${TESTCON}\n"
     ;;
   --drupal|-dr)
     DB_VER="$(grep -w version core/modules/contact/contact.info.yml | tail -n 1 | tr -d "'")"
@@ -393,11 +401,13 @@ zzcmsdbinfo() {
     DB_USER="$(grep -w "username" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     DB_PASS="$(grep -w "password" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
     TBL_PREFIX="$(grep -w "prefix" sites/default/settings.php | tail -n 1 | awk '{ print $3 }' | tr -d "'" | tr -d ",")"
+    TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
     echo -e "\nDrupal ${DB_VER}"
     echo "Database Name: ${DB_NAME}"
     echo "Database User: ${DB_USER}"
     echo "Database Password: ${DB_PASS}"
-    echo -e "Table Prefix: ${TBL_PREFIX}\n"
+    echo -e "Table Prefix: ${TBL_PREFIX}"
+    echo -e "Connected: ${TESTCON}\n"
     ;;
    --littlefoot|-lf)
     DB_VER="$(cat lf/system/version)"
@@ -405,11 +415,13 @@ zzcmsdbinfo() {
     DB_USER="$(grep user lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
     DB_PASS="$(grep pass lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
     TBL_PREFIX="$(grep prefix lf/config.php | awk '{ print $3}' | tr -d "'" | tr -d ';')"
+    TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
     echo -e "\nLittlefoot ${DB_VER}"
     echo "Database Name: ${DB_NAME}"
     echo "Database User: ${DB_USER}"
     echo "Database Password: ${DB_PASS}"
-    echo -e "Table Prefix: ${TBL_PREFIX}\n"
+    echo -e "Table Prefix: ${TBL_PREFIX}"
+    echo -e "Connected: ${TESTCON}\n"
     ;;
    --owncloud|-oc)
     DB_VER="$(grep version config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
@@ -417,11 +429,13 @@ zzcmsdbinfo() {
     DB_USER="$(grep dbuser config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
     DB_PASS="$(grep dbpassword config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
     TBL_PREFIX="$(grep dbtableprefix config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
+    TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
     echo -e "\nOwncloud: ${DB_VER}"
     echo "Database Name: ${DB_NAME}"
     echo "Database User: ${DB_USER}"
     echo "Database Password: ${DB_PASS}"
-    echo -e "Table Prefix: ${TBL_PREFIX}\n"
+    echo -e "Table Prefix: ${TBL_PREFIX}"
+    echo -e "Connected: ${TESTCON}\n"
     ;;
    --help|-h)
     echo "Run this function in the directory of the CMS installation."
