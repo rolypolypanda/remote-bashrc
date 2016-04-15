@@ -91,8 +91,8 @@ zzphpinfo() {
 }
 
 zzhomeperms() {
-    read -p "Enter ticket ID number: " TID
     read -p "Enter cPanel account name: " ACT
+    read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixhome) $ACT | tee -a /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
     echo -e "\n- Reset homedir permissions using the following [codex script](https://codex.dimenoc.com/scripts/download/fixhome)."
