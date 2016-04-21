@@ -591,7 +591,7 @@ zzdizboxsetup() {
     sleep 2 ;
     pear channel-update pear.php.net
     pecl channel-update pecl.php.net
-    /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 1 ;
+    /usr/local/cpanel/bin/rebuild_phpconf 5 none suphp 1 ;
     /scripts/phpextensionmgr IonCubeLoaders ;
     /scripts/phpextensionmgr PHPSuHosin ;
     /scripts/installzendopt
