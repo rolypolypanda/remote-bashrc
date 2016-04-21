@@ -654,11 +654,11 @@ function restore {
     read -p "Enter the path of the backup you would like to restore: " BKP
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     echo -e "Copying ${BKP} to /home"
-    CPMOVE="$(ls -lah $BKP | rev | cut -d'/' -f1 | rev)"
-    \cp -vP $BKP /home/$CPMOVE ;
+    CPMOVE="$(ls -lah ${BKP} | awk '{ print $9 }' | rev | cut -d'/' -f1 | rev | tr -d ' ')"
     cd /home ;
+    \cp -vP $BKP $CPMOVE ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
-    \rm -f /home/$CPMOVE ;
+    \rm /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
     echo -e "\n- Restored account \`${ACT}:\`"
