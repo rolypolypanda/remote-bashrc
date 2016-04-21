@@ -49,26 +49,28 @@ zzcommands() {
 
 zzphpini() {
     if [[ -f $(pwd)/php.ini ]]; then
-        mv $(pwd)/php.ini{,.bak}
+        \mv -f $(pwd)/php.ini{,.bak-hd}
     fi
-    cp /usr/local/lib/$1.ini php.ini ;
+    \cp -f /usr/local/lib/$1.ini php.ini ;
     if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
     else
-        mv .htaccess{,.bak}
-        echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n" >> .htaccess ;
-        cat .htaccess.bak >> .htaccess
+        mv .htaccess{,.bak-hd}
+        echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n<Files php.ini>\norder allow,deny\ndeny from all\n</Files>\n" >> .htaccess ;
+        cat .htaccess.bak-hd >> .htaccess
         chown $(stat -c %U .): .htaccess ;
     fi
     echo -e "\nFor notes:\n"
-    if [[ -f $(pwd)/php.ini.bak ]]; then
-    echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak}\`"
+    if [[ -f $(pwd)/php.ini.bak-hd ]]; then
+        echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak-hd}\`"
     fi
     echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini php.ini\`"
-    echo -e "- Added the following to \`$(pwd)/.htaccess\`"
-    echo -e "\`\`\`"
-    echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>"
-    echo -e "\`\`\`"
+    if [[ ! -f $(pwd)/php.ini.bak-hd ]]; then
+        echo -e "- Added the following to \`$(pwd)/.htaccess\`"
+        echo -e "\`\`\`"
+        echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n<Files php.ini>\norder allow,deny\ndeny from all\n</Files>\n"
+        echo -e "\`\`\`"
+    fi
 }
 
 zzphphandler() {
@@ -593,7 +595,7 @@ zzdizboxsetup() {
     sleep 2 ;
     pear channel-update pear.php.net
     pecl channel-update pecl.php.net
-    /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 1 ;
+    /usr/local/cpanel/bin/rebuild_phpconf 5 none suphp 1 ;
     /scripts/phpextensionmgr IonCubeLoaders ;
     /scripts/phpextensionmgr PHPSuHosin ;
     /scripts/installzendopt
