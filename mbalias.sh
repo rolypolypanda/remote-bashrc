@@ -441,6 +441,22 @@ zzcmsdbinfo() {
     echo -e "Table Prefix: ${TBL_PREFIX}"
     echo -e "Connected: ${TESTCON}\n"
     ;;
+   --whmcs|-ws)
+    DB_VER="$(grep -w Version clients/upgrade.php | awk '{ print $3,$4,$5 }')"
+    WS_LIC="$(grep -w license clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_NAME="$(grep -w db_name clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_USER="$(grep -w db_username clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_PASS="$(grep -w db_password clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    TBL_PREFIX="None"
+    TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
+    echo -e "\nWHMCS ${DB_VER}"
+    echo "License: ${WS_LIC}"
+    echo "Database Name: ${DB_NAME}"
+    echo "Database User: ${DB_USER}"
+    echo "Database Password: ${DB_PASS}"
+    echo -e "Table Prefix: ${TBL_PREFIX}"
+    echo -e "Connected: ${TESTCON}\n"
+    ;;
    --help|-h)
     echo "Run this function in the directory of the CMS installation."
     echo "--wordpress -wp [ Extract DB information from a WordPress installation ]"
@@ -448,9 +464,10 @@ zzcmsdbinfo() {
     echo "--drupal -dr [ Extract DB information from a Drupal installation ]"
     echo "--littlefoot -lf [ Extract DB information from a Littlefoot installation ]"
     echo "--owncloud -oc [ Extract DB information from an Owncloud installation ]"
+    echo "--whmcs -ws [ Extract DB and License information from a WHMCS installation ]"
     ;;
   *)
-    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --owncloud / -oc | --help / -h ]"
+    echo "Usage: zzcmsdbinfo [ --wordpress / -wp | --joomla / -jm | --drupal / -dr | --littlefoot / -lf | --owncloud / -oc | --whmcs / -ws | --help / -h ]"
     ;;
   esac
 }
