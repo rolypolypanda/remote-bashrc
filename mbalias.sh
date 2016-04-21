@@ -61,7 +61,9 @@ zzphpini() {
         chown $(stat -c %U .): .htaccess ;
     fi
     echo -e "\nFor notes:\n"
+    if [[ -f $(pwd)/php.ini.bak ]]; then
     echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak}\`"
+    fi
     echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini php.ini\`"
     echo -e "- Added the following to \`$(pwd)/.htaccess\`"
     echo -e "\`\`\`"
