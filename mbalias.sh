@@ -133,14 +133,14 @@ zzmailperms() {
 }
 
 zzmemload() {
-    echo -e "- Current server load \`(w / sar -q 1 5):\`\n" ;
+    echo -e "- Current server load \`(w / sar -q 1 5):\`" ;
     echo "\`\`\`" ;
     CPUCOUNT=$(grep -c proc /proc/cpuinfo)
-    echo -e "CPU count: $CPUCOUNT\n"
+    echo -e "CPU count: $CPUCOUNT"
     w ;
     sar -q 1 5 ;
     echo "\`\`\`" ;
-    echo -e "\n- Free memory \`(free -m):\`\n" ;
+    echo -e "\n- Free memory \`(free -m):\`" ;
     echo "\`\`\`" ;
     free -m ;
     echo "Swappiness Value: $(cat /proc/sys/vm/swappiness)"
@@ -435,11 +435,16 @@ zzcmsdbinfo() {
     TBL_PREFIX="$(grep dbtableprefix config/config.php | awk '{ print $3 }' | tr -d "'" | tr -d ',')"
     TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
     echo -e "\nOwncloud: ${DB_VER}"
-    echo "Database Name: ${DB_NAME}"
-    echo "Database User: ${DB_USER}"
-    echo "Database Password: ${DB_PASS}"
-    echo -e "Table Prefix: ${TBL_PREFIX}"
-    echo -e "Connected: ${TESTCON}\n"
+    if [[ $(grep -c sqlite3 config/config.php) == 1 ]]; then
+        echo "Database Type: sqlite3"
+        echo -e "No additional configuration\n"
+    else
+        echo "Database Name: ${DB_NAME}"
+        echo "Database User: ${DB_USER}"
+        echo "Database Password: ${DB_PASS}"
+        echo -e "Table Prefix: ${TBL_PREFIX}"
+        echo -e "Connected: ${TESTCON}\n"
+    fi
     ;;
    --whmcs|-ws)
     DB_VER="$(grep -w Version clients/upgrade.php | awk '{ print $3,$4,$5 }')"
