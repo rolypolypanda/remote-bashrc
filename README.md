@@ -10,7 +10,7 @@ at your own risk.
 | `zzphpinfo` | creates a `phpinfo.php` file | accepts no arguments | yes |
 | `zzmemload` | shows number of `CPU` cores, `w` and `sar -q` over 5 seconds; displays free memory and swappiness value | accepts no arguments | yes |
 | `zzfixtmp` | sets `/tmp` permissions to `1777` and removes files older than `30` minutes | accepts no arguments | log |
-| `zzacctdom` | shows domain account, account owner, domain type and if reseller number of resold domains | supply `FQDN` | no |
+| `zzacctdom` | shows domain account name, account owner, domain type and if reseller number of resold domains | supply `FQDN` | no |
 | `zzacctpkg` | sets up HD working dir and packages a live cPanel account | enter cPanel account name and ticket ID number | yes and log |
 | `zzmkbackup` | searches for New and Legacy style backups, sets up HD working dir and compresses a backup | supply cPanel account, ticket ID number and type of backup | yes and log |
 | `zzversions` | shows CentOS version, kernel version, cPanel version, PHP version, MySQL version and NGINX version | accepts no arguments | yes |
