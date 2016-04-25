@@ -78,7 +78,7 @@ zzphphandler() {
 }
 
 zzexigrep() {
-    exigrep $1 /var/log/exim_mainlog 
+    exigrep $1 /var/log/exim_mainlog
 }
 
 zzexirmlfd() {
@@ -129,7 +129,7 @@ zzmailperms() {
         echo -e "\`[root@$(hostname):$(pwd) #] /scripts/mailperm --verbose ${ACT}\`"
         echo -e "\`**Additional Notes:**\n- Logs located in:\n\`/home/.hd/logs/$TID/mailperms0-$(date +%s).log\`"
         echo -e "\`/home/.hd/logs/$TID/mailperms2-$(date +%s).log\`\n"
-    fi        
+    fi
 }
 
 zzmemload() {
@@ -568,7 +568,7 @@ zzpiniset() {
             6)
                 echo "Exiting..."
             ;;
-            *) 
+            *)
                 echo "Invalid selection"
             ;;
 esac
@@ -595,7 +595,7 @@ zzdizboxsetup() {
         /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
     fi
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
-	do 
+	do
 	    sed -ri "s/198.49.72.[0-9]+/$(hostname -i)/g" $line
 	    echo "$line has been updated"
 	done
@@ -621,6 +621,7 @@ zzdizboxsetup() {
     /scripts/phpextensionmgr IonCubeLoaders ;
     /scripts/phpextensionmgr PHPSuHosin ;
     /scripts/installzendopt
+    /scripts/vps_optimizer --force ;
     echo -e "\nVPS SANDBOX CONFIGURED\n" ;
 }
 
@@ -634,10 +635,10 @@ zzcronscan() {
 
 zzrpmquery() {
     rpm -aq --queryformat '%{installtime} (%{installtime:date}) %{name}\n' | grep -i $1
-}    
+}
 
 zzeasybackup() {
-function backup { 
+function backup {
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     if [[ -f $PTH ]];then
@@ -649,7 +650,7 @@ function backup {
     cd $PTH ;
     cd ..
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
-    echo "/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz" > /root/cpmove.lst 
+    echo "/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz" > /root/cpmove.lst
     echo -e "\n\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
     echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
@@ -757,7 +758,7 @@ do
 		echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
 		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 		echo -e "- Removed current cPanel account:"
-		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;\`" 
+		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;\`"
 		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log\`" ;
 		echo -e "\n- Restored account from backup:"
 		echo -e "- Copied backup from \`${BKP}\` to \`/home:\`"
