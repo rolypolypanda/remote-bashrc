@@ -203,6 +203,7 @@ zzacctdom() {
         echo -e "IP Address: $(egrep -w ^$(egrep -w ^$1 /etc/trueuserdomains | cut -d':' -f1) /etc/userdatadomains | grep main | cut -d'=' -f11)" ;
     else
         echo -e "Reseller: No" ;
+        echo -e "Domain Type: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f5)"
         echo -e "Account Owner: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d':' -f2 | cut -d'=' -f1);do grep $i /etc/trueuserowners | cut -d':' -f2 | sed -e 's/^[ \t]*//';done)" ;
         echo -e "Account Name: $(egrep -w ^$1 /etc/userdatadomains | cut -d':' -f2 | cut -d'=' -f1 | sed -e 's/^[ \t]*//')" ;
         echo -e "Document Root: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)" ;
