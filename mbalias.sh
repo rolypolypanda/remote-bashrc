@@ -68,7 +68,7 @@ zzphpini() {
     if [[ ! -f $(pwd)/php.ini.bak-hd ]]; then
         echo -e "- Added the following to \`$(pwd)/.htaccess\`"
         echo -e "\`\`\`"
-        echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n<Files php.ini>\norder allow,deny\ndeny from all\n</Files>\n"
+        echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n<Files php.ini>\norder allow,deny\ndeny from all\n</Files>"
         echo -e "\`\`\`"
     fi
 }
