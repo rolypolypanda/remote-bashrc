@@ -204,7 +204,7 @@ zzacctdom() {
     else
         echo -e "Reseller: No" ;
         echo -e "Account Owner: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d':' -f2 | cut -d'=' -f1);do grep $i /etc/trueuserowners | cut -d':' -f2 | sed -e 's/^[ \t]*//';done)" ;
-        echo -e "Account Name: $(egrep -w ^$1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
+        echo -e "Account Name: $(egrep -w ^$1 /etc/userdatadomains | cut -d':' -f2 | cut -d'=' -f1 | sed -e 's/^[ \t]*//')" ;
         echo -e "Document Root: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)" ;
         echo -e "IP Address: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f11)" ;
     fi
