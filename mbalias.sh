@@ -22,7 +22,7 @@ else
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
     alias clera="clear" ;
     alias yes="no" ;
-    alias zztailapache="tail -f /etc/httpd/logs/error_log"
+    alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
 fi
 
