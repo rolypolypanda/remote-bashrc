@@ -5,7 +5,7 @@ at your own risk.
 
 | **command** | **description** | **usage** | **Note output** |
 | ------- | ----------- | ----- | --------- | --------------- |
-| `zzphpini` | creates a local `php.ini` | use by specifying `php` or `php53,54,etc` if using dual PHP | yes |
+| `zzphpini` | creates a local `php.ini` | use by specifying `php` or `php53,54,etc` if using multi PHP | yes |
 | `zzphphandler` | displays current and avaliable PHP handlers | accepts no arguments | no |
 | `zzphpinfo` | creates a `phpinfo.php` file | accepts no arguments | yes |
 | `zzmemload` | shows number of `CPU` cores, `w` and `sar -q` over 5 seconds; displays free memory and swappiness value | accepts no arguments | yes |
@@ -17,7 +17,7 @@ at your own risk.
 | `zzgetvimrc` | wgets my personal `.vimrc` file to `/root/vimrc` creates backup if one already exists | accepts no argments | no |
 | `zzsetdnsvps` | auto detects and configures nameserver service to avoid issues with misconfiguration | accepts no arguments | no |
 | `zzmysqltune` | downloads and executes the perl MySQL tuner script | specify tuner script, see --help for usage | no |
-| `zzmysqltuneup` | runs mysqlcheck repair and optimize on all databases | enter ticket ID number | yes and log |
+| `zzmysqltuneup` | runs `mysqlcheck` repair and optimize on all databases | enter ticket ID number | yes and log |
 | `zzapachetune` | downloads and executes the perl Apache tuner script | accepts no arguments | no |
 | `zzdiskuse` | shows disk and inode usage for all mounted partitions | accepts no arguments | yes |
 | `zztopmail` | shows top email accounts by usage | accepts no arguments | no |
@@ -29,8 +29,8 @@ at your own risk.
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
 | `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
 | `zzcpucheck` | shows cpu core temperatures, cpu type, current and maximum clock speeds | accepts no arguments | yes |
-| `zztailapache` | alias to tail -f main Apache log | pipe to standard Linux commands | no |
-| `zztailmysql` | alias to tail -f MySQL log | pipe to standard Linux commands | no |
+| `zztailapache` | alias to `tail -f` main Apache log with pipe to `grep` `67.23` | no | no |
+| `zztailmysql` | alias to `tail -f` MySQL log | pipe to standard Linux commands | no |
 | `zzmailperms` | corrects mail permissions on all cPanel accounts | no | no |
 | `zzdusort` | from Kevin B.s aliases - sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
 | `zzhomeperms` | executes codex fix homedir permissions script | supply cPanel account name and ticket ID number | yes and log |
