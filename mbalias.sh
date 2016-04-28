@@ -619,8 +619,8 @@ zzdizboxsetup() {
     pear channel-update pear.php.net
     pecl channel-update pecl.php.net
     /usr/local/cpanel/bin/rebuild_phpconf 5 none suphp 1 ;
-    /scripts/phpextensionmgr IonCubeLoaders ;
-    /scripts/phpextensionmgr PHPSuHosin ;
+    /scripts/phpextensionmgr install IonCubeLoader ;
+    /scripts/phpextensionmgr install PHPSuHosin ;
     /scripts/installzendopt
     /scripts/vps_optimizer --force ;
     echo -e "\nVPS SANDBOX CONFIGURED\n" ;
