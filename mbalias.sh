@@ -692,8 +692,11 @@ function restore {
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
 }
 function killact {
-mkdir -p /home/.hd/logs/$TID/$ACT ;
-/usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;
+  mkdir -p /home/.hd/logs/$TID/$ACT ;
+  /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;
+  echo -e "\n- Removed account:"
+  echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT\`"
+  echo -e "- Log located in: \`/home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log\`"
 }
 function all {
     echo -e "\nCreate Backup"
@@ -779,7 +782,7 @@ do
             echo "--all / -a     | Create a backup, package a live account, kill a live account and restore account from backup"
             ;;
                 *)
-            echo "Usage: [ --backup / -b | --package / -p | --restore / -r | --all / -a | --help /-h ]"
+            echo "Usage: [ --backup / -b | --package / -p | --restore / -r | --all / -a | --help / -h ]"
             ;;
     esac
 done
