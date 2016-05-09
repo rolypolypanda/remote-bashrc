@@ -198,7 +198,7 @@ zzfixtmp() {
     find /tmp -type f -mmin +30 -exec rm -vf {} \; | tee -a /home/.hd/logs/$TID/tmpremovedfiles-$(date +%s).log
     echo -e "\n- Cleared \`/tmp:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] find /tmp -type f -mmin +30 -exec rm -vf {} \;\`"
-    echo -e "\n- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles-$(date +%s).log\`\n"
+    echo -e "- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles-$(date +%s).log\`\n"
 }
 
 zzacctdom() {
