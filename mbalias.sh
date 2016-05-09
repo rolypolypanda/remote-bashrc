@@ -13,10 +13,18 @@ else
     unset CPMOVE
     unset PTH
     unset BKP
+    unalias cp
+    unalias mv
+    unalias rm
+    unalias ll
+    unalias grep
+    unalias vim
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
     alias vim="vim -u /root/vimrc" ;
+    alias mv="mv -v" ;
+    alias cp="cp -v"
     alias rm="rm -v" ;
     alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog" ;
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
@@ -55,7 +63,7 @@ zzphpini() {
     if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
     else
-        mv .htaccess{,.bak-hd}
+        \mv .htaccess{,.bak-hd}
         echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n<Files php.ini>\norder allow,deny\ndeny from all\n</Files>\n" >> .htaccess ;
         cat .htaccess.bak-hd >> .htaccess
         chown $(stat -c %U .): .htaccess ;
