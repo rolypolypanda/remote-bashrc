@@ -52,7 +52,7 @@ zzcommands() {
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
-    echo -e "zzexirmlfd\nzzinstallnginx\nzzinitnginxvhosts\nzzapachestatus\n"
+    echo -e "zzexirmlfd\nzzinstallnginx\nzzinitnginxvhosts\nzzapachestatus\nzzinstallcpanel\n"
 }
 
 zzphpini() {
