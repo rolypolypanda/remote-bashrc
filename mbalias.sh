@@ -52,7 +52,7 @@ zzcommands() {
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
-    echo -e "zzexirmlfd\n"
+    echo -e "zzexirmlfd\nzzinstallnginx\nzzinitnginxvhosts\n"
 }
 
 zzphpini() {
@@ -827,9 +827,9 @@ zzinitnginxvhosts() {
   \mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original ;
   /scripts/createvhosts.py ;
   /scripts/rebuildvhosts ;
+  /scripts/restartsrv_httpd --restart ;
   service nginx stop ;
   service nginx start ;
-  /scripts/restartsrv_httpd --restart ;
 }
 
 zzinstallnginx() {
@@ -839,5 +839,7 @@ zzinstallnginx() {
   tar xf nginxadmin.tar ;
   cd publicnginx ;
   ./nginxinstaller install ;
-  /scripts/restartsrv_httpd --restart
+  /scripts/restartsrv_httpd --restart ;
+  service nginx stop ;
+  service nginx start ;
 }
