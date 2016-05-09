@@ -843,3 +843,7 @@ zzinstallnginx() {
   service nginx stop ;
   service nginx start ;
 }
+
+zzapachestatus() {
+  lynx --dump http://localhost:$1/whm-server-status
+}
