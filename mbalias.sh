@@ -839,4 +839,5 @@ zzinstallnginx() {
   tar xf nginxadmin.tar ;
   cd publicnginx ;
   ./nginxinstaller install ;
+  /scripts/restartsrv_httpd --restart
 }
