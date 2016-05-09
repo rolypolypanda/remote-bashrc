@@ -52,7 +52,7 @@ zzcommands() {
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
-    echo -e "zzexirmlfd\nzzinstallnginx\nzzinitnginxvhosts\n"
+    echo -e "zzexirmlfd\nzzinstallnginx\nzzinitnginxvhosts\nzzapachestatus\n"
 }
 
 zzphpini() {
@@ -846,5 +846,5 @@ zzinstallnginx() {
 
 zzapachestatus() {
   PORT="$(netstat -pltuna | grep httpd | uniq | head -n 1 | awk '{ print $4 }' | cut -d':' -f2)"
-  lynx --dump http://localhost:${PORT}/whm-server-status
+  lynx --dump http://localhost:$PORT/whm-server-status
 }
