@@ -864,6 +864,7 @@ zzinstallcpanel() {
     if [[ -d /usr/local/cpanel ]]; then
         echo "cPanel is already installed."
     else
+        setenforce 0
         cd /home ;
         curl -o latest -L https://securedownloads.cpanel.net/latest ;
         chmod +x latest ;
