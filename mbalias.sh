@@ -824,26 +824,45 @@ zzchkrpms() {
 zzinitnginxvhosts() {
   read -p "Enter ticket ID number: " TID
   mkdir -p /home/.hd/ticket/$TID/original ;
-  \mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original ;
-  /scripts/createvhosts.py ;
+  mkdir -p /home/.hd/logs/$TID ;
+  \mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/move-vhosts-$(date +%s).log ;
   /scripts/rebuildvhosts ;
-  /scripts/restartsrv_httpd --restart ;
   service nginx stop ;
   service nginx start ;
+  echo -e "\n**For Notes:**"
+  echo -e "\n- Backed up existing Nginx vhosts:"
+  echo -e "\`[root@$(hostname):$(pwd) #] mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original\`"
+  echo -e "- Rebuilt vhosts:"
+  echo -e "\`[root@$(hostname):$(pwd) #] /scripts/rebuildvhosts\`"
+  echo -e "- Restarted Nginx:"
+  echo -e "\`[root@$(hostname):$(pwd) #] service nginx stop\`"
+  echo -e "\`[root@$(hostname):$(pwd) #] service nginx start\`\n"
 }
 
 zzinstallnginx() {
-  mkdir -p /usr/local/src ;
-  cd /usr/local/src ;
-  wget http://nginxcp.com/latest/nginxadmin.tar ;
-  tar xf nginxadmin.tar ;
-  cd publicnginx ;
-  ./nginxinstaller install ;
-  /scripts/restartsrv_httpd --restart ;
-  service nginx stop ;
-  service nginx start ;
+    # to be replaced with Codex Nginx installation script
+    if [[ -d /etc/nginx ]]; then
+        echo "NginxCP is already installed."
+    else
+        mkdir -p /usr/local/src ;
+        cd /usr/local/src ;
+        wget http://nginxcp.com/latest/nginxadmin.tar ;
+        tar xf nginxadmin.tar ;
+        cd publicnginx ;
+        ./nginxinstaller install ;
+        /scripts/restartsrv_httpd --restart ;
+        service nginx stop ;
+        service nginx start ;
+    fi
 }
 
 zzapachestatus() {
   lynx --dump http://localhost:$(netstat -pltuna | grep httpd | uniq | head -n 1 | awk '{ print $4 }' | cut -d':' -f2)/whm-server-status
+}
+
+zzinstallcpanel() {
+    cd /home ;
+    curl -o latest -L https://securedownloads.cpanel.net/latest ;
+    chmod +x latest ;
+    sh latest ;
 }
