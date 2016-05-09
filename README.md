@@ -49,4 +49,4 @@ at your own risk.
 | `zzexigrep` | use `exigrep` without specifying the log path | supply email address | no |
 | `zzexirmlfd` | removes queued/frozen `lfd` emails | no | no |
 | `zzinstallnginx` | Installs NginxCP | no | no |
-| `zzinitnginxvhosts` | Removes `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Apache` | no | no |
+| `zzinitnginxvhosts` | Removes `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Apache & Nginx` | no | no |
