@@ -861,8 +861,17 @@ zzapachestatus() {
 }
 
 zzinstallcpanel() {
-    cd /home ;
-    curl -o latest -L https://securedownloads.cpanel.net/latest ;
-    chmod +x latest ;
-    sh latest ;
+    if [[ -d /usr/local/cpanel ]]; then
+        echo "cPanel is already installed."
+    else
+        cd /home ;
+        curl -o latest -L https://securedownloads.cpanel.net/latest ;
+        chmod +x latest ;
+        sh latest ;
+        echo -e "\n**For Notes**"
+        echo -e "\n- Installed cPanel:"
+        echo -e "\`[root@$(hostname):$(pwd) #] curl -o latest -L https://securedownloads.cpanel.net/latest\`"
+        echo -e "\`[root@$(hostname):$(pwd) #] chmod +x latest\`"
+        echo -e "\`[root@$(hostname):$(pwd) #] sh latest\`"
+    fi
 }

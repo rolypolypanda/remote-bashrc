@@ -49,5 +49,6 @@ at your own risk.
 | `zzexigrep` | use `exigrep` without specifying the log path | supply email address | no |
 | `zzexirmlfd` | removes queued/frozen `lfd` emails | no | no |
 | `zzinstallnginx` | Installs NginxCP | no | no |
-| `zzinitnginxvhosts` | Removes `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Apache & Nginx` | no | no |
+| `zzinitnginxvhosts` | Backs up `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Nginx` | no | yes and log |
 | `zzapachestatus` | Invoke `lynx --dump` and grab Apache port from `netstat` | no | no |
+| `zzinstallcpanel` | Installs cPanel | no | yes |
