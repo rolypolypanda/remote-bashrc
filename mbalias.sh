@@ -812,3 +812,31 @@ zzopenvzdu() {
 zzchkdrivehealth() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/CheckDriveHealth)
 }
+
+zzupcpf() {
+  /scripts/upcp --force
+}
+
+zzchkrpms() {
+  /scripts/check_cpanel_rpms --fix
+}
+
+zzinitnginxvhosts() {
+  read -p "Enter ticket ID number: " TID
+  mkdir -p /home/.hd/ticket/$TID/original ;
+  \mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original ;
+  /scripts/createvhosts.py ;
+  /scripts/rebuildvhosts ;
+  service nginx stop ;
+  service nginx start ;
+  /scripts/restartsrv_httpd --restart ;
+}
+
+zzinstallnginx() {
+  mkdir -p /usr/local/src ;
+  cd /usr/local/src ;
+  wget http://nginxcp.com/latest/nginxadmin.tar ;
+  tar xf nginxadmin.tar ;
+  cd publicnginx ;
+  ./nginxinstaller install ;
+}
