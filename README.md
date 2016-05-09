@@ -50,3 +50,4 @@ at your own risk.
 | `zzexirmlfd` | removes queued/frozen `lfd` emails | no | no |
 | `zzinstallnginx` | Installs NginxCP | no | no |
 | `zzinitnginxvhosts` | Removes `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Apache & Nginx` | no | no |
+| `zzapachestatus` | Invoke `lynx --dump` and grab Apache port from `netstat` | no | no |
