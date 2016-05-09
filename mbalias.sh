@@ -845,5 +845,6 @@ zzinstallnginx() {
 }
 
 zzapachestatus() {
-  lynx --dump http://localhost:$1/whm-server-status
+  PORT="$(netstat -pltuna | grep httpd | uniq | head -n 1 | awk '{ print $4 }' | cut -d':' -f2)"
+  lynx --dump http://localhost:${PORT}/whm-server-status
 }
