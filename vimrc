@@ -1,0 +1,21 @@
+filetype plugin indent on
+colorscheme evening
+set nocompatible
+syntax enable
+set encoding=utf-8
+set shell=/bin/bash
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set showmode
+set autoindent
+set number
+set showmatch
+set lazyredraw
+set incsearch
+set hlsearch
+set ruler
+set so=7
+set smartcase
+set mat=2

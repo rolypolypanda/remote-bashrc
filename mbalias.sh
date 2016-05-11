@@ -50,7 +50,7 @@ zzcommands() {
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
-    echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzinstallcpanel\nzzsoftaculousinstall\nzzsoftaculousremove\n"
+    echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove\n"
 }
 
 zzphpini() {
@@ -864,7 +864,7 @@ zzapachestatus() {
   lynx --dump http://localhost:$(netstat -pltuna | grep httpd | uniq | head -n 1 | awk '{ print $4 }' | cut -d':' -f2)/whm-server-status
 }
 
-zzinstallcpanel() {
+zzcpanelinstall() {
     if [[ -d /usr/local/cpanel ]]; then
         echo "cPanel is already installed."
     else
@@ -882,7 +882,17 @@ zzinstallcpanel() {
 }
 
 zzsoftaculousinstall() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsoftaculous) ;
+    if [[ $(grep -c ioncube /var/cpanel/cpanel.config) == 1 ]]; then
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsoftaculous) ;
+    else
+        CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)" 
+        sed -i "s/phploader=$CURLOAD/phploader=ioncube,$CURLOAD/" /var/cpanel/cpanel.config ;
+        /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings ;
+        /usr/local/cpanel/bin/checkphpini ;
+        sleep 5 ;
+        /usr/local/cpanel/bin/install_php_inis ;
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsoftaculous) ;
+    fi
     echo -e "\n- Installed Softaculous via [codex script](https://codex.dimenoc.com/scripts/download/installsoftaculous)."
 }
 
