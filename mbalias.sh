@@ -837,7 +837,7 @@ zzinitnginxvhosts() {
   echo -e "\`[root@$(hostname):$(pwd) #] service nginx start\`\n"
 }
 
-zzinstallnginx() {
+zznginxinstall() {
     if [[ -d /etc/nginx ]]; then
         echo "NginxCP is already installed."
     else
@@ -847,6 +847,16 @@ zzinstallnginx() {
         echo -e "\n- Installed NginxCP:"
         echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /usr/local/src\`"
         echo -e "- Installed via [codex script](https://codex.dimenoc.com/scripts/download/installnginxcp).\n"
+    fi
+}
+
+zznginxremove() {
+    if [[ -d /etc/nginx ]]; then
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/uninstallnginxcp) ;
+        echo -e "\n**For Notes**"
+        echo -e "- Uninstalled NginxCP via [codex script](https://codex.dimenoc.com/scripts/download/uninstallnginxcp)."
+    else
+        echo -e "NginxCP is not installed."
     fi
 }
 
