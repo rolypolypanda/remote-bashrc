@@ -838,19 +838,15 @@ zzinitnginxvhosts() {
 }
 
 zzinstallnginx() {
-    # to be replaced with Codex Nginx installation script
     if [[ -d /etc/nginx ]]; then
         echo "NginxCP is already installed."
     else
         mkdir -p /usr/local/src ;
-        cd /usr/local/src ;
-        wget http://nginxcp.com/latest/nginxadmin.tar ;
-        tar xf nginxadmin.tar ;
-        cd publicnginx ;
-        ./nginxinstaller install ;
-        /scripts/restartsrv_httpd --restart ;
-        service nginx stop ;
-        service nginx start ;
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installnginxcp) ;
+        echo -e "\n**For Notes**"
+        echo -e "\n- Installed NginxCP:"
+        echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /usr/local/src\`"
+        echo -e "Installed via [codex script](https://codex.dimenoc.com/scripts/download/installnginxcp)."
     fi
 }
 
