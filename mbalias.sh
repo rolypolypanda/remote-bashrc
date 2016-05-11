@@ -846,7 +846,7 @@ zzinstallnginx() {
         echo -e "\n**For Notes**"
         echo -e "\n- Installed NginxCP:"
         echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /usr/local/src\`"
-        echo -e "Installed via [codex script](https://codex.dimenoc.com/scripts/download/installnginxcp)."
+        echo -e "- Installed via [codex script](https://codex.dimenoc.com/scripts/download/installnginxcp).\n"
     fi
 }
 
