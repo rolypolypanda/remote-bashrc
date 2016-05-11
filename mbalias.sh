@@ -880,3 +880,13 @@ zzinstallcpanel() {
         echo -e "\`[root@$(hostname):$(pwd) #] sh latest\`"
     fi
 }
+
+zzsoftaculousinstall() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsoftaculous) ;
+    echo -e "\n- Installed Softaculous via [codex script](https://codex.dimenoc.com/scripts/download/installsoftaculous)."
+}
+
+zzsoftaculousremove() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous) ;
+    echo -e "\n- Uninstalled Softaculous via [codex script](curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous)."
+}
