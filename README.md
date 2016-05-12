@@ -18,7 +18,7 @@ at your own risk.
 | `zzsetdnsvps` | auto detects and configures nameserver service to avoid issues with misconfiguration | accepts no arguments | no |
 | `zzmysqltune` | downloads and executes the perl MySQL tuner script | specify tuner script, see --help for usage | no |
 | `zzmysqltuneup` | runs `mysqlcheck` repair and optimize on all databases | enter ticket ID number | yes and log |
-| `zzapachetune` | downloads and executes the perl Apache tuner script | accepts no arguments | no |
+| `zzapachetune` | executes Spencers Apache evaluation script | accepts no arguments | no |
 | `zzdiskuse` | shows disk and inode usage for all mounted partitions | accepts no arguments | yes |
 | `zztopmail` | shows top email accounts by usage | accepts no arguments | no |
 | `zzeximstats` | shows eximstats | accepts no arguments | no |
