@@ -51,7 +51,8 @@ zzcommands() {
     echo -e "zzsetnsdvps\nzzmysqltune\nzzapachetune\nzzmysqltuneup\nzzdiskuse\nzzquicknotes\nzzeximstats\nzztopmail\nzzcmsdbinfo\nzzaxonparse"
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
-    echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove\n"
+    echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
+    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\n"
 }
 
 zzphpini() {
@@ -902,4 +903,24 @@ zzsoftaculousinstall() {
 zzsoftaculousremove() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous) ;
     echo -e "\n- Uninstalled Softaculous via [codex script](curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous)."
+}
+
+zzwhmxtrainstall() {
+    if [[ $(grep -c ioncube /var/cpanel/cpanel.config) == 1 ]]; then
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;    
+    else
+       CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)"
+       sed -i "s/phploader=$CURLOAD/phploader=ioncube,$CURLOAD/" /var/cpanel/cpanel.config ;
+       /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings ;
+       /usr/local/cpanel/bin/checkphpini ;
+       sleep 5 ;
+       /usr/local/cpanel/bin/install_php_inis ;
+       bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;
+    fi
+       echo -e "\n- Installed \`WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/installwhmxtra)."
+}
+
+zzwhmxtraremove() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/na) ;
+    echo -e "\n- \`Removed WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/na)."
 }

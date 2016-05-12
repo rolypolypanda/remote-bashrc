@@ -55,3 +55,5 @@ at your own risk.
 | `zzinstallcpanel` | Installs `cPanel` | no | yes |
 | `zzsoftaculousinstall` | Installs `Softaculous` | no | yes |
 | `zzsoftaculousremove` | Uninstalls `Softaculous` | no | yes |
+| `zzwhmxtrainstall` | Installs `Xtra Ultimate` | no | yes |
+| `zzwhmxtraremove` | Removes `Xtra Ultimate ` | no | yes |
