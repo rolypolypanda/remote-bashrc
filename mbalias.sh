@@ -897,30 +897,32 @@ zzsoftaculousinstall() {
         /usr/local/cpanel/bin/install_php_inis ;
         bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsoftaculous) ;
     fi
-    echo -e "\n- Installed Softaculous via [codex script](https://codex.dimenoc.com/scripts/download/installsoftaculous)."
+    echo -e "\n- Enabled cPanel \`IonCube\` Loader."
+    echo -e "- Installed Softaculous via [codex script](https://codex.dimenoc.com/scripts/download/installsoftaculous).\n"
 }
 
 zzsoftaculousremove() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous) ;
-    echo -e "\n- Uninstalled Softaculous via [codex script](curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous)."
+    echo -e "\n- Uninstalled Softaculous via [codex script](curl -ks https://codex.dimenoc.com/scripts/download/removesoftaculous).\n"
 }
 
 zzwhmxtrainstall() {
     if [[ $(grep -c ioncube /var/cpanel/cpanel.config) == 1 ]]; then
         bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;    
     else
-       CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)"
-       sed -i "s/phploader=$CURLOAD/phploader=ioncube,$CURLOAD/" /var/cpanel/cpanel.config ;
-       /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings ;
-       /usr/local/cpanel/bin/checkphpini ;
-       sleep 5 ;
-       /usr/local/cpanel/bin/install_php_inis ;
-       bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;
+        CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)"
+        sed -i "s/phploader=$CURLOAD/phploader=ioncube,$CURLOAD/" /var/cpanel/cpanel.config ;
+        /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings ;
+        /usr/local/cpanel/bin/checkphpini ;
+        sleep 5 ;
+        /usr/local/cpanel/bin/install_php_inis ;
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;
     fi
-       echo -e "\n- Installed \`WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/installwhmxtra)."
+        echo -e "\n- Enabled cPanel \`IonCube\` Loader."
+        echo -e "- Installed \`WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/installwhmxtra).\n"
 }
 
 zzwhmxtraremove() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/na) ;
-    echo -e "\n- \`Removed WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/na)."
+    echo -e "\n- \`Removed WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/na).\n"
 }
