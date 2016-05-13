@@ -57,3 +57,4 @@ at your own risk.
 | `zzsoftaculousremove` | Uninstalls `Softaculous` | no | yes |
 | `zzwhmxtrainstall` | Installs `Xtra Ultimate` | no | yes |
 | `zzwhmxtraremove` | Removes `Xtra Ultimate ` | no | yes |
+| `zzsiteresponse` | Codex script, checks domain resolution | no | no |
