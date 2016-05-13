@@ -89,6 +89,13 @@ zzexigrep() {
     exigrep $1 /var/log/exim_mainlog
 }
 
+zzdomcnt() {
+    DPRIM="$(wc -l /etc/trueuserdomains | awk '{ print $1 }')"
+    DALL="$(wc -l /etc/userdatadomains | awk '{ print $1 }')"
+    echo -e "\nMain Domains: ${DPRIM}"
+    echo -e "Total Domains: ${DALL}\n"
+}
+
 zzexirmlfd() {
     grep -lr 'lfd on' /var/spool/exim/input | sed -e 's/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g' | xargs exim -Mrm
 }
@@ -105,7 +112,7 @@ zzphpinfo() {
 zzhomeperms() {
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
-    mkdir -p /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
+    mkdir -p /home/.hd/logs/$TID/$ACT/ ;
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixhome) $ACT | tee -a /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
     echo -e "\n- Reset homedir permissions using the following [codex script](https://codex.dimenoc.com/scripts/download/fixhome)."
     echo -e "- Log located in \`/home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log\`"
