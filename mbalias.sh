@@ -30,7 +30,7 @@ else
     alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
-    cddr() { domain=$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g'); cd `awk -F"==" -v search="^$domain:" '$0 ~ search {print $5}' /etc/userdatadomains`; }
+    zzcddr() { domain=$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g'); cd `awk -F"==" -v search="^$domain:" '$0 ~ search {print $5}' /etc/userdatadomains`; }
 fi
 
 # Begin functions.
