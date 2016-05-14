@@ -30,7 +30,7 @@ else
     alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
-    zzcddr() { domain=$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g'); cd `awk -F"==" -v search="^$domain:" '$0 ~ search {print $5}' /etc/userdatadomains`; }
+    zzcddr() { domain=$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g'); cd $(awk -F"==" -v search="^$domain:" '$0 ~ search {print $5}' /etc/userdatadomains); }
 fi
 
 # Begin functions.
@@ -939,4 +939,24 @@ zzwhmxtraremove() {
 
 zzsiteresponse() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/sitetest) ;
+}
+
+# Beta - only tested in sizzzzand box
+zzssp() {
+    HDSCRIPTDIR="/home/.hd/scripts/michaelb"
+    mkdir -p ${HDSCRIPTDIR} ;
+    if [[ -f /usr/bin/git ]];then
+        cd ${HDSCRIPTDIR}
+        git clone https://github.com/cPanelSSP/SSP.git ;
+        cd SSP ;
+        chmod +x run ;
+        bash run ;
+    else
+        yum install -y git ;
+        cd ${HDSCRIPTDIR} ;
+        git clone https://github.com/cPanelSSP/SSP.git ;
+        cd SSP ;
+        chmod +x run ;
+        bash run ;
+    fi
 }
