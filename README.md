@@ -58,3 +58,5 @@ at your own risk.
 | `zzwhmxtrainstall` | Installs `Xtra Ultimate` | no | yes |
 | `zzwhmxtraremove` | Removes `Xtra Ultimate ` | no | yes |
 | `zzsiteresponse` | Codex script, checks domain resolution | no | no |
+| `zzcddr` | `cd` to the `DocRoot` of a domain | supply `FQDN` | no |
+| `zzssp` | `git clone` and execution of cPanels `System Status Probe` | no | no |
