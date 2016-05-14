@@ -60,3 +60,4 @@ at your own risk.
 | `zzsiteresponse` | Codex script, checks domain resolution | no | no |
 | `zzcddr` | `cd` to the `DocRoot` of a domain | supply `FQDN` | no |
 | `zzssp` | `git clone` and execution of cPanels `System Status Probe` | no | no |
+| `zzchk500` | Adam B.s `500` error checking script | no | no |

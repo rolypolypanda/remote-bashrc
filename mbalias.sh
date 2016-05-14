@@ -967,3 +967,7 @@ zzssp() {
         bash run ;
     fi
 }
+
+zzchk500() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/Internalservererror) ;
+}
