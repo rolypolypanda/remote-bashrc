@@ -211,7 +211,7 @@ zzfixtmp() {
 zzacctdom() {
     if [[ $(egrep -w ^$1  /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//' | while read list;do grep -cw $list /var/cpanel/resellers;done | cut -d':' -f1) == 1 ]];then
         echo -e "Reseller: Yes" ;
-        echo -e "SSL Installed: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f7);do egrep -w ^$i /etc/ssldomains&> /dev/null && echo "Yes" || echo "No";done)"
+        echo -e "SSL Installed: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f7);do egrep -w ^$i /etc/ssldomains&> /dev/null && echo "Yes" || echo "No";done)" ;
         echo -e "Resold Accounts: $(for i in $(egrep -w ^$1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//');do grep $i /etc/trueuserowners | cut -d':' -f1 | grep -v $i | wc -l;done)" ;
         echo -e "Account Owner: $(for i in $(egrep -w ^$1 /etc/trueuserdomains | cut -d':' -f1);do egrep -w ^$i /etc/userdatadomains | grep main | cut -d'=' -f3;done)" ;
         echo -e "Account Name: $(grep -w ^$1 /etc/trueuserdomains | cut -d':' -f2 | sed -e 's/^[ \t]*//')" ;
@@ -219,7 +219,7 @@ zzacctdom() {
         echo -e "IP Address: $(egrep -w ^$(egrep -w ^$1 /etc/trueuserdomains | cut -d':' -f1) /etc/userdatadomains | grep main | cut -d'=' -f11)" ;
     else
         echo -e "Reseller: No" ;
-        echo -e "SSL Installed: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f7);do egrep -w ^$i /etc/ssldomains&> /dev/null && echo "Yes" || echo "No";done    )"
+        echo -e "SSL Installed: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f7);do egrep -w ^$i /etc/ssldomains&> /dev/null && echo "Yes" || echo "No";done)" ;
         echo -e "Domain Type: $(grep -w ^$1 /etc/userdatadomains | cut -d'=' -f5)"
         echo -e "Account Owner: $(for i in $(egrep -w ^$1 /etc/userdatadomains | cut -d':' -f2 | cut -d'=' -f1);do grep $i /etc/trueuserowners | cut -d':' -f2 | sed -e 's/^[ \t]*//';done)" ;
         echo -e "Account Name: $(egrep -w ^$1 /etc/userdatadomains | cut -d':' -f2 | cut -d'=' -f1 | sed -e 's/^[ \t]*//')" ;
