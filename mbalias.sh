@@ -39,7 +39,8 @@ zzgetvimrc() {
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
         mv -f /root/vimrc{,.bak}
 fi
-    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/vimrc && mv vimrc /root/vimrc ;
+    wget --no-check-certificate https://codesilo.dimenoc.com/michaelb/remote-bashrc/raw/master/rcfiles/vimrc ;
+    mv vimrc /root/vimrc ;
 }
 
 # Call zzgetvimrc function.
