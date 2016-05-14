@@ -30,7 +30,6 @@ else
     alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23"
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
-    zzcddr() { domain=$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g'); cd $(awk -F"==" -v search="^$domain:" '$0 ~ search {print $5}' /etc/userdatadomains); }
 fi
 
 # Begin functions.
@@ -53,7 +52,7 @@ zzcommands() {
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
-    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\n"
+    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\n"
 }
 
 zzphpini() {
@@ -84,6 +83,11 @@ zzphpini() {
 
 zzphphandler() {
     /usr/local/cpanel/bin/rebuild_phpconf --current
+}
+
+zzcddr() {
+    DOMAIN="$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g')" ;
+    cd $(awk -F"==" -v SEARCH="^${DOMAIN}:" '$0 ~ search { print $5 }' /etc/userdatadomains) ;
 }
 
 zzexigrep() {
