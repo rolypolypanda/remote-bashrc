@@ -533,6 +533,8 @@ zzquicknotes() {
     echo -e "\n## -- Display current theme / Change current theme -- ##"
     echo -e "SELECT * FROM wp_options WHERE option_name='template' OR option_name='stylesheet';"
     echo -e "UPDATE wp_options SET option_value='' WHERE option_name='template' OR option_name='stylesheet' LIMIT 2;\n"
+    echo -e "## -- Table Engine Conversion (example) -- ##"
+    echo -e " for i in $(mysql -Nse "SELECT CONCAT(TABLE_SCHEMA, '.', TABLE_NAME) FROM information_schema.TABLES WHERE ENGINE = 'MyISAM' ;") ; do mysql -e "ALTER TABLE $i ENGINE = Aria ;" ; done"
 }
 
 zzpiniset() {
