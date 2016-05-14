@@ -52,7 +52,7 @@ zzcommands() {
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
-    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\n"
+    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\n"
 }
 
 zzphpini() {
@@ -950,7 +950,8 @@ zzsiteresponse() {
 
 # Beta - only tested in sizzzzand box
 zzssp() {
-    HDSCRIPTDIR="/home/.hd/scripts/michaelb"
+    CURDIR="$(pwd)"
+    HDSCRIPTDIR="/home/.hd/techs/scripts/michaelb"
     mkdir -p ${HDSCRIPTDIR} ;
     if [[ -f /usr/bin/git ]];then
         cd ${HDSCRIPTDIR}
@@ -966,8 +967,41 @@ zzssp() {
         chmod +x run ;
         bash run ;
     fi
+    cd ${CURDIR} ;
 }
 
 zzchk500() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/Internalservererror) ;
+}
+
+zzchangehandler() {
+    # suphp+suexec
+    # dso+modruid
+    # fcgi+suexec
+    echo -e "\nHandler Selections"
+    echo -e "1. PHP 5 SAPI: suPHP w/ SUEXEC"
+    echo -e "2. PHP 5 SAPI: DSO w/ mod_ruid2"
+    echo -e "3. PHP 5 SAPI: DSO w/o mod_ruid2"
+    echo -e "4. PHP 5 SAPI: fcgi w/ SUEXEC"
+    read -p "Select Handler [ 1 2 3 ]: " HAND
+
+    if [[ $HAND == 1 ]]; then
+       echo "You have selected suPHP w/ SUEXEC"
+       /usr/local/cpanel/bin/rebuild_phpconf 5 none suphp 1 ;
+    elif
+        [[ $HAND == 2 ]]; then
+        echo "You have selected DSO w/ mod_ruid2"
+        /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 1 ;
+    elif
+        [[ $HAND == 3 ]]; then
+        echo "You have selected DSO w/o mod_ruid2"
+        /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 0 ;
+    else
+        echo "You have selected FCGI w/ SUEXEC"
+        if [[ $(httpd -M | grep -c fcgi) == 1 ]];then
+            /usr/local/cpanel/bin/rebuild_phpconf 5 none fcgi 1 ;
+        else
+            echo "Apache was not built with FCGI support, rebuild Apache to support this handler"
+        fi
+    fi
 }
