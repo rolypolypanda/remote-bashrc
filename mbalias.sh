@@ -20,7 +20,7 @@ else
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
-    alias vim="vim -u /root/vimrc" ;
+    alias vim="vim -u /home/.hd/user/michaelb/scripts/vimrc" ;
     alias mv="mv -v" ;
     alias cp="cp -v"
     alias rm="rm -v" ;
@@ -34,12 +34,15 @@ fi
 
 # Begin functions.
 zzgetvimrc() {
-    if [[ -f /root/vimrc ]]; then
+    CURDIR="$(pwd)"
+    mkdir -p /home/.hd/user/michaelb/{notes,scripts}
+    if [[ -f /home/.hd/user/michaelb/scripts/vimrc ]]; then
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
-        mv -f /root/vimrc{,.bak}
-fi
+        mv -f /home/.hd/user/michaelb/scripts/vimrc{,.bak}
+    fi
+    cd /home/.hd/user/michaelb/scripts ;
     wget --no-check-certificate https://codesilo.dimenoc.com/michaelb/remote-bashrc/raw/master/rcfiles/vimrc ;
-    mv vimrc /root/vimrc ;
+    cd ${CURDIR} ;
 }
 
 # Call zzgetvimrc function.
@@ -833,11 +836,11 @@ zzchkdrivehealth() {
 }
 
 zzupcpf() {
-  /scripts/upcp --force
+  /scripts/upcp --force ;
 }
 
 zzchkrpms() {
-  /scripts/check_cpanel_rpms --fix
+  /scripts/check_cpanel_rpms --fix ;
 }
 
 zzinitnginxvhosts() {
