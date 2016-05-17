@@ -89,8 +89,8 @@ zzphphandler() {
 }
 
 zzcddr() {
-    DOMAIN="$(echo $1 | sed 's@^https?://(www\.)?@@g;s@/.*@@g')" ;
-    cd $(awk -F"==" -v SEARCH="^${DOMAIN}:" '$0 ~ search { print $5 }' /etc/userdatadomains) ;
+    GETDIR="$(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)"
+    cd ${GETDIR} ;
 }
 
 zzexigrep() {
