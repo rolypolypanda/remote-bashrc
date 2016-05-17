@@ -163,7 +163,7 @@ zzmemload() {
     w ;
     sar -q 1 5 ;
     echo "\`\`\`" ;
-    echo -e "\n- Free memory \`(free -m):\`" ;
+    echo -e "- Free memory \`(free -m):\`" ;
     echo "\`\`\`" ;
     free -m ;
     echo "Swappiness Value: $(cat /proc/sys/vm/swappiness)"
