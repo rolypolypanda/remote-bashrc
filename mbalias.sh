@@ -981,6 +981,9 @@ zzchangehandler() {
     # suphp+suexec
     # dso+modruid
     # fcgi+suexec
+    if [[ -d /opt/cpanel/ea-php54 ]]; then
+        echo -e "\nEasyApache 4 is not supported"
+    else
     echo -e "\nHandler Selections"
     echo -e "1. PHP 5 SAPI: suPHP w/ SUEXEC"
     echo -e "2. PHP 5 SAPI: DSO w/ mod_ruid2"
@@ -1007,4 +1010,5 @@ zzchangehandler() {
             echo "Apache was not built with FCGI support, rebuild Apache to support this handler"
         fi
     fi
+fi
 }
