@@ -951,7 +951,6 @@ zzsiteresponse() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/sitetest) ;
 }
 
-# Beta - only tested in sizzzzand box
 zzssp() {
     CURDIR="$(pwd)"
     HDSCRIPTDIR="/home/.hd/techs/scripts/michaelb"
@@ -978,9 +977,6 @@ zzchk500() {
 }
 
 zzchangehandler() {
-    # suphp+suexec
-    # dso+modruid
-    # fcgi+suexec
     if [[ -d /opt/cpanel/ea-php54 ]]; then
         echo -e "\nEasyApache 4 is not supported"
     else
