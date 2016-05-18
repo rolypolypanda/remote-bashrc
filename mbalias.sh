@@ -349,8 +349,8 @@ zzmysqltuneup() {
     wall -n "MySQL table repair and optimize complete." ;
     wall -n "\`[root@$(hostname):$(pwd) #] mysqlcheck -rA\`"
     wall -n "\`[root@$(hostname):$(pwd) #] mysqlcheck -oA\`"
-    wall -n "\- \Log located in \`/home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log\`" ;
-    wall -n "\- \Log located in \`/home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log\`" ;
+    wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log\`" ;
+    wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log\`" ;
 }
 
 zzapachetune() {
