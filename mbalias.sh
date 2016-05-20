@@ -992,7 +992,7 @@ zzchangehandler() {
     read -p "Select Handler [ 1 2 3 4 ]: " HAND
 
     if [[ $HAND == 1 ]]; then
-       echo "You have selected suPHP w/ SUEXEC"
+       echo "You have selected suPHP with SUEXEC"
        /usr/local/cpanel/bin/rebuild_phpconf 5 none suphp 1 ;
     elif
         [[ $HAND == 2 ]]; then
