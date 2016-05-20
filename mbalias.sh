@@ -996,18 +996,18 @@ zzchangehandler() {
        /usr/local/cpanel/bin/rebuild_phpconf 5 none suphp 1 ;
     elif
         [[ $HAND == 2 ]]; then
-        echo "You have selected DSO w/ mod_ruid2"
-            if [[ $(httpd -M | grep -c ruid2) == 1 ]]; then
+        echo "You have selected DSO with mod_ruid2"
+            if [[ -f /usr/local/apache/modules/mod_ruid2.so ]]; then
             /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 1 ;
         else
             echo "Apache was not built with mod_ruid2 support, rebuild Apache to include this module"
         fi
     elif
         [[ $HAND == 3 ]]; then
-            echo "You have selected DSO w/o mod_ruid2"
+            echo "You have selected DSO without mod_ruid2"
             /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 0 ;
     else
-        echo "You have selected FCGI w/ SUEXEC"
+        echo "You have selected FCGI with SUEXEC"
         if [[ $(httpd -M | grep -c fcgi) == 1 ]];then
             /usr/local/cpanel/bin/rebuild_phpconf 5 none fcgi 1 ;
         else
