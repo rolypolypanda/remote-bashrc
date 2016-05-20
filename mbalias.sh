@@ -1001,7 +1001,8 @@ zzchangehandler() {
             /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 1 ;
         else
             echo "Apache was not built with mod_ruid2 support, rebuild Apache to include this module"
-        else
+        fi
+    elif
         [[ $HAND == 3 ]]; then
             echo "You have selected DSO w/o mod_ruid2"
             /usr/local/cpanel/bin/rebuild_phpconf 5 none dso 0 ;
@@ -1014,5 +1015,4 @@ zzchangehandler() {
             fi
         fi
     fi
-fi
 }
