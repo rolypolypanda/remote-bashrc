@@ -61,4 +61,4 @@ at your own risk.
 | `zzcddr` | `cd` to the `DocRoot` of a domain | supply `FQDN` | no |
 | `zzssp` | `git clone` and execution of cPanels `System Status Probe` | no | no |
 | `zzchk500` | Adam B.s `500` error checking script | no | no |
-| `zzchangehandler` | change `PHP` handler | yes, menu driven | no |
+| `zzchangehandler` | change `PHP` handler | menu driven | no |
