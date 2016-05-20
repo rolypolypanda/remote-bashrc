@@ -989,7 +989,7 @@ zzchangehandler() {
     echo -e "2. PHP 5 SAPI: DSO w/ mod_ruid2"
     echo -e "3. PHP 5 SAPI: DSO w/o mod_ruid2"
     echo -e "4. PHP 5 SAPI: fcgi w/ SUEXEC"
-    read -p "Select Handler [ 1 2 3 ]: " HAND
+    read -p "Select Handler [ 1 2 3 4 ]: " HAND
 
     if [[ $HAND == 1 ]]; then
        echo "You have selected suPHP w/ SUEXEC"
