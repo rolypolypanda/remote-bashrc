@@ -981,7 +981,7 @@ zzchk500() {
 }
 
 zzchangehandler() {
-    if [[ -d /opt/cpanel/ea-php54 ]]; then
+    if [[ $(whmapi1 ea4_get_ea_pkgs_state | grep -c ea-profiles-cpanel) == 1 ]]; then
         echo -e "\nEasyApache 4 is not supported"
     else
     echo -e "\nHandler Selections"
