@@ -718,7 +718,7 @@ function restore {
     CPMOVE="$(ls -lah ${BKP} | awk '{ print $9 }' | rev | cut -d'/' -f1 | rev | tr -d ' ')"
     cd /home ;
     \cp -vP $BKP $CPMOVE ;
-    /usr/local/cpanel/bin/cpuwatch /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
+    /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
@@ -1019,4 +1019,8 @@ zzchangehandler() {
             fi
         fi
     fi
+}
+
+zzuptime() {
+
 }
