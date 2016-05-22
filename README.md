@@ -40,24 +40,24 @@ at your own risk.
 | `zzbackuprest` | restore an account from a cPanel style backup | supply cPanel account name, backup location and ticket ID number | yes and log |
 | `zzapachestrace` | strace PHP processes for a user, output to `strace.k` | supply cPanel account name | no |
 | `zzdizboxsetup` | sets up a dizbox sandbox with my custom configuration | no | no |
-| `zzcronscan` | Codex cron scanner script | no | no |
-| `zzinodecheck` | Codex top inode abusers script | no | no |
+| `zzcronscan` | codex cron scanner script | no | no |
+| `zzinodecheck` | codex top inode abusers script | no | no |
 | `zzrpmquery` | `rpm -qa` with timestamps | supply rpm name | no |
 | `zzeasybackup` | Packages a cPanel backup, packages a live cPanel account, kills a live cPanel account and restores the account from the created backup | accepts multiple arguments, see --help for usage | yes and log |
-| `zzopenvzdu` | Codex script, calculates container disk usage | no | no |
-| `zzchkdiskhealth` | Codex script, check status of raid arrays and disks | no | no |
+| `zzopenvzdu` | codex script, calculates container disk usage | no | no |
+| `zzchkdiskhealth` | codex script, check status of raid arrays and disks | no | no |
 | `zzexigrep` | use `exigrep` without specifying the log path | supply email address | no |
 | `zzexirmlfd` | removes queued/frozen `lfd` emails | no | no |
-| `zznginxinstall` | Installs `NginxCP` | no | yes |
-| `zznginxremove` | Uninstalls `NginxCP` | no | yes |
-| `zzinitnginxvhosts` | Backs up `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Nginx` | no | yes and log |
-| `zzapachestatus` | Invoke `lynx --dump` and grab Apache port from `netstat` | no | no |
-| `zzinstallcpanel` | Installs `cPanel` | no | yes |
-| `zzsoftaculousinstall` | Installs `Softaculous` | no | yes |
-| `zzsoftaculousremove` | Uninstalls `Softaculous` | no | yes |
-| `zzwhmxtrainstall` | Installs `Xtra Ultimate` | no | yes |
-| `zzwhmxtraremove` | Removes `Xtra Ultimate ` | no | yes |
-| `zzsiteresponse` | Codex script, checks domain resolution | no | no |
+| `zznginxinstall` | installs `NginxCP` | no | yes |
+| `zznginxremove` | uninstalls `NginxCP` | no | yes |
+| `zzinitnginxvhosts` | backs up `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Nginx` | no | yes and log |
+| `zzapachestatus` | invoke `lynx --dump` and grab Apache port from `netstat` | no | no |
+| `zzinstallcpanel` | installs `cPanel` | no | yes |
+| `zzsoftaculousinstall` | installs `Softaculous` | no | yes |
+| `zzsoftaculousremove` | uninstalls `Softaculous` | no | yes |
+| `zzwhmxtrainstall` | installs `Xtra Ultimate` | no | yes |
+| `zzwhmxtraremove` | uninstalls `Xtra Ultimate ` | no | yes |
+| `zzsiteresponse` | codex script, checks domain resolution | no | no |
 | `zzcddr` | `cd` to the `DocRoot` of a domain | supply `FQDN` | no |
 | `zzssp` | `git clone` and execution of cPanels `System Status Probe` | no | no |
 | `zzchk500` | Adam B.s `500` error checking script | no | no |
