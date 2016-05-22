@@ -1020,7 +1020,3 @@ zzchangehandler() {
         fi
     fi
 }
-
-zzuptime() {
-
-}
