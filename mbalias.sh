@@ -661,11 +661,11 @@ zzdizboxsetup() {
 }
 
 zzinodecheck() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/inodeschecker2)
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/inodeschecker2) ;
 }
 
 zzcronscan() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/cronscanner)
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/cronscanner) ;
 }
 
 zzrpmquery() {
@@ -674,6 +674,7 @@ zzrpmquery() {
 
 zzeasybackup() {
 function backup {
+    CURDIR="$(pwd)" ;
     mkdir -p /home/.hd/logs/$TID/$ACT ;
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     if [[ -f $PTH ]];then
@@ -691,6 +692,7 @@ function backup {
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 fi
+    \cd $CURDIR ;
 }
 function package {
     mkdir -p /home/.hd/logs/$TID/$ACT ;
@@ -703,6 +705,7 @@ function package {
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
 function restore {
+    CURDIR="$(pwd)" ;
     if [[ -d /home/$ACT ]];then
         echo -e "\ncPanel account home still exists, either the account was not removed or there may be immutable files present"
         echo -e "Ensure the account has been completely removed before proceeding"
@@ -715,7 +718,7 @@ function restore {
     CPMOVE="$(ls -lah ${BKP} | awk '{ print $9 }' | rev | cut -d'/' -f1 | rev | tr -d ' ')"
     cd /home ;
     \cp -vP $BKP $CPMOVE ;
-    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
+    /usr/local/cpanel/bin/cpuwatch /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
@@ -724,6 +727,7 @@ function restore {
     echo -e "\n- Removed backup from \`/home:\`"
     echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
+    cd $CURDIR ;
 }
 function killact {
   mkdir -p /home/.hd/logs/$TID/$ACT ;
