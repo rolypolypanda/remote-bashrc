@@ -378,7 +378,7 @@ zzsetdnsvps() {
 }
 
 zzbeanc() {
-    wget --no-check-certificate http://filez.dizinc.com/~michaelb/sh/beanc.sh ;
+    wget --no-check-certificate https://codesilo.dimenoc.com/michaelb/remote-bashrc/raw/master/scripts/beanc.sh ;
     chmod +x beanc.sh ;
     bash beanc.sh ;
 }
