@@ -47,18 +47,19 @@ at your own risk.
 | `zzopenvzdu` | codex script, calculates container disk usage | no | no |
 | `zzchkdiskhealth` | codex script, check status of raid arrays and disks | no | no |
 | `zzexigrep` | use `exigrep` without specifying the log path | supply email address | no |
-| `zzexirmlfd` | removes queued/frozen `lfd` emails | no | no |
-| `zznginxinstall` | installs `NginxCP` | no | yes |
-| `zznginxremove` | uninstalls `NginxCP` | no | yes |
-| `zzinitnginxvhosts` | backs up `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Nginx` | no | yes and log |
-| `zzapachestatus` | invoke `lynx --dump` and grab Apache port from `netstat` | no | no |
-| `zzinstallcpanel` | installs `cPanel` | no | yes |
-| `zzsoftaculousinstall` | installs `Softaculous` | no | yes |
-| `zzsoftaculousremove` | uninstalls `Softaculous` | no | yes |
-| `zzwhmxtrainstall` | installs `Xtra Ultimate` | no | yes |
-| `zzwhmxtraremove` | uninstalls `Xtra Ultimate ` | no | yes |
-| `zzsiteresponse` | codex script, checks domain resolution | no | no |
+| `zzexirmlfd` | removes queued/frozen `lfd` emails | accepts no arguments | no |
+| `zznginxinstall` | installs `NginxCP` | accepts no arguments | yes |
+| `zznginxremove` | uninstalls `NginxCP` | accepts no arguments | yes |
+| `zzinitnginxvhosts` | backs up `/etc/nginx/vhosts`, creates new `vhosts` and restarts `Nginx` | accepts no arguments | yes and log |
+| `zzapachestatus` | invoke `lynx --dump` and grab Apache port from `netstat` | accepts no arguments | no |
+| `zzinstallcpanel` | installs `cPanel` | accepts no arguments | yes |
+| `zzsoftaculousinstall` | installs `Softaculous` | accepts no arguments | yes |
+| `zzsoftaculousremove` | uninstalls `Softaculous` | accepts no arguments | yes |
+| `zzwhmxtrainstall` | installs `Xtra Ultimate` | accepts no arguments | yes |
+| `zzwhmxtraremove` | uninstalls `Xtra Ultimate ` | accepts no arguments | yes |
+| `zzsiteresponse` | codex script, checks domain resolution | accepts no arguments | no |
 | `zzcddr` | `cd` to the `DocRoot` of a domain | supply `FQDN` | no |
-| `zzssp` | `git clone` and execution of cPanels `System Status Probe` | no | no |
-| `zzchk500` | Adam B.s `500` error checking script | no | no |
+| `zzssp` | `git clone` and execution of cPanels `System Status Probe` | accepts no arguments | no |
+| `zzchk500` | Adam B.s `500` error checking script | accepts no arguments | no |
 | `zzchangehandler` | change `PHP` handler | menu driven | no |
+| `zzpassiveports` | enable passive ports in `FTP` client and `CSF` | accepts no arguments | yes |

@@ -55,7 +55,7 @@ zzcommands() {
     echo -e "zzxmlrpcget\nzzcpucheck\nzzmailperms\nzzdusort\nzzhomeperms\nzzmonitordisk\nzzpiniset\nzztophttpd\nzzbackuprest\nzzapachestrace"
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
-    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\n"
+    echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\n"
 }
 
 zzphpini() {
@@ -1015,4 +1015,9 @@ zzchangehandler() {
             fi
         fi
     fi
+}
+
+zzpassiveports() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/passiveportopener) ;
+    echo -e "\n- Enabled passive ports using [codex script](https://codex.dimenoc.com/scripts/download/passiveportopener)."
 }
