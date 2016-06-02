@@ -419,7 +419,7 @@ zzcmsdbinfo() {
       DB_VER="$(grep RELEASE libraries/cms/version/version.php | head -n 1 | awk '{ print $4 }' | tr -d "'" | tr -d '    ;')"
       DB_PASS="$(grep password configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       DB_NAME="$(grep -w db configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
-      DB_USER="$(grep user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
+      DB_USER="$(egrep -w user configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       TBL_PREFIX="$(grep -w dbprefix configuration.php | awk '{ print $4 }' | tr -d "'" | tr -d ';')"
       TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
       echo -e "\nJoomla version: ${DB_VER}"
