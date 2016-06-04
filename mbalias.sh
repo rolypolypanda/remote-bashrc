@@ -1026,3 +1026,11 @@ zzupdatemodsec() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/modsec2latest) ;
     echo -e "\n- Updated \`ModSecurity\` using [codex script](https://codex.dimenoc.com/scripts/download/modsec2latest)."
 }
+
+zzchksymlink() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/checksymlinkpatch) ;
+}
+
+zzpatchsymlink() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsymlinkoptmod) ;
+}
