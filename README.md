@@ -63,3 +63,4 @@ at your own risk.
 | `zzchk500` | Adam B.s `500` error checking script | accepts no arguments | no |
 | `zzchangehandler` | change `PHP` handler | menu driven | no |
 | `zzpassiveports` | enable passive ports in `FTP` client and `CSF` | accepts no arguments | yes |
+| `zzupdatemodsec` | updates `modsec` configuration | accepts no arguments | yes |

@@ -1021,3 +1021,8 @@ zzpassiveports() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/passiveportopener) ;
     echo -e "\n- Enabled passive ports using [codex script](https://codex.dimenoc.com/scripts/download/passiveportopener)."
 }
+
+zzupdatemodsec() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/modsec2latest) ;
+    echo -e "\n- Updated \`ModSecurity\` using [codex script](https://codex.dimenoc.com/scripts/download/modsec2latest)."
+}
