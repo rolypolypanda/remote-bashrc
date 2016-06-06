@@ -913,7 +913,7 @@ zzsoftaculousinstall() {
     if [[ $(grep -c ioncube /var/cpanel/cpanel.config) == 1 ]]; then
         bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsoftaculous) ;
     else
-        CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)" 
+        CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)"
         sed -i "s/phploader=$CURLOAD/phploader=ioncube,$CURLOAD/" /var/cpanel/cpanel.config ;
         /usr/local/cpanel/whostmgr/bin/whostmgr2 –updatetweaksettings ;
         /usr/local/cpanel/bin/checkphpini ;
@@ -932,7 +932,7 @@ zzsoftaculousremove() {
 
 zzwhmxtrainstall() {
     if [[ $(grep -c ioncube /var/cpanel/cpanel.config) == 1 ]]; then
-        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;    
+        bash <(curl -ks https://codex.dimenoc.com/scripts/download/installwhmxtra) ;
     else
         CURLOAD="$(grep phploader= /var/cpanel/cpanel.config | cut -d'=' -f2)"
         sed -i "s/phploader=$CURLOAD/phploader=ioncube,$CURLOAD/" /var/cpanel/cpanel.config ;
@@ -1033,4 +1033,8 @@ zzchksymlink() {
 
 zzpatchsymlink() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/installsymlinkoptmod) ;
+}
+
+zzweather() {
+  curl -4 wttr.in ;
 }
