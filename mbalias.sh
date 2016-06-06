@@ -1019,7 +1019,7 @@ zzchangehandler() {
 
 zzpassiveports() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/passiveportopener) ;
-    echo -e "\n- Enabled passive \`FTP \` ports using [codex script](https://codex.dimenoc.com/scripts/download/passiveportopener)."
+    echo -e "\n- Enabled passive \`FTP\` ports using [codex script](https://codex.dimenoc.com/scripts/download/passiveportopener)."
 }
 
 zzupdatemodsec() {
