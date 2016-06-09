@@ -1038,3 +1038,8 @@ zzpatchsymlink() {
 zzweather() {
   curl -4 wttr.in ;
 }
+
+zzinstallplesk() {
+    sh <(curl http://autoinstall.plesk.com/plesk-installer || wget -O - http://autoinstall.plesk.com/plesk-installer) ;
+}
+
