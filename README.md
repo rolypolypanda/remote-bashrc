@@ -67,3 +67,5 @@ at your own risk.
 | `zzchksymlink` | codex script checks for `Apache` `SymLink` protection | accetps no arguments | no |
 | `zzpatchsymlink` | codex script applies `SymLink` patch | accepts no arguments | no |
 | `zzinstallplesk` | install `Plesk` for `Linux` | menu driven | no |
+| `zzweather` | checks weather forecast using `curl` | append city to `URL` | no |
+| `zzdomcon` | codex script checks connections by `domain` | no | no |
