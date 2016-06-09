@@ -66,3 +66,4 @@ at your own risk.
 | `zzupdatemodsec` | codex script updates `modsec` configuration | accepts no arguments | yes |
 | `zzchksymlink` | codex script checks for `Apache` `SymLink` protection | accetps no arguments | no |
 | `zzpatchsymlink` | codex script applies `SymLink` patch | accepts no arguments | no |
+| `zzinstallplesk` | install `Plesk` for `Linux` | menu driven | no |
