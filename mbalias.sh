@@ -662,7 +662,8 @@ zzdizboxsetup() {
 }
 
 zzinodecheck() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/inodeschecker2) ;
+   ## Flagged as broken in codex bash <(curl -ks https://codex.dimenoc.com/scripts/download/inodeschecker2) ;
+   bash <(curl -ks https://codex.dimenoc.com/scripts/download/inodeusagecurrentdirectory) ;
 }
 
 zzcronscan() {
