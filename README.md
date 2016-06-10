@@ -31,21 +31,21 @@ at your own risk.
 | `zzcpucheck` | shows cpu core temperatures, cpu type, current and maximum clock speeds | accepts no arguments | yes |
 | `zztailapache` | alias to `tail -f` main Apache log with pipe to `grep` `67.23` | no | no |
 | `zztailmysql` | alias to `tail -f` MySQL log | pipe to standard Linux commands | no |
-| `zzmailperms` | corrects mail permissions on all cPanel accounts | no | no |
+| `zzmailperms` | corrects mail permissions on all cPanel accounts | menu driven | no |
 | `zzdusort` | from Kevin B.s aliases - sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
 | `zzhomeperms` | executes codex fix homedir permissions script | supply cPanel account name and ticket ID number | yes and log |
 | `zzmonitordisk` | from Kevin B.s aliases - shows number of processes accessing the disk(s) using iostat | no | no |
 | `zzpiniset` | allows setting of various PHP configuration directives | menu driven | no |
-| `zztophttpd` | shows top 10 httpd connections by IP | no | no |
+| `zztophttpd` | shows top 10 httpd connections by IP | accepts no arguments | no |
 | `zzbackuprest` | restore an account from a cPanel style backup | supply cPanel account name, backup location and ticket ID number | yes and log |
 | `zzapachestrace` | strace PHP processes for a user, output to `strace.k` | supply cPanel account name | no |
 | `zzdizboxsetup` | sets up a dizbox sandbox with my custom configuration | no | no |
-| `zzcronscan` | codex cron scanner script | no | no |
-| `zzinodecheck` | codex top inode abusers script | no | no |
+| `zzcronscan` | codex cron scanner script | accepts no arguments | no |
+| `zzinodecheck` | codex top inode abusers script | run in `pwd` | no |
 | `zzrpmquery` | `rpm -qa` with timestamps | supply rpm name | no |
 | `zzeasybackup` | Packages a cPanel backup, packages a live cPanel account, kills a live cPanel account and restores the account from the created backup | accepts multiple arguments, see --help for usage | yes and log |
-| `zzopenvzdu` | codex script, calculates container disk usage | no | no |
-| `zzchkdiskhealth` | codex script, check status of raid arrays and disks | no | no |
+| `zzopenvzdu` | codex script, calculates container disk usage | accepts no arguments | no |
+| `zzchkdiskhealth` | codex script, check status of raid arrays and disks | accepts no arguments | no |
 | `zzexigrep` | use `exigrep` without specifying the log path | supply email address | no |
 | `zzexirmlfd` | removes queued/frozen `lfd` emails | accepts no arguments | no |
 | `zznginxinstall` | installs `NginxCP` | accepts no arguments | yes |
