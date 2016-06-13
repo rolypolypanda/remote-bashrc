@@ -28,8 +28,8 @@ else
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
     alias clera="clear" ;
     alias yes="no" ;
-    alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23"
-    alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err"
+    alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23" ;
+    alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err" ;
 fi
 
 # Begin functions.
@@ -86,11 +86,11 @@ zzphpini() {
 }
 
 zzphphandler() {
-    /usr/local/cpanel/bin/rebuild_phpconf --current
+    /usr/local/cpanel/bin/rebuild_phpconf --current ;
 }
 
 zzcddr() {
-    GETDIR="$(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)"
+    GETDIR="$(egrep -w ^$1 /etc/userdatadomains | cut -d'=' -f9)" ;
     cd ${GETDIR} ;
 }
 
@@ -106,11 +106,11 @@ zzdomcnt() {
 }
 
 zzexirmlfd() {
-    grep -lr 'lfd on' /var/spool/exim/input | sed -e 's/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g' | xargs exim -Mrm
+    grep -lr 'lfd on' /var/spool/exim/input | sed -e 's/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g' | xargs exim -Mrm ;
 }
 
 zztophttpd() {
-    netstat -pltuna | grep httpd | awk '{ print $5 }' | cut -d':' -f1 | grep -v '0.0.0.0' | grep -v ':::' | sort -nk1 | uniq -c | sort -nrk1
+    netstat -pltuna | grep httpd | awk '{ print $5 }' | cut -d':' -f1 | grep -v '0.0.0.0' | grep -v ':::' | sort -nk1 | uniq -c | sort -nrk1 ;
 }
 
 zzphpinfo() {
@@ -834,11 +834,11 @@ zzrpmquery() {
 }
 
 zzopenvzdu() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/OpenVZDiskUsage)
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/OpenVZDiskUsage) ;
 }
 
 zzchkdrivehealth() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/CheckDriveHealth)
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/CheckDriveHealth) ;
 }
 
 zzupcpf() {
