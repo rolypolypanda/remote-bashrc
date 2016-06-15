@@ -759,8 +759,6 @@ do
         -b|--backup)
 	        read -p "Enter cPanel account name: " ACT
     	    read -p "Enter ticket ID number: " TID
-            #find /backup -maxdepth 4 -type f -name "${ACT}*" -print
-            #find /backup -maxdepth 4 -type d -name "${ACT}" -print
             echo -e "\nLocating backups for ${ACT}\n"
             find /backup -maxdepth 4 -name "${ACT}*" > /root/backup.lst
             for i in $(cat backup.lst);do du -sh $i;done | awk '{ print $1 }' > /root/size.lst
