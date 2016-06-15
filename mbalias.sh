@@ -693,6 +693,10 @@ function backup {
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 fi
+    \rm -f /root/cpmove.lst
+    \rm -f /root/backup.lst
+    \rm -f /root/size.lst
+    \rm -f /root/date.lst
 }
 function package {
     mkdir -p /home/.hd/logs/$TID/$ACT ;
@@ -755,8 +759,13 @@ do
         -b|--backup)
 	        read -p "Enter cPanel account name: " ACT
     	    read -p "Enter ticket ID number: " TID
-            find /backup -maxdepth 4 -type f -name "${ACT}*" -print
-            find /backup -maxdepth 4 -type d -name "${ACT}" -print
+            #find /backup -maxdepth 4 -type f -name "${ACT}*" -print
+            #find /backup -maxdepth 4 -type d -name "${ACT}" -print
+            echo -e "\nLocating backups for ${ACT}\n"
+            find /backup -maxdepth 4 -name "${ACT}*" > /root/backup.lst
+            for i in $(cat backup.lst);do du -sh $i;done | awk '{ print $1 }' > /root/size.lst
+            for i in $(cat backup.lst);do stat $i | egrep -w ^Change: | awk '{ print $2 }';done > /root/date.lst
+            paste /root/backup.lst /root/size.lst /root/date.lst | column -s $'\t' -t
             read -p "Enter the path of the backup you would like to create: " PTH
             read -p "daily, weekly, or monthly backup? " DTE
             backup
