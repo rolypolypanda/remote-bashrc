@@ -70,3 +70,4 @@ at your own risk.
 | `zzweather` | checks weather forecast using `curl` | append city to `URL` | no |
 | `zzdomcon` | codex script checks connections by `domain` | no | no |
 | `zztransferver` | codex script prints a nice table of software version info | no | no |
+| `zzpsdest / zzpssrc` | adds `(SRC)` or `(DEST)` to your promt to help reduce confusion during transfers | `no` | `no` |
