@@ -1059,3 +1059,11 @@ zzdomconn() {
 zztransferver() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/upgradeversioncheck) ;
 }
+
+zzpsdest() {
+    PS1="(DEST) $PS1" ;
+}
+
+zzpssrc() {
+    PS1="(SRC) $PS1" ;
+}
