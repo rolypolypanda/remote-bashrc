@@ -56,7 +56,7 @@ zzcommands() {
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
-    echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\n"
+    echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\n"
 }
 
 zzphpini() {
@@ -1054,4 +1054,8 @@ zzinstallplesk() {
 
 zzdomconn() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/domainconnections) ;
+}
+
+zztransferver() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/upgradeversioncheck) ;
 }

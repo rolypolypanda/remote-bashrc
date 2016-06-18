@@ -69,3 +69,4 @@ at your own risk.
 | `zzinstallplesk` | install `Plesk` for `Linux` | menu driven | no |
 | `zzweather` | checks weather forecast using `curl` | append city to `URL` | no |
 | `zzdomcon` | codex script checks connections by `domain` | no | no |
+| `zztransferver` | codex script prints a nice table of software version info | no | no |
