@@ -1111,11 +1111,11 @@ qqtransversionsremote() {
         echo -e " ${APACHE} |" >> /root/remote.lst
         if [[ -f /etc/init.d/dovecot ]]; then
               DOVECOT="$(dovecot --version | cut -d " " -f1)"
-              echo " ${DOVECOT} |" >> /root/remote.lst
+              echo " Dovecot ${DOVECOT} |" >> /root/remote.lst
         fi
         if [[ -f /etc/init.d/courier-imap ]]; then
             COURIER="$(/usr/lib/courier-imap/bin/imapd --version | cut -d / -f1)"
-            echo -e " ${COURIER} |" >> /root/remote.lst
+            echo -e " Courier ${COURIER} |" >> /root/remote.lst
         fi
 
 }
