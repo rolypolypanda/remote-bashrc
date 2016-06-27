@@ -1086,11 +1086,11 @@ qqtransversionslocal() {
         echo -e "| Apache | ${APACHE} |" >> local.lst
         if [[ -f /etc/init.d/dovecot ]]; then
               DOVECOT="$(dovecot --version | cut -d " " -f1)"
-              echo -e "| Dovecot | ${DOVECOT} |" >> local.lst
+              echo -e "| Mailserver | Dovecot ${DOVECOT} |" >> local.lst
         fi
         if [[ -f /etc/init.d/courier-imap ]]; then
               COURIER="$(/usr/lib/courier-imap/bin/imapd --version | cut -d / -f1)"
-              echo -e "| Courier | ${COURIER} |" >> local.lst
+              echo -e "| Mailserver | Courier ${COURIER} |" >> local.lst
         fi
 
 }
