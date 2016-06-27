@@ -1070,32 +1070,32 @@ zzpssrc() {
 
 # standalone child functions for zztransversionall
 qqtransversionslocal() {
-        echo -e "| value | source | " > local.lst
+        echo -e "| ***value*** | ***source*** | " > local.lst
         echo -e "|-|" >> local.lst
         CENTOS="$(cat /etc/redhat-release)"
-        echo -e "| CentOS | ${CENTOS} |" >> local.lst
+        echo -e "| **CentOS** | ${CENTOS} |" >> local.lst
         KERNEL="$(uname -r)"
-        echo -e "| Kernel | ${KERNEL} |" >> local.lst
+        echo -e "| **Kernel** | ${KERNEL} |" >> local.lst
         CPANEL="$(cat /usr/local/cpanel/version)"
-        echo -e "| cPanel | ${CPANEL} |" >> local.lst
+        echo -e "| **cPanel** | ${CPANEL} |" >> local.lst
         PHP="$(php -v | head -n 1 | awk '{ print $2 }')"
-        echo -e "| PHP | ${PHP} |" >> local.lst
+        echo -e "| **PHP** | ${PHP} |" >> local.lst
         MYSQL="$(mysql -V | awk '{ print $5 }' | tr -d ',')"
-        echo -e "| MySQL | ${MYSQL} |" >> local.lst
+        echo -e "| **MySQL** | ${MYSQL} |" >> local.lst
         APACHE="$(httpd -v | head -n 1 | cut -d'/' -f2 | awk '{ print $1 }')"
-        echo -e "| Apache | ${APACHE} |" >> local.lst
+        echo -e "| **Apache** | ${APACHE} |" >> local.lst
         if [[ -f /etc/init.d/dovecot ]]; then
               DOVECOT="$(dovecot --version | cut -d " " -f1)"
-              echo -e "| Mailserver | Dovecot ${DOVECOT} |" >> local.lst
+              echo -e "| **Mailserver** | Dovecot ${DOVECOT} |" >> local.lst
         fi
         if [[ -f /etc/init.d/courier-imap ]]; then
               COURIER="$(/usr/lib/courier-imap/bin/imapd --version | cut -d / -f1)"
-              echo -e "| Mailserver | Courier ${COURIER} |" >> local.lst
+              echo -e "| **Mailserver** | Courier ${COURIER} |" >> local.lst
         fi
 
 }
 qqtransversionsremote() {
-        echo -e "destination |" > /root/remote.lst
+        echo -e "***destination*** |" > /root/remote.lst
         echo -e "-|" >> /root/remote.lst
         CENTOS="$(cat /etc/redhat-release)"
         echo -e " ${CENTOS} |" >> /root/remote.lst
