@@ -1057,7 +1057,8 @@ zzdomconn() {
 }
 
 zztransferver() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/upgradeversioncheck) ;
+    # Courtesy of Robert Sl.
+    bash <(curl -ks http://filez.dizinc.com/~michaelb/transferprecheck.sh) ;
 }
 
 zzpsdest() {
