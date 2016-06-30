@@ -1057,8 +1057,7 @@ zzdomconn() {
 }
 
 zztransferver() {
-    # Courtesy of Robert Sl.
-    bash <(curl -ks http://filez.dizinc.com/~michaelb/transferprecheck.sh) ;
+    bash <(curl -ks https://filez.dizinc.com/~sloan/scripts/transferprecheck.sh) ;
 }
 
 zzpsdest() {
@@ -1067,68 +1066,4 @@ zzpsdest() {
 
 zzpssrc() {
     PS1="(SRC) $PS1" ;
-}
-
-# standalone child functions for zztransversionall
-qqtransversionslocal() {
-        echo -e "| ***value*** | ***source*** | " > local.lst
-        echo -e "|-|" >> local.lst
-        CENTOS="$(cat /etc/redhat-release)"
-        echo -e "| **CentOS** | ${CENTOS} |" >> local.lst
-        KERNEL="$(uname -r)"
-        echo -e "| **Kernel** | ${KERNEL} |" >> local.lst
-        CPANEL="$(cat /usr/local/cpanel/version)"
-        echo -e "| **cPanel** | ${CPANEL} |" >> local.lst
-        PHP="$(php -v | head -n 1 | awk '{ print $2 }')"
-        echo -e "| **PHP** | ${PHP} |" >> local.lst
-        MYSQL="$(mysql -V | awk '{ print $5 }' | tr -d ',')"
-        echo -e "| **MySQL** | ${MYSQL} |" >> local.lst
-        APACHE="$(httpd -v | head -n 1 | cut -d'/' -f2 | awk '{ print $1 }')"
-        echo -e "| **Apache** | ${APACHE} |" >> local.lst
-        if [[ -f /etc/init.d/dovecot ]]; then
-              DOVECOT="$(dovecot --version | cut -d " " -f1)"
-              echo -e "| **Mailserver** | Dovecot ${DOVECOT} |" >> local.lst
-        fi
-        if [[ -f /etc/init.d/courier-imap ]]; then
-              COURIER="$(/usr/lib/courier-imap/bin/imapd --version | cut -d / -f1)"
-              echo -e "| **Mailserver** | Courier ${COURIER} |" >> local.lst
-        fi
-
-}
-qqtransversionsremote() {
-        echo -e "***destination*** |" > /root/remote.lst
-        echo -e "-|" >> /root/remote.lst
-        CENTOS="$(cat /etc/redhat-release)"
-        echo -e " ${CENTOS} |" >> /root/remote.lst
-        KERNEL="$(uname -r)"
-        echo -e " ${KERNEL} |" >> /root/remote.lst
-        CPANEL="$(cat /usr/local/cpanel/version)"
-        echo -e " ${CPANEL} |" >> /root/remote.lst
-        PHP="$(php -v | head -n 1 | awk '{ print $2 }')"
-        echo -e " ${PHP} |" >> /root/remote.lst
-        MYSQL="$(mysql -V | awk '{ print $5 }' | tr -d ',')"
-        echo -e " ${MYSQL} |" >> /root/remote.lst
-        APACHE="$(httpd -v | head -n 1 | cut -d'/' -f2 | awk '{ print $1 }')"
-        echo -e " ${APACHE} |" >> /root/remote.lst
-        if [[ -f /etc/init.d/dovecot ]]; then
-              DOVECOT="$(dovecot --version | cut -d " " -f1)"
-              echo " Dovecot ${DOVECOT} |" >> /root/remote.lst
-        fi
-        if [[ -f /etc/init.d/courier-imap ]]; then
-            COURIER="$(/usr/lib/courier-imap/bin/imapd --version | cut -d / -f1)"
-            echo -e " Courier ${COURIER} |" >> /root/remote.lst
-        fi
-
-}
-
-zztransversionsall(){
-    clear ;
-    echo -e "\n"
-    read -p "Enter KEYED remote server IP: " REMOTE
-    read -p "Enter KEYED remote server SSH port: " PORT
-    qqtransversionslocal;ssh root@$REMOTE -p$PORT "wget -q -nv http://filez.dizinc.com/~michaelb/sh/mbalias.sh 2&>1 /dev/null;source mbalias.sh;rm mbalias.sh -f;clear;qqtransversionsremote"
-    scp -P$PORT root@$REMOTE:/root/remote.lst /root/remote.lst
-    paste local.lst /root/remote.lst
-    rm local.lst /root/remote.lst
-    ssh $REMOTE -lroot -p$PORT "rm /root/remote.lst"
 }
