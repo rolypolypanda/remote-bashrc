@@ -70,4 +70,6 @@ at your own risk.
 | `zzweather` | checks weather forecast using `curl` | append city to `URL` | no |
 | `zzdomcon` | codex script checks connections by `domain` | no | no |
 | `zztransferver` | Robert Sl. script prints a nice table of software version info between servers | menu driven | markdown table |
-| `zzpsdest / zzpssrc` | adds `(SRC)` or `(DEST)` to your promt to help reduce confusion during transfers | `no` | `no` |
+| `zzpsdest / zzpssrc` | adds `(SRC)` or `(DEST)` to your promt to help reduce confusion during transfers | no | no |
+| `zztransferrsyncprog` | codex script for updating large rsyncs | no | yes |
+| `zztransferacctprog` | prints predefined for large homeless restores | supply ticket ID at end of command | yes |

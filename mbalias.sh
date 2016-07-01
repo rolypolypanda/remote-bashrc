@@ -1067,3 +1067,11 @@ zzpsdest() {
 zzpssrc() {
     PS1="(SRC) $PS1" ;
 }
+
+zztransferrsyncprog() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/transferrsyncpredefine) ;
+}
+
+zztransferacctprog() {
+    bash <(curl -ks http://filez.dizinc.com/~michaelb/homelessrestoreprogress.sh) ;
+}
