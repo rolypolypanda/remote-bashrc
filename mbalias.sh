@@ -254,7 +254,7 @@ zzbackuprest() {
     CPMOVE="$(ls -lah $BKP | rev | cut -d'/' -f1 | rev)"
     \cp -vP $BKP /home/$CPMOVE ;
     cd /home ;
-    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
+    /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg --allow_reseller $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm -f /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`root@$(hostname):$(pwd) # cp -vP ${BKP} /home/${CPMOVE}\`"
@@ -721,7 +721,7 @@ function restore {
     CPMOVE="$(ls -lah ${BKP} | awk '{ print $9 }' | rev | cut -d'/' -f1 | rev | tr -d ' ')"
     cd /home ;
     \cp -vP $BKP $CPMOVE ;
-    /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
+    /scripts/restorepkg --allow_reseller $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`root@$(hostname):$(pwd) # cp -vP ${BKP} /home/${CPMOVE}\`"
