@@ -726,7 +726,7 @@ function restore {
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
     echo -e "\`root@$(hostname):$(pwd) # cp -vP ${BKP} /home/${CPMOVE}\`"
     echo -e "\n- Restored account \`${ACT}:\`"
-    echo -e "\`root@$(hostname):$(pwd) # /scripts/restorepkg ${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # /scripts/restorepkg --allow_reseller ${CPMOVE}\`"
     echo -e "\n- Removed backup from \`/home:\`"
     echo -e "\`root@$(hostname):$(pwd) # rm -vf /home/${CPMOVE}\`"
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
