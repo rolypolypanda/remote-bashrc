@@ -1,7 +1,7 @@
 # mbalias.sh
 # Begin setup env.
 
-if [[ $(hostname | egrep -Ec '(snafu|mac|fedora-srv)') == 1 ]]; then
+if [[ $(hostname | egrep -Ec '(snafu|mac|fedora-srv|fedora|devbox)') == 1 ]]; then
     echo "You're at home, not setting up aliases, etc..." ;
 else
     eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)" ;
@@ -76,7 +76,7 @@ zzphpini() {
     if [[ -f $(pwd)/php.ini.bak-hd ]]; then
         echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak-hd}\`"
     fi
-    echo -e "\`[root@$(hostname):$(pwd) #] cp /usr/local/lib/$1.ini php.ini\`"
+    echo -e "\`root@$(hostname):$(pwd) # cp /usr/local/lib/$1.ini php.ini\`"
     if [[ ! -f $(pwd)/php.ini.bak-hd ]]; then
         echo -e "- Added the following to \`$(pwd)/.htaccess\`"
         echo -e "\`\`\`"
@@ -148,9 +148,9 @@ zzmailperms() {
         chown -v $ACT:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/* | tee -a /home/.hd/logs/$TID/$ACT/mailperms1-$(date +%s).log ;
         /scripts/mailperm --verbose $ACT | tee -a /home/.hd/logs/$TID/mailperms2-$(date +%s).log ;
         echo -e "\n- Reset maildir permissions:"
-        echo -e "\`[root@$(hostname):$(pwd) #] chown -vR ${ACT}:${ACT} etc mail\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] chown -v ${ACT}:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/*\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] /scripts/mailperm --verbose ${ACT}\`"
+        echo -e "\`root@$(hostname):$(pwd) # chown -vR ${ACT}:${ACT} etc mail\`"
+        echo -e "\`root@$(hostname):$(pwd) # chown -v ${ACT}:mail etc/ etc/* etc/*/shadow etc/*/passwd mail/*/*/maildirsize etc/*/*pwcache etc/*/*pwcache/*\`"
+        echo -e "\`root@$(hostname):$(pwd) # /scripts/mailperm --verbose ${ACT}\`"
         echo -e "\`**Additional Notes:**\n- Logs located in:\n\`/home/.hd/logs/$TID/mailperms0-$(date +%s).log\`"
         echo -e "\`/home/.hd/logs/$TID/mailperms2-$(date +%s).log\`\n"
     fi
@@ -213,7 +213,7 @@ zzfixtmp() {
     chmod 1777 /tmp ;
     find /tmp -type f -mmin +30 -exec rm -vf {} \; | tee -a /home/.hd/logs/$TID/tmpremovedfiles-$(date +%s).log
     echo -e "\n- Cleared \`/tmp:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] find /tmp -type f -mmin +30 -exec rm -vf {} \;\`"
+    echo -e "\`root@$(hostname):$(pwd) # find /tmp -type f -mmin +30 -exec rm -vf {} \;\`"
     echo -e "- List of removed files located in \`/home/.hd/logs/$TID/tpmremovedfiles-$(date +%s).log\`\n"
 }
 
@@ -257,11 +257,11 @@ zzbackuprest() {
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm -f /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # cp -vP ${BKP} /home/${CPMOVE}\`"
     echo -e "\n- Restored account \`${ACT}:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/restorepkg ${CPMOVE}\`"
     echo -e "\n- Removed backup from \`/home:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # rm -vf /home/${CPMOVE}\`"
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
 }
 
@@ -272,8 +272,8 @@ zzacctpkg() {
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log ;
     echo -e "For Notes:\n"
-    echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
+    echo -e "\`root@$(hostname):$(pwd) # mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
     echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
@@ -313,13 +313,13 @@ zzmkbackup() {
         CPMOVE="$(ls -lah $PTH | rev | cut -d'/' -f1 | rev)"
         cp -vP $PTH /home/.hd/ticket/$TID/$DTE ;
         echo -e "\n- Copied ${PTH} to \`/home/.hd/ticket/${TID}/${DTE}:\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`\n"
+        echo -e "\`root@$(hostname):$(pwd) # cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`\n"
     else
     cd $PTH ;
     cd ..
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
-    echo -e "\n\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
+    echo -e "\n\`root@$(hostname):$(pwd) # mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 fi
@@ -348,8 +348,8 @@ zzmysqltuneup() {
     mysqlcheck -rA | tee -a /home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log ;
     mysqlcheck -oA | tee -a /home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log ;
     wall -n "MySQL table repair and optimize complete." ;
-    wall -n "\`[root@$(hostname):$(pwd) #] mysqlcheck -rA\`"
-    wall -n "\`[root@$(hostname):$(pwd) #] mysqlcheck -oA\`"
+    wall -n "\`root@$(hostname):$(pwd) # mysqlcheck -rA\`"
+    wall -n "\`root@$(hostname):$(pwd) # mysqlcheck -oA\`"
     wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log\`" ;
     wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log\`" ;
 }
@@ -518,13 +518,13 @@ zzmonitordisk() {
 }
 
 zzaxonparse() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/Axon)
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/Axon) ;
 }
 
 zzxmlrpcget() {
     read -p "Enter domain name: " DOM
     ACT="$(grep -w ^$DOM /etc/userdatadomains | cut -d':' -f2 | cut -d '=' -f1 | sed 's/^[ \t]*//')"
-    grep "POST /xmlrpc.php" /usr/local/apache/domlogs/$ACT/$DOM | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10
+    grep "POST /xmlrpc.php" /usr/local/apache/domlogs/$ACT/$DOM | awk '{ print $1 }' | grep -v $(hostname -i) | sort -nk1 | uniq -c | sort -nrk1 | head -n 10 ;
 }
 
 zzquicknotes() {
@@ -609,8 +609,8 @@ esac
 }
 
 zzapachestrace() {
-    ps aufx | grep $1 | grep -v 'root' | grep 'php' | awk '{ print "-p " $2 }' | paste -sd ' ' | xargs strace -vfs 4096 -o strace.k
-    echo "Strace located at $(pwd)/strace.k"
+    ps aufx | grep $1 | grep -v 'root' | grep 'php' | awk '{ print "-p " $2 }' | paste -sd ' ' | xargs strace -vfs 4096 -o /home/.hd/user/michaelb/notes/strace.k
+    echo "Strace located at /home/.hd/user/michaelb/notes/strace.k"
 }
 
 zzdizboxsetup() {
@@ -621,7 +621,7 @@ zzdizboxsetup() {
 	hostname sandbox.donthurt.us ;
 	echo "donthurt.us" > /etc/localdomains ;
     sleep 2 ;
-    if [[ -f /home/cpmove-donthurt.tar.gz ]]; then
+    if [[ ! -f /home/donthurt ]]; then
 	    cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
         sleep 2 ;
     else
@@ -682,14 +682,14 @@ function backup {
         CPMOVE="$(ls -lah $PTH | rev | cut -d'/' -f1 | rev)"
         \cp -vP $PTH /home/.hd/ticket/$TID/$DTE ;
         echo -e "\n- Copied ${PTH} to \`/home/.hd/ticket/${TID}/${DTE}:\`"
-       	echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`\n"
+       	echo -e "\`root@$(hostname):$(pwd) # cp -vP ${PTH} /home/.hd/ticket/${TID}/${DTE}/${CPMOVE}\`\n"
     else
     cd $PTH ;
     cd ..
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/ | tee -a /home/.hd/logs/$TID/$ACT/backup-$(date +%s).log ;
     echo "/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz" > /root/cpmove.lst
-    echo -e "\n\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
+    echo -e "\n\`root@$(hostname):$(pwd) # mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
     echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 fi
@@ -703,8 +703,8 @@ function package {
     mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly} ;
     /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original | tee -a /home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log ;
     echo -e "For Notes:\n"
-    echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-    echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
+    echo -e "\`root@$(hostname):$(pwd) # mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+    echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
     echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
     echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 }
@@ -724,18 +724,18 @@ function restore {
     /scripts/restorepkg $CPMOVE | tee -a /home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log ;
     \rm /home/$CPMOVE ;
     echo -e "\n- Copied backup from \`${BKP}\` to \`/home:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # cp -vP ${BKP} /home/${CPMOVE}\`"
     echo -e "\n- Restored account \`${ACT}:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] /scripts/restorepkg ${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # /scripts/restorepkg ${CPMOVE}\`"
     echo -e "\n- Removed backup from \`/home:\`"
-    echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
+    echo -e "\`root@$(hostname):$(pwd) # rm -vf /home/${CPMOVE}\`"
     echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
 }
 function killact {
   mkdir -p /home/.hd/logs/$TID/$ACT ;
   /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT | tee -a /home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log ;
   echo -e "\n- Removed account:"
-  echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT\`"
+  echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT\`"
   echo -e "- Log located in: \`/home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log\`"
 }
 function all {
@@ -795,25 +795,25 @@ do
         echo -e "\nFULL NOTES:\n"
         echo -e "\n"
 		echo -e "\n- Created backup:"
-		echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
+		echo -e "\`root@$(hostname):$(pwd) # mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+		echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) tar czvf /home/.hd/ticket/$TID/$DTE/$ACT.tar.gz $ACT/\`" ;
 		echo -e "- Backup for account \`$ACT\` created in \`/home/.hd/ticket/$TID/$DTE/$ACT.tar.gz\`" ;
 		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/backup-$(date +%s).log\`\n" ;
 		echo -e "\n- Packaged current cPanel account:"
-		echo -e "\`[root@$(hostname):$(pwd) #] mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
-		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
+		echo -e "\`root@$(hostname):$(pwd) # mkdir -p /home/.hd/ticket/$TID/{original,daily,weekly,monthly}\`" ;
+		echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/pkgacct $ACT /home/.hd/ticket/$TID/original\`" ;
 		echo -e "- Account \`$ACT\` packaged in \`/home/.hd/ticket/$TID/original/cpmove-$ACT.tar.gz\`" ;
 		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/pkgacct-$(date +%s).log\`\n" ;
 		echo -e "- Removed current cPanel account:"
-		echo -e "\`[root@$(hostname):$(pwd) #] /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT\`"
+		echo -e "\`root@$(hostname):$(pwd) # /usr/local/cpanel/bin/cpuwatch $(grep -c proc /proc/cpuinfo) /scripts/removeacct $ACT\`"
 		echo -e "**Additional Notes:**\n- Log located in \`/home/.hd/logs/$TID/$ACT/removeacct-$(date +%s).log\`" ;
 		echo -e "\n- Restored account from backup:"
 		echo -e "- Copied backup from \`${BKP}\` to \`/home:\`"
-		echo -e "\`[root@$(hostname):$(pwd) #] cp -vP ${BKP} /home/${CPMOVE}\`"
+		echo -e "\`root@$(hostname):$(pwd) # cp -vP ${BKP} /home/${CPMOVE}\`"
 		echo -e "\n- Restored account \`${ACT}:\`"
-		echo -e "\`[root@$(hostname):$(pwd) #] /scripts/restorepkg ${CPMOVE}\`"
+		echo -e "\`root@$(hostname):$(pwd) # /scripts/restorepkg ${CPMOVE}\`"
 		echo -e "\n- Removed backup from \`/home:\`"
-		echo -e "\`[root@$(hostname):$(pwd) #] rm -vf /home/${CPMOVE}\`"
+		echo -e "\`root@$(hostname):$(pwd) # rm -vf /home/${CPMOVE}\`"
 		echo -e "\n- Log located in: \`/home/.hd/logs/$TID/$ACT/restorepkg-$(date +%s).log\`"
             ;;
         -h|--help)
@@ -866,12 +866,12 @@ zzinitnginxvhosts() {
   service nginx start ;
   echo -e "\n**For Notes:**"
   echo -e "\n- Backed up existing Nginx vhosts:"
-  echo -e "\`[root@$(hostname):$(pwd) #] mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original\`"
+  echo -e "\`root@$(hostname):$(pwd) # mv -v /etc/nginx/vhosts /home/.hd/ticket/$TID/original\`"
   echo -e "- Rebuilt vhosts:"
-  echo -e "\`[root@$(hostname):$(pwd) #] /scripts/rebuildvhosts\`"
+  echo -e "\`root@$(hostname):$(pwd) # /scripts/rebuildvhosts\`"
   echo -e "- Restarted Nginx:"
-  echo -e "\`[root@$(hostname):$(pwd) #] service nginx stop\`"
-  echo -e "\`[root@$(hostname):$(pwd) #] service nginx start\`\n"
+  echo -e "\`root@$(hostname):$(pwd) # service nginx stop\`"
+  echo -e "\`root@$(hostname):$(pwd) # service nginx start\`\n"
 }
 
 zznginxinstall() {
@@ -1073,5 +1073,5 @@ zztransferrsyncprog() {
 }
 
 zztransferacctprog() {
-    bash <(curl -ks http://filez.dizinc.com/~michaelb/homelessrestoreprogress.sh) ;
+    bash <(curl -ks http://filez.dizinc.com/~michaelb/homelessrestoreprogress.sh) $1 ;
 }
