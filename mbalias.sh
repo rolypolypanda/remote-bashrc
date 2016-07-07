@@ -1075,7 +1075,8 @@ zztransferrsyncprog() {
 }
 
 zztransferacctprog() {
-    bash <(curl -ks http://filez.dizinc.com/~michaelb/homelessrestoreprogress.sh) $1 ;
+   # bash <(curl -ks http://filez.dizinc.com/~michaelb/homelessrestoreprogress.sh) $1 ;
+   bash <(curl -ks https://codesilo.dimenoc.com/michaelb/remote-bashrc/raw/master/scripts/homelessrestoreprogress.sh) $1 ;
 }
 
 zzrealmemsar() {
