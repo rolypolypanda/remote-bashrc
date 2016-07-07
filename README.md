@@ -73,3 +73,5 @@ at your own risk.
 | `zzpsdest / zzpssrc` | adds `(SRC)` or `(DEST)` to your promt to help reduce confusion during transfers | no | no |
 | `zztransferrsyncprog` | codex script for updating large rsyncs | no | yes |
 | `zztransferacctprog` | prints predefined for large homeless restores | supply ticket ID at end of command | yes |
+| `zzrealmemsar` | calcuates actual memory usage from `sar` logs | no | no |
+| `zzmysqlhash` | lists `pre-MySQL 4.1` database user pw hahses | accepts command line arguments | predefined |

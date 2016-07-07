@@ -1075,3 +1075,22 @@ zztransferrsyncprog() {
 zztransferacctprog() {
     bash <(curl -ks http://filez.dizinc.com/~michaelb/homelessrestoreprogress.sh) $1 ;
 }
+
+zzrealmemsar() {
+    python <(curl -ks https://codex.dimenoc.com/scripts/download/realmemsar) ;
+}
+
+zzmysqlhash() {
+    HASH="$1"
+    case $HASH in
+        --predef|-p)
+            bash <(curl -ks https://codex.dimenoc.com/scripts/download/checkoldmysqlpass) ;
+            ;;
+          --list|-l)
+            bash <(curl -ks https://codex.dimenoc.com/scripts/download/listmysqloldpasswords) ;
+            ;;
+                 *)
+            echo "Usage: [ --predef / -p | --list / -l ]"
+        ;;
+    esac
+}
