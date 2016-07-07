@@ -56,7 +56,8 @@ zzcommands() {
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
-    echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\n"
+    echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
+    echo -e "zzmysqlhash\n"
 }
 
 zzphpini() {
@@ -1057,6 +1058,7 @@ zzdomconn() {
 }
 
 zztransferver() {
+    echo -e "\nRun on Destination Server.\n"
     bash <(curl -ks https://filez.dizinc.com/~sloan/scripts/transferprecheck.sh) ;
 }
 
