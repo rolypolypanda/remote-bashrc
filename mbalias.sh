@@ -635,6 +635,7 @@ zzdizboxsetup() {
 	    sed -ri "s/198.49.72.[0-9]+/$(hostname -i)/g" $line
 	    echo "$line has been updated"
 	done
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/convert_modsecurity) ;
     /scripts/rebuildhttpdconf ;
     /scripts/restartsrv_httpd ;
     /scripts/setupnameserver nsd ;
