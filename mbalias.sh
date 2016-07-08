@@ -57,7 +57,7 @@ zzcommands() {
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
-    echo -e "zzmysqlhash\n"
+    echo -e "zzmysqlhash\nzzmysqlerror\n"
 }
 
 zzphpini() {
@@ -1096,4 +1096,8 @@ zzmysqlhash() {
             echo "Usage: [ --predef / -p | --list / -l ]"
         ;;
     esac
+}
+
+zzmysqlerror() {
+    curl -s http://dev.mysql.com/doc/refman/$1/en/error-messages-server.html | grep -3 -w "$2" | grep Message | sed -e 's/Message://g' | sed -e 's/^[ \t]*//' ;
 }
