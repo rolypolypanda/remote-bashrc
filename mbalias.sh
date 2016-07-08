@@ -20,6 +20,7 @@ else
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
+    alias top="top -d1 -c" ;
     alias vim="vim -u /home/.hd/user/michaelb/scripts/vimrc" ;
     alias mv="mv -v" ;
     alias cp="cp -v"
@@ -1100,4 +1101,5 @@ zzmysqlhash() {
 
 zzmysqlerror() {
     curl -s http://dev.mysql.com/doc/refman/$1/en/error-messages-server.html | grep -3 -w "$2" | grep Message | sed -e 's/Message://g' | sed -e 's/^[ \t]*//' ;
+    perror $2
 }
