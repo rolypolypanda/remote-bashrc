@@ -610,7 +610,7 @@ esac
 }
 
 zzapachestrace() {
-    ps aufx | grep $1 | grep -v 'root' | grep 'php' | awk '{ print "-p " $2 }' | paste -sd ' ' | xargs strace -vfs 4096 -o /home/.hd/user/michaelb/notes/strace.k
+    x=1; while [ $x = 1 ]; do process=`pgrep -u $1`; if [ $process ]; then x=0; fi;  done; strace -vfs 4096  -p $process -o /home/.hd/user/michaelb/notes/strace.k
     echo "Strace located at /home/.hd/user/michaelb/notes/strace.k"
 }
 
