@@ -1061,7 +1061,7 @@ zzdomconn() {
 
 zztransferver() {
     echo -e "\nRun on Destination Server.\n"
-    bash <(curl -ks https://filez.dizinc.com/~sloan/scripts/transferprecheck.sh) ;
+    bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/new_transfer_precheck.sh) ;
 }
 
 zzpsdest() {
