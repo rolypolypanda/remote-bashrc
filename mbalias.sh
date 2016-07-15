@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
-    echo -e "zzmysqlhash\nzzmysqlerror\n"
+    echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\n"
 }
 
 zzphpini() {
@@ -1102,4 +1102,65 @@ zzmysqlhash() {
 zzmysqlerror() {
     curl -s http://dev.mysql.com/doc/refman/$1/en/error-messages-server.html | grep -3 -w "$2" | grep Message | sed -e 's/Message://g' | sed -e 's/^[ \t]*//' ;
     perror $2
+}
+
+zzrvsitebuilderuninstall() {
+    echo -e "\nThis script will backup RVSitebuilder configuration files and optionally the database then completely remove RVSitebuilder."
+    read -p "Enter the ticket ID number: " TID
+    \mkdir -p /home/.hd/ticket/$TID/original ;
+    \cp -rp /var/cpanel/rvglobalsoft/rvsitebuilder/var /home/.hd/ticket/$TID/original ;
+    \cp -rp /var/cpanel/rvglobalsoft/rvsitebuilder/www/project /home/.hd/ticket/$TID/original ;
+    \cp -p /var/cpanel/rvglobalsoft/rvsitebuilder/var/rvautosetting.conf.ini.php /home/.hd/ticket/$TID/original ;
+    sleep 2 ;
+    echo -e "\nRVSitebuilder configuration has been backed up to /home/.hd/ticket/$TID/original\n"
+    read -p "Would you like to backup the RVSitebuilder database? (Y/N) " YN
+    if [[ $YN = Y ]]; then
+        DBAK="$(egrep -w ^name /var/cpanel/rvglobalsoft/rvsitebuilder/var/rvautosetting.conf.ini.php | cut -d'=' -f2)" 
+        mysqldump $DBAK > /home/.hd/ticket/$TID/original/$DBAK.sql ;
+    else
+        echo -e "\nNot backing up the RVsitebuilder database."
+    fi
+    echo -e "\nUnregistering RVSitebuilder plugin files."
+    sleep 2 ;
+    /usr/local/cpanel/bin/unregister_cpanelplugin /var/cpanel/rvglobalsoft/rvsitebuilder/panelmenus/cpanel/cpanelplugin/rvsitebuilder.cpanelplugin ;
+    /usr/local/cpanel/bin/rebuild_sprites ;
+    /usr/local/cpanel/scripts/uninstall_plugin /var/cpanel/rvglobalsoft/rvsitebuilder/panelmenus/cpanel/cpanelplugin/register_paper_lantern.tar.bz2 ;
+    echo -e "\nRemoving RVsitebuilder files."
+    sleep 2 ;
+    rm -rvf /usr/local/cpanel/whostmgr/docroot/cgi/rvsitebuilderinstaller.tar ;
+    rm -rvf /usr/local/cpanel/whostmgr/docroot/cgi/rvsitebuilderinstaller ;
+    rm -rvf /usr/local/cpanel/whostmgr/docroot/cgi/rvsitebuilder ;
+    rm -vf /usr/local/cpanel/whostmgr/docroot/cgi/addon_rvsitebuilder.cgi ;
+    rm -rvf /var/cpanel/rvglobalsoft ;
+    rm -rvf /usr/local/cpanel/base/frontend/*/rvsitebuilder ;
+    rm -vf /usr/local/cpanel/base/frontend/x/cells/rvsitebuilder.htm ;
+    rm -vf /usr/local/cpanel/base/frontend/x3/dynamicui/dynamicui_rvsitebuilder.conf ;
+    echo -e "\nRemoving plugin."
+    perl /root/rvadmin/autoupdatewhmaddon.pl ;
+    DBUSER="$(egrep -w ^databaseUserPass /home/.hd/ticket/$TID/original/var/rvautosetting.conf.ini.php | cut -d'=' -f2)"
+    DBPASS="$(egrep -w ^databaseUser /home/.hd/ticket/$TID/original/var/rvautosetting.conf.ini.php | cut -d'=' -f2)"
+    echo -e "\nRVSitebuilder has been removed."
+    echo -e "Configuration backups located in /home/.hd/ticket/$TID/original\n"
+    echo -e "If you are reinstalling RVSitebuilder and would like to use the original database the credentials are below:"
+    echo -e "Database Name: $DBAK"
+    echo -e "Database User: $DBUSER"
+    echo -e "Database Password: $DBPASS\n"
+
+}
+
+zzrvsitebuilderinstall() {
+    CURDIR="$(pwd)"
+    if [[ -d /usr/src ]]; then
+        cd /usr/src ;
+    else
+        mkdir -p /usr/src ;
+        cd /usr/src ;
+    fi
+    if [[ -f rvsitebuilderinstall.sh ]]; then
+        rm -vf rvsitebuilderinstall.sh
+    fi
+    wget http://download.rvglobalsoft.com/rvsitebuilderinstall.sh ;
+    chmod +x rvsitebuilderinstall.sh ;
+    ./rvsitebuilderinstall.sh ;
+    cd ${CURDIR} ;
 }

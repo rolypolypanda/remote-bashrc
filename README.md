@@ -76,3 +76,5 @@ at your own risk.
 | `zzrealmemsar` | calcuates actual memory usage from `sar` logs | no | no |
 | `zzmysqlhash` | lists `pre-MySQL 4.1` database user pw hahses | accepts command line arguments | predefined |
 | `zzmysqlerror` | search for `MySQL` errors from `MySQL` docs | supply `MySQL` version and error code | no |
+| `zzrvsitebuilderuninstall` | backups up configuration and removes `RVSitebuilder` | menu driven | no |
+| `zzrvsitebuilderinstall` | installs `RVSitebuilder` | no | no |
