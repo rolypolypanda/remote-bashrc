@@ -1166,11 +1166,13 @@ zzrvsitebuilderinstall() {
 }
 
 zzattractainstall() {
+    CURDIR="$(pwd)"
     cd /usr/src ;
     cpan install Mozilla::CA ;
     wget -N http://www.attracta.com/static/download/cpanel-install ;
     chmod +x cpanel-install ;
     sh cpanel-install ;
+    cd ${CURDIR} ;
 }
 
 zzattractauninstall() {
