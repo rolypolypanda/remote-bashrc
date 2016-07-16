@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
-    echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\n"
+    echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\n"
 }
 
 zzphpini() {
@@ -1163,4 +1163,17 @@ zzrvsitebuilderinstall() {
     chmod +x rvsitebuilderinstall.sh ;
     ./rvsitebuilderinstall.sh ;
     cd ${CURDIR} ;
+}
+
+zzattractainstall() {
+    cd /usr/src ;
+    cpan install Mozilla::CA ;
+    wget -N http://www.attracta.com/static/download/cpanel-install ;
+    chmod +x cpanel-install ;
+    sh cpanel-install ;
+}
+
+zzattractauninstall() {
+    /scripts/uninstall-attracta ;
+    rm -vf /scripts/uninstall-attracta ;
 }
