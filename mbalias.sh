@@ -58,7 +58,8 @@ zzcommands() {
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
-    echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\n"
+    echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
+    echo -e "zzunlock\n"
 }
 
 zzphpini() {
@@ -1178,4 +1179,27 @@ zzattractainstall() {
 zzattractauninstall() {
     /scripts/uninstall-attracta ;
     rm -vf /scripts/uninstall-attracta ;
+}
+
+zzgetkey() {
+    if [[ -f /root/.ssh/id_rsa.pub ]]; then
+        cat /root/.ssh/id_rsa.pub ;
+    else
+        read -p "No public RSA key found, would you like to generate a key? (Y/N) " YN
+            if [[ $YN == Y ]];then
+                ssh-keygen ;
+                cat /root/.ssh/id_rsa.pub ;
+        fi
+    fi
+}
+
+zzkeylock() {
+    vim /root/.ssh/authorized_keys ;
+    chattr +ia /root/.ssh/authorized_keys ;
+    echo -e "~/.ssh/authorized_keys locked."
+}
+
+zzunlock() {
+    chattr -ia /root/.ssh/authorized_keys ;
+    echo -e "~/.ssh/authorized_keys unlocked."
 }
