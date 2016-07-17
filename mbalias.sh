@@ -764,10 +764,10 @@ do
 	        read -p "Enter cPanel account name: " ACT
     	    read -p "Enter ticket ID number: " TID
             echo -e "\nLocating backups for ${ACT}\n"
-            find /backup -maxdepth 4 -name "${ACT}*" > /root/backup.lst
-            for i in $(cat backup.lst);do du -sh $i;done | awk '{ print $1 }' > /root/size.lst
-            for i in $(cat backup.lst);do stat $i | egrep -w ^Change: | awk '{ print $2 }';done > /root/date.lst
-            paste /root/backup.lst /root/size.lst /root/date.lst | column -s $'\t' -t
+            find /backup -maxdepth 4 -name "${ACT}*" > /root/backup.lst ;
+            for i in $(cat backup.lst);do du -sh $i;done | awk '{ print $1 }' > /root/size.lst ;
+            for i in $(cat backup.lst);do stat $i | egrep -w ^Change: | awk '{ print $2 }';done > /root/date.lst ;
+            paste /root/backup.lst /root/size.lst /root/date.lst | column -s $'\t' -t ;
             read -p "Enter the path of the backup you would like to create: " PTH
             read -p "daily, weekly, or monthly backup? " DTE
             backup
