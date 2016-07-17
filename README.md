@@ -78,3 +78,6 @@ at your own risk.
 | `zzmysqlerror` | search for `MySQL` errors from `MySQL` docs | supply `MySQL` version and error code | no |
 | `zzrvsitebuilderuninstall` | backups up configuration and removes `RVSitebuilder` | menu driven | no |
 | `zzrvsitebuilderinstall` | installs `RVSitebuilder` | no | no |
+| `zzgetkey` | prints public `SSH RSA` key to sdout or allows you to generate a key | menu driven | no |
+| `zzkeylock` | locks `authorized_keys` on shared servers due to puppet | no | no |
+| `zzunlock` | unlocks `authorized_keys` | no | no |
