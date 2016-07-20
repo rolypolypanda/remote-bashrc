@@ -649,8 +649,9 @@ zzdizboxsetup() {
     sed -i 's/#ClientAliveCountMax\ 3/ClientAliveCountMax\ 2/' /etc/ssh/sshd_config ;
     service sshd restart ;
     rpm -ihv https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm ;
-    yum install -y smem bc man strace git nmap telnet libicu-devel libicu ;
+    yum install -y smem bc man strace git nmap telnet libicu-devel libicu pip ;
     cd /etc/yum.repos.d; wget http://repo1.dimenoc.com/dimenoc/DimeNOC.repo; yum -y install axond; csf -a 72.29.79.51 ;
+    pip install cheat ;
     chmod 775 /var/run/screen
     echo -e "\nCONFIGURING PHP\n"
     sleep 2 ;
