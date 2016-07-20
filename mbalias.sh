@@ -35,10 +35,10 @@ fi
 # Begin functions.
 zzgetvimrc() {
     CURDIR="$(pwd)"
-    mkdir -p /home/.hd/user/michaelb/{notes,scripts}
+    mkdir -p /home/.hd/user/michaelb/{notes,scripts} ;
     if [[ -f /home/.hd/user/michaelb/scripts/vimrc ]]; then
         echo -e "\nvimrc Already exists, moving it to vimrc.bak.\n"
-        mv -f /home/.hd/user/michaelb/scripts/vimrc{,.bak}
+        mv -f /home/.hd/user/michaelb/scripts/vimrc{,.bak} ;
     fi
     cd /home/.hd/user/michaelb/scripts ;
     wget --no-check-certificate https://codesilo.dimenoc.com/michaelb/remote-bashrc/raw/master/rcfiles/vimrc ;
