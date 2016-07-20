@@ -31,7 +31,7 @@ else
     alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23" ;
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err" ;
-    alias cheat="/home/.hd/user/michaelb/cheat/bin/cheat" ;
+    alias cheat="/home/.hd/user/michaelb/scripts/cheat/bin/cheat" ;
 fi
 
 # Begin functions.
