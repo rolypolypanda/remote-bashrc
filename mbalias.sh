@@ -53,7 +53,7 @@ zzgetcheat() {
         echo -e "\nCheat is already available.\n"
     else
         cd /home/.hd/user/michaelb/scripts ;
-        git clone https://github.com/chrisallenlane/cheat.git ;
+        screen -d -m git clone https://github.com/chrisallenlane/cheat.git ;
     fi
     cd ${CURDIR} ;
 }
