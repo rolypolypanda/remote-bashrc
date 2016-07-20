@@ -20,7 +20,6 @@ else
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
-    alias top="top -d1 -c" ;
     alias vim="vim -u /home/.hd/user/michaelb/scripts/vimrc" ;
     alias mv="mv -v" ;
     alias cp="cp -v"
