@@ -31,6 +31,7 @@ else
     alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23" ;
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err" ;
+    alias cheat="/home/.hd/user/michaelb/cheat/bin/cheat" ;
 fi
 
 # Begin functions.
@@ -46,8 +47,20 @@ zzgetvimrc() {
     cd ${CURDIR} ;
 }
 
-# Call zzgetvimrc function.
+zzgetcheat() {
+    CURDIR="$(pwd)"
+    if [[ -d /home/.hd/user/michaelb/scripts/cheat ]]; then
+        echo -e "\nCheat is already available.\n"
+    else
+        cd /home/.hd/user/michaelb/scripts ;
+        git clone https://github.com/chrisallenlane/cheat.git ;
+    fi
+    cd ${CURDIR} ;
+}
+
+# Call zzgetvimrc and zzgetcheat functions.
 zzgetvimrc
+zzgetcheat
 
 # Begin main functions.
 zzcommands() {
