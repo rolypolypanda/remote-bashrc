@@ -980,9 +980,8 @@ zzssp() {
         chmod +x run ;
         bash run ;
     else
-        yum install -y git ;
         cd ${HDSCRIPTDIR} ;
-        git clone https://github.com/cPanelSSP/SSP.git ;
+        /usr/local/cpanel/3rdparty/bin/git clone https://github.com/cPanelSSP/SSP.git ;
         cd SSP ;
         chmod +x run ;
         bash run ;
