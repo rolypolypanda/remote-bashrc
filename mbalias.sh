@@ -624,12 +624,10 @@ zzdizboxsetup() {
 	echo "donthurt.us" > /etc/localdomains ;
     sleep 2 ;
     if [[ ! -d /home/donthurt ]]; then
-	    cd /home; /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
-        sleep 2 ;
-    else
         cd /home ;
-        wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz
-        /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
+        wget http://filez.dizinc.com/~michaelb/vps_setup/cpmove-donthurt.tar.gz ;
+	    /scripts/restorepkg /home/cpmove-donthurt.tar.gz; echo -e "\nCPANEL ACCOUNT RESTORED\n" ;
+        sleep 2 ;
     fi
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
 	do
