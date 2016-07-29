@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\n"
+    echo -e "zzunlock\nzzupdatetweak\n"
 }
 
 zzphpini() {
@@ -1200,4 +1200,9 @@ zzkeylock() {
 zzunlock() {
     chattr -ia /root/.ssh/authorized_keys ;
     echo -e "~/.ssh/authorized_keys unlocked."
+}
+
+zzupdatetweak() {
+    /usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings ;
+    /scripts/restartsrv_cpsrvd --restart ;
 }

@@ -81,3 +81,4 @@ at your own risk.
 | `zzgetkey` | prints public `SSH RSA` key to sdout or allows you to generate a key | menu driven | no |
 | `zzkeylock` | locks `authorized_keys` on shared servers due to puppet | no | no |
 | `zzunlock` | unlocks `authorized_keys` | no | no |
+| `zzupdatetweak` | updates `TweakSettings` when making changes to `cpanel.config` | no | no |
