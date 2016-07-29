@@ -915,9 +915,9 @@ zzcpanelinstall() {
         sh latest ;
         echo -e "\n**For Notes**"
         echo -e "\n- Installed cPanel:"
-        echo -e "\`[root@$(hostname):$(pwd) #] curl -o latest -L https://securedownloads.cpanel.net/latest\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] chmod +x latest\`"
-        echo -e "\`[root@$(hostname):$(pwd) #] sh latest\`"
+        echo -e "\`root@$(hostname):$(pwd) # curl -o latest -L https://securedownloads.cpanel.net/latest\`"
+        echo -e "\`root@$(hostname):$(pwd) # chmod +x latest\`"
+        echo -e "\`root@$(hostname):$(pwd) # sh latest\`"
     fi
 }
 
