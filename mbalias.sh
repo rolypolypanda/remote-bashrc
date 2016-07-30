@@ -1213,11 +1213,13 @@ zzgetkey() {
 zzkeylock() {
     vim /root/.ssh/authorized_keys ;
     chattr +ia /root/.ssh/authorized_keys ;
+    touch /etc/.transfer_time file ;
     echo -e "~/.ssh/authorized_keys locked."
 }
 
 zzunlock() {
     chattr -ia /root/.ssh/authorized_keys ;
+    \rm -f /etc/.transfer_time file ;
     echo -e "~/.ssh/authorized_keys unlocked."
 }
 
