@@ -83,3 +83,5 @@ at your own risk.
 | `zzunlock` | unlocks `authorized_keys` | no | no |
 | `zzupdatetweak` | updates `TweakSettings` when making changes to `cpanel.config` | no | no |
 | `zzticketmonitoroutput` | modified codex ticket monitor output script to be markdown friendly | menu driven | yes |
+| `zzlargefileusage` | codex script which breaks down disk usage and can search for large archives / logs | menu driven | no |
+| `zzinstallcomposer` | install `composer` for a cPanel account | menu driven | no |

@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage"
 }
 
 zzphpini() {
@@ -1210,4 +1210,41 @@ zzupdatetweak() {
 
 zzticketmonitoroutput() {
     bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/ticketmonitoroutput.sh) $1 ;
+}
+
+zzinstallcomposer() {
+    CURDIR=$(pwd)
+    HAZSUHOSIN=$(grep -c 'extension="suhosin.so"' /usr/local/lib/php.ini)
+    read -p "Enter the cPanel account you would like to install composer for: " ACT
+    cd /home/${ACT} ;
+    if [[ -d /root/.composer ]]; then
+        \mv /root/.composer{,.bak} ;
+    fi
+    if [[ ${HAZSUHOSIN} == 1 ]]; then
+        curl -sS https://getcomposer.org/installer | php -d allow_url_fopen=1 -d detect_unicode=0 -d suhosin.executor.include.whitelist=phar ;
+    else
+        curl -sS https://getcomposer.org/installer | php -d allow_url_fopen=1 -d detect_unicode=0 ;
+    fi
+    chown ${ACT}: composer.phar ;
+    \cp -r /root/.composer /home/${ACT} ;
+    chown -R ${ACT}: .composer ;
+    chmod 664 .composer/*.pub ;
+    if [[ -d /root/composer.bak ]]; then
+        \mv /root/composer{.bak,}
+    fi
+
+    if [[ $(grep ${ACT} /etc/passwd | grep -c jail) == 1 ]]; then
+        echo -e "JailedShell is already enabled for $ACT"
+    else
+        echo -e "JailedShell must be enabled for the $ACT to access the composer.phar application"
+        read -p "Would you like to enable JailedShell for $ACT? (Y/N) " JSH
+        if [[ $JSH = Y ]]; then
+            chsh -s /usr/local/cpanel/bin/jailshell $ACT
+        fi
+    fi
+    cd ${CURDIR} ;
+}
+
+zzlargefileusage() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/diskusage) ;
 }
