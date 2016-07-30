@@ -82,3 +82,4 @@ at your own risk.
 | `zzkeylock` | locks `authorized_keys` on shared servers due to puppet | no | no |
 | `zzunlock` | unlocks `authorized_keys` | no | no |
 | `zzupdatetweak` | updates `TweakSettings` when making changes to `cpanel.config` | no | no |
+| `zzticketmonitoroutput` | modified codex ticket monitor output script to be markdown friendly | menu driven | yes |

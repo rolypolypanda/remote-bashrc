@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\n"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput"
 }
 
 zzphpini() {
@@ -908,6 +908,7 @@ zzcpanelinstall() {
     if [[ -d /usr/local/cpanel ]]; then
         echo "cPanel is already installed."
     else
+        touch /etc/install_legacy_ea3_instead_of_ea4 ;
         setenforce 0
         cd /home ;
         curl -o latest -L https://securedownloads.cpanel.net/latest ;
@@ -1205,4 +1206,8 @@ zzunlock() {
 zzupdatetweak() {
     /usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings ;
     /scripts/restartsrv_cpsrvd --restart ;
+}
+
+zzticketmonitoroutput() {
+    bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/ticketmonitoroutput.sh) $1 ;
 }
