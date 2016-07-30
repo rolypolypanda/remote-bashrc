@@ -288,6 +288,18 @@ zzversions() {
     echo "cPanel version: $(cat /usr/local/cpanel/version)" ;
     echo "MySQL version: $(mysql -V | awk '{ print $5 }' | tr -d ',')" ;
     echo "PHP version: $(php -v | head -n 1 | awk '{ print $2 }')" ;
+    if [[ -f /usr/local/bin/php53 ]]; then
+        echo -e " - Multi-PHP 5.3"
+    fi
+    if [[ -f /usr/local/bin/php54 ]]; then
+        echo -e " - Multi-PHP 5.4"
+    fi
+    if [[ -f /usr/local/bin/php55 ]]; then
+        echo -e " - Multi-PHP 5.5"
+    fi
+    if [[ -f /usr/local/bin/php56 ]]; then
+        echo -e " - Multi-PHP 5.6"
+    fi
     echo "Apache version: $(httpd -v | head -n 1 | cut -d'/' -f2 | awk '{ print $1 }')" ;
     if
         # CentOS 6 and lower - SysV
@@ -298,6 +310,12 @@ zzversions() {
           [[ -f /usr/lib/systemd/system/nginx.service ]]; then
           nginx -v ;
         fi
+    fi
+    if [[ -f /usr/sbin/dovecot ]]; then
+        echo "Dovecot version: $(dovecot --version | awk '{ print $1 }')" ;
+    fi
+    if [[ -f /etc/init.d/courier-imap ]]; then
+        echo "Courier version: $(/usr/lib/courier-imap/bin/imapd --version | cut -d / -f1)" ;
     fi
     echo "\`\`\`"
 }
