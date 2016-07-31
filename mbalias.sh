@@ -665,6 +665,7 @@ zzdizboxsetup() {
     sed -i 's/CPANEL=\(.*\)/CPANEL=current/g' /etc/cpupdate.conf ;
     wget http://filez.dizinc.com/~michaelb/vps_setup/sshpubkeys ;
     \rm -f /etc/wwwacct.conf ;
+    echo -e "Basic Setup Complete" ;
     wget http://filez.dizinc.com/~michaelb/vps_setup/wwwacct.conf -O /etc/wwwacct.conf ;
     sed -i "s/198.49.72.[0-9]*/$(hostname -i)/g" /etc/wwwacct.conf
     cat sshpubkeys >> /root/.ssh/authorized_keys ;
