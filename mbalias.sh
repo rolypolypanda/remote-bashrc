@@ -638,8 +638,8 @@ zzdizboxsetup() {
     echo -e "\n$R1 Only run this in a sandbox! $RESET" ;
     echo -e " Ctrl+C to exit\n"
     sleep 5 ;
-	hostname sandbox.donthurt.us ;
-	echo "donthurt.us" > /etc/localdomains ;
+	/usr/local/cpanel/bin/set_hostname sandbox.donthurt.us ;
+    echo "$(ip addr | awk 'FNR == 8' | cut -d'/' -f1 | sed -e 's/inet//g' | tr -d ' ') sandbox.donthurt.us sandbox" >> /etc/hosts ;
     sleep 2 ;
     if [[ ! -d /home/donthurt ]]; then
         cd /home ;
@@ -649,23 +649,34 @@ zzdizboxsetup() {
     fi
 	find /var/cpanel/userdata -type f ! -name *.cache ! -name *.stor | while read line
 	do
-	    sed -ri "s/198.49.72.[0-9]+/$(hostname -i)/g" $line
+	    sed -ri "s/198.49.72.[0-9]*/$(hostname -i)/g" $line
 	    echo "$line has been updated"
 	done
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/convert_modsecurity) ;
     /scripts/rebuildhttpdconf ;
     /scripts/restartsrv_httpd ;
     /scripts/setupnameserver nsd ;
+    chkconfig nscd off ;
+    sed -i '/nscd/d' /etc/chkserv.d/chkservd.conf ;
+    service nscd stop ;
+    \rm -f /etc/chkserv.d/nscd ;
+    /scripts/restartsrv_chkservd --restart ;
     sleep 2 ;
+    sed -i 's/CPANEL=\(.*\)/CPANEL=current/g' /etc/cpupdate.conf ;
     wget http://filez.dizinc.com/~michaelb/vps_setup/sshpubkeys ;
+    \rm -f /etc/wwwacct.conf ;
+    wget http://filez.dizinc.com/~michaelb/vps_setup/wwwacct.conf -O /etc/wwwacct.conf ;
+    sed -i "s/198.49.72.[0-9]*/$(hostname -i)/g" /etc/wwwacct.conf
     cat sshpubkeys >> /root/.ssh/authorized_keys ;
     rm sshpubkeys ;
+    sed -i '/root/d' /etc/shadow ;
+    echo "root:$6$FSI4sWi8$I6iT6plWjTEdGuPU4opUAStpkNm7FKI56BbevkDxbBV4JSAbdScW8zXTdiLdIUFkzIwjXFPVBcNY5/peHh3tr/:17013:0:99999:7:::" >> /etc/shadow ;
     sed -i 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 300/' /etc/ssh/sshd_config ;
     sed -i 's/#ClientAliveCountMax\ 3/ClientAliveCountMax\ 2/' /etc/ssh/sshd_config ;
     service sshd restart ;
     rpm -ihv https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm ;
     yum install -y smem bc man strace git nmap telnet libicu-devel libicu python-pip ;
-    cd /etc/yum.repos.d; wget http://repo1.dimenoc.com/dimenoc/DimeNOC.repo; yum -y install axond; csf -a 72.29.79.51 ;
+    cd /etc/yum.repos.d; wget http://repo1.dimenoc.com/dimenoc/DimeNOC.repo; yum -y install axond ;
     pip install --upgrade pip ;
     pip install cheat ;
     chmod 775 /var/run/screen
