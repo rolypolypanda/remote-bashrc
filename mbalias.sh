@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\n"
 }
 
 zzphpini() {
