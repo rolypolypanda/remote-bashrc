@@ -1280,3 +1280,7 @@ zzinstallcomposer() {
 zzlargefileusage() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/diskusage) ;
 }
+
+zzsuhosinsilencer() {
+    bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/suhosinsilencer.sh) ;
+}

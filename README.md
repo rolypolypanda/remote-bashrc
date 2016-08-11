@@ -85,3 +85,4 @@ at your own risk.
 | `zzticketmonitoroutput` | modified codex ticket monitor output script to be markdown friendly | menu driven | yes |
 | `zzlargefileusage` | codex script which breaks down disk usage and can search for large archives / logs | menu driven | no |
 | `zzinstallcomposer` | install `composer` for a cPanel account | menu driven | no |
+| `zzsuhosinsilencer` | silence `suhosin` alerts when they are flooding the console | supply ticket id | no |
