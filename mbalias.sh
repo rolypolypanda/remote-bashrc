@@ -76,7 +76,7 @@ zzphpini() {
     fi
     echo -e "\nFor notes:\n"
     if [[ -f $(pwd)/php.ini.bak-hd ]]; then
-        echo -e "\`[root@$(hostname):$(pwd) #] mv $(pwd)/php.ini{,.bak-hd}\`"
+        echo -e "\`root@$(hostname):$(pwd) # mv $(pwd)/php.ini{,.bak-hd}\`"
     fi
     echo -e "\`root@$(hostname):$(pwd) # cp /usr/local/lib/$1.ini php.ini\`"
     if [[ ! -f $(pwd)/php.ini.bak-hd ]]; then
@@ -124,7 +124,7 @@ zzhomeperms() {
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT/ ;
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixhome) $ACT | tee -a /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/fixhome) $ACT | tee -a /home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log ;
     echo -e "\n- Reset homedir permissions using the following [codex script](https://codex.dimenoc.com/scripts/download/fixhome)."
     echo -e "- Log located in \`/home/.hd/logs/$TID/$ACT/homedirperms-$(date +%s).log\`"
 }
@@ -638,8 +638,8 @@ zzdizboxsetup() {
     echo -e "\n$R1 Only run this in a sandbox! $RESET" ;
     echo -e " Ctrl+C to exit\n"
     sleep 5 ;
-	/usr/local/cpanel/bin/set_hostname sandbox.donthurt.us ;
-    echo "$(ip addr | awk 'FNR == 8' | cut -d'/' -f1 | sed -e 's/inet//g' | tr -d ' ') sandbox.donthurt.us sandbox" >> /etc/hosts ;
+	/usr/local/cpanel/bin/set_hostname openstack.donthurt.us ;
+    echo "$(ip addr | awk 'FNR == 8' | cut -d'/' -f1 | sed -e 's/inet//g' | tr -d ' ') openstack.donthurt.us sandbox" >> /etc/hosts ;
     sleep 2 ;
     if [[ ! -d /home/donthurt ]]; then
         cd /home ;
@@ -669,7 +669,7 @@ zzdizboxsetup() {
     wget http://filez.dizinc.com/~michaelb/vps_setup/wwwacct.conf -O /etc/wwwacct.conf ;
     sed -i "s/198.49.72.[0-9]*/$(hostname -i)/g" /etc/wwwacct.conf
     cat sshpubkeys >> /root/.ssh/authorized_keys ;
-    rm sshpubkeys ;
+    \rm sshpubkeys ;
     sed -i '/root/d' /etc/shadow ;
     echo "root:$6$FSI4sWi8$I6iT6plWjTEdGuPU4opUAStpkNm7FKI56BbevkDxbBV4JSAbdScW8zXTdiLdIUFkzIwjXFPVBcNY5/peHh3tr/:17013:0:99999:7:::" >> /etc/shadow ;
     sed -i 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 300/' /etc/ssh/sshd_config ;
@@ -794,8 +794,8 @@ do
     	    read -p "Enter ticket ID number: " TID
             echo -e "\nLocating backups for ${ACT}\n"
             find /backup -maxdepth 4 -name "${ACT}*" > /root/backup.lst ;
-            for i in $(cat backup.lst);do du -sh $i;done | awk '{ print $1 }' > /root/size.lst ;
-            for i in $(cat backup.lst);do stat $i | egrep -w ^Change: | awk '{ print $2 }';done > /root/date.lst ;
+            for i in $(cat /root/backup.lst);do du -sh $i;done | awk '{ print $1 }' > /root/size.lst ;
+            for i in $(cat /root/backup.lst);do stat $i | egrep -w ^Change: | awk '{ print $2 }';done > /root/date.lst ;
             paste /root/backup.lst /root/size.lst /root/date.lst | column -s $'\t' -t ;
             read -p "Enter the path of the backup you would like to create: " PTH
             read -p "daily, weekly, or monthly backup? " DTE
@@ -1145,7 +1145,7 @@ zzrvsitebuilderuninstall() {
     echo -e "\nRVSitebuilder configuration has been backed up to /home/.hd/ticket/$TID/original\n"
     read -p "Would you like to backup the RVSitebuilder database? (Y/N) " YN
     if [[ $YN = Y ]]; then
-        DBAK="$(egrep -w ^name /var/cpanel/rvglobalsoft/rvsitebuilder/var/rvautosetting.conf.ini.php | cut -d'=' -f2)" 
+        DBAK="$(egrep -w ^name /var/cpanel/rvglobalsoft/rvsitebuilder/var/rvautosetting.conf.ini.php | cut -d'=' -f2)"
         mysqldump $DBAK > /home/.hd/ticket/$TID/original/$DBAK.sql ;
     else
         echo -e "\nNot backing up the RVsitebuilder database."
