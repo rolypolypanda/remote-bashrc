@@ -1246,11 +1246,11 @@ zzticketmonitoroutput() {
 
 zzinstallcomposer() {
     CURDIR=$(pwd)
-    HAZSUHOSIN=$(grep -c 'extension="suhosin.so"' /usr/local/lib/php.ini)
+    HAZSUHOSIN=$(php -v | grep -c ^Suhosin)
     read -p "Enter the cPanel account you would like to install composer for: " ACT
     cd /home/${ACT} ;
     if [[ -d /root/.composer ]]; then
-        \mv /root/.composer{,.bak} ;
+        \mv -f /root/.composer{,.bak} ;
     fi
     if [[ ${HAZSUHOSIN} == 1 ]]; then
         curl -sS https://getcomposer.org/installer | php -d allow_url_fopen=1 -d detect_unicode=0 -d suhosin.executor.include.whitelist=phar ;
