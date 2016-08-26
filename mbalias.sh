@@ -58,7 +58,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\n"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nquikchk\n"
 }
 
 zzphpini() {
@@ -1283,4 +1283,12 @@ zzlargefileusage() {
 
 zzsuhosinsilencer() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/suhosinsilencer) ;
+}
+
+zzquikchk() {
+    eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)"
+    echo -e "${R1}CPU Cores:${G1} $(grep -c proc /proc/cpuinfo)${RS}"
+    echo -e "${R1}RAM: ${G1}$(free -m | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
+    echo -e "${R1}Load: ${G1}$(awk '{ print $1,$2,$3 }' /proc/loadavg)${RS}"
+    echo -e "${R1}Disk Size: ${G1}$(df -h | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
 }
