@@ -1288,7 +1288,9 @@ zzsuhosinsilencer() {
 zzquikchk() {
     eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)"
     echo -e "${R1}CPU Cores:${G1} $(grep -c proc /proc/cpuinfo)${RS}"
-    echo -e "${R1}RAM: ${G1}$(free -m | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
+    echo -e "${R1}RAM: ${G1}$(free -hm | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
     echo -e "${R1}Load: ${G1}$(awk '{ print $1,$2,$3 }' /proc/loadavg)${RS}"
     echo -e "${R1}Disk Size: ${G1}$(df -h | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
+    echo -e "${R1}cPanel Accts: ${G1}$(wc -l /etc/trueuserdomains | awk '{ print $1 }')${RS}"
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/QuickServiceCheck) ;
 }
