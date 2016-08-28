@@ -56,9 +56,9 @@ zzcommands() {
     echo -e "zzdizboxsetup\nzzcronscan\nzzinodecheck\nzzeasybackup\nzzrpmquery\nzzopenvzdu\nzzchkdrivehealth\nzzeasybackup\nzzexigrep"
     echo -e "zzexirmlfd\nzzinstallnginx\nzznginxremove\nzzinitnginxvhosts\nzzapachestatus\nzzcpanelinstall\nzzsoftaculousinstall\nzzsoftaculousremove"
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
-    echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\transferacctprog\nzzrealmemsar"
+    echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nquikchk\n"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\n\nzzsqlsize"
 }
 
 zzphpini() {
@@ -1296,4 +1296,8 @@ zzquikchk() {
     echo -e "${R1}cPanel Accts: ${G1}$(wc -l /etc/trueuserdomains | awk '{ print $1 }')${RS}"
     echo -e "${R1}Uniq Domains: ${G1}$(wc -l /etc/userdatadomains | awk '{ print $1 }')${RS}"
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/QuickServiceCheck) ;
+}
+
+zzsqlsize() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/sqlsize) ;
 }
