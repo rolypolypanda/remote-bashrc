@@ -1288,11 +1288,12 @@ zzsuhosinsilencer() {
 zzquikchk() {
     eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)"
     echo -e "${R1}CPU Cores:${G1} $(grep -c proc /proc/cpuinfo)${RS}"
-    echo -e "${R1}RAM: ${G1}$(free -hm | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
-    echo -e "${R1}Swap: ${G1}$(free -mh | grep ^Swap: | awk '{ print $2 }')${RS}"
+    echo -e "${R1}RAM: ${G1}$(if [[ $(cat /etc/redhat-release | egrep -m1 -o '[0-9]+' | head -1) -gt 5 ]]; then echo "${G1}$(free -hm | awk 'FNR == 2' | awk '{ print $2 }')"; else echo "${G1}$(free -m | awk 'FNR == 2' | awk '{ print $2 }')M"; fi)${RS}"
+    echo -e "${R1}Swap: $(if [[ $(cat /etc/redhat-release | egrep -m1 -o '[0-9]+' | head -1) -gt 5 ]]; then echo "${G1}$(free -mh | grep ^Swap: | awk '{ print $2 }')"; else echo "${G1}$(free -m | grep ^Swap: | awk '{ print $2 }')M"; fi)${RS}"
     echo -e "${R1}Load: ${G1}$(awk '{ print $1,$2,$3 }' /proc/loadavg)${RS}"
     echo -e "${R1}Disk Size: ${G1}$(df -h | awk 'FNR == 2' | awk '{ print $2 }')${RS}"
     echo -e "${R1}Raid Card: ${G1}$(if [[ $(megacli -LDInfo -Lall -aALL | grep -c Primary) -gt 0 ]]; then echo "MegaRAID"; elif [[ $(3ware show | grep -c '^No controller found.') == 0 ]]; then echo "3ware"; else echo "None"; fi)${RS}"
     echo -e "${R1}cPanel Accts: ${G1}$(wc -l /etc/trueuserdomains | awk '{ print $1 }')${RS}"
+    echo -e "${R1}Uniq Domains: ${G1}$(wc -l /etc/userdatadomains | awk '{ print $1 }')${RS}"
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/QuickServiceCheck) ;
 }
