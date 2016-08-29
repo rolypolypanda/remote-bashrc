@@ -48,6 +48,10 @@ zzgetvimrc() {
 # Call zzgetvimrc and zzgetcheat functions.
 zzgetvimrc
 
+spenserjoke() {
+    bash <(curl -ks https://codesilo.dimenoc.com/spenserc/joekoutput/raw/master/joek.sh) ;
+}
+
 # Begin main functions.
 zzcommands() {
     echo -e "\nzzbeanc\nzzphpini\nzzphphandler\nzzphpinfo\nzzmemload\nzzfixtmp\nzzacctdom\nzzacctpkg\nzzmkbackup\nzzversions\nzzgetvimrc"
@@ -58,7 +62,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\n\nzzsqlsize"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize"
 }
 
 zzphpini() {
