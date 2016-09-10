@@ -1226,6 +1226,12 @@ zzgetkey() {
     fi
 }
 
+zztransferdedicsf() {
+  CSFPATH="/etc/csf/csf.conf"
+  TCPORIG=$(egrep ^TCP_OUT ${CSFPATH})
+  sed -i 's/${TCPORIG}/${TCPORIG},1157"/' ${CSFPATH} ;
+}
+
 zzkeylock() {
     vim /root/.ssh/authorized_keys ;
     chattr +ia /root/.ssh/authorized_keys ;
@@ -1304,4 +1310,8 @@ zzquikchk() {
 
 zzsqlsize() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/sqlsize) ;
+}
+
+zzspenserjoke() {
+    bash <(curl -ks https://codesilo.dimenoc.com/spenserc/joekoutput/raw/master/joek.sh) ;
 }
