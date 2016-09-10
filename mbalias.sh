@@ -1286,7 +1286,8 @@ zzlargefileusage() {
 }
 
 zzsuhosinsilencer() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/suhosinsilencer) ;
+#    bash <(curl -ks https://codex.dimenoc.com/scripts/download/suhosinsilencer) ;
+bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/suhosinsilencer.sh) ;
 }
 
 zzquikchk() {
