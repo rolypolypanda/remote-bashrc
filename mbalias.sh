@@ -62,7 +62,7 @@ zzcommands() {
     echo -e "zzwhmxtrainstall\nzzwhmxtraremove\nzzsiteresponse\nzzssp\nzzcddr\nzzchk500\nzzchangehandler\nzzpassiveports\nzzweather\nzzinstallplesk"
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
-    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize"
+    echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize\nzzspenserjoke\n"
 }
 
 zzphpini() {
@@ -1064,7 +1064,8 @@ zzchangehandler() {
 }
 
 zzpassiveports() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/passiveportopener) ;
+  #  bash <(curl -ks https://codex.dimenoc.com/scripts/download/passiveportopener) ;
+  bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/passiveportopener.sh) ;
     echo -e "\n- Enabled passive \`FTP\` ports using [codex script](https://codex.dimenoc.com/scripts/download/passiveportopener)."
 }
 

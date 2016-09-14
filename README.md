@@ -88,3 +88,4 @@ at your own risk.
 | `zzsuhosinsilencer` | silence `suhosin` alerts when they are flooding the console | supply ticket id | no |
 | `zzquikchk` | displays basic server information | no | no |
 | `zzsqlsize` | codex script which displays a number of statistics by querying mysql | see `https://codex.dimenoc.com/scripts/308` | no |
+| `zzspenserjoke` | prints a joke | no | no |
