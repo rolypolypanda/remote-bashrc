@@ -24,6 +24,7 @@ else
     alias mv="mv -v" ;
     alias cp="cp -v"
     alias rm="rm -v" ;
+    alias ln="ln -v" ;
     alias zzeximstats="eximstats -h1 -ne -nr /var/log/exim_mainlog" ;
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
     alias clera="clear" ;
@@ -358,8 +359,11 @@ zzmysqltune() {
         --tuner|-t)
             perl <(curl -k -L http://raw.github.com/rackerhacker/MySQLTuner-perl/master/mysqltuner.pl) ;
             ;;
+        --report|-r)
+            perl <(curl -ks https://raw.githubusercontent.com/daniel-nichter/hackmysql.com/master/mysqlreport/mysqlreport) ;
+            ;;
                  *)
-            echo "Usage: [ --primer / -p | --tuner / -t ]"
+            echo "Usage: [ --primer / -p | --tuner / -t | --report / -r ]"
             ;;
     esac
 }
@@ -502,11 +506,11 @@ zzcmsdbinfo() {
     fi
     ;;
    --whmcs|-ws)
-    DB_VER="$(grep -w Version clients/upgrade.php | awk '{ print $3,$4,$5 }')"
-    WS_LIC="$(grep -w license clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
-    DB_NAME="$(grep -w db_name clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
-    DB_USER="$(grep -w db_username clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
-    DB_PASS="$(grep -w db_password clients/configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_VER="$(grep -w Version upgrade.php | awk '{ print $3,$4,$5 }')"
+    WS_LIC="$(grep -w license configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_NAME="$(grep -w db_name configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_USER="$(grep -w db_username configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
+    DB_PASS="$(grep -w db_password configuration.php | tr -d '=' | tr -d "'" | awk '{ print $2 }' | tr -d ';')"
     TBL_PREFIX="None"
     TESTCON="$(mysql --user=$DB_USER --password=$DB_PASS $DB_NAME -e "show tables" &> /dev/null && echo Yes || echo No)"
     echo -e "\nWHMCS ${DB_VER}"
