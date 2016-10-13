@@ -108,7 +108,7 @@ zzexigrep() {
 zzdomcnt() {
     DPRIM="$(wc -l /etc/trueuserdomains | awk '{ print $1 }')"
     DALL="$(wc -l /etc/userdatadomains | awk '{ print $1 }')"
-    echo -e "\nMain Domains: ${DPRIM}"
+    echo -e "\ncPanel Accts: ${DPRIM}"
     echo -e "Total Domains: ${DALL}\n"
 }
 
