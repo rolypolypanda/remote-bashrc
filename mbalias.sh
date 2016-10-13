@@ -126,6 +126,8 @@ zzphpinfo() {
 }
 
 zzhomeperms() {
+    echo -e "\nYou should be testing bash <(curl -ks http://filez.dizinc.com/~michaelb/sh/fixhome.sh)\n"
+    sleep 1 ;
     read -p "Enter cPanel account name: " ACT
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID/$ACT/ ;
