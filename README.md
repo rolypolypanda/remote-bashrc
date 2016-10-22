@@ -89,3 +89,4 @@ at your own risk.
 | `zzquikchk` | displays basic server information | no | no |
 | `zzsqlsize` | codex script which displays a number of statistics by querying mysql | see `https://codex.dimenoc.com/scripts/308` | no |
 | `zzspenserjoke` | prints a joke | no | no |
+| `zzchksrvparse` | Andrew T's one liner to parse `chkservd` logs | input integer = number of lines to parse | no |
