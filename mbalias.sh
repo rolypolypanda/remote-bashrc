@@ -60,7 +60,7 @@ zzcommands() {
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
     echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize\nzzspenserjoke\n"
-    echo -e "zzchksrvparse\n"
+    echo -e "zzchecksrvparse\n"
 }
 
 zzphpini() {
@@ -1320,6 +1320,6 @@ zzspenserjoke() {
     bash <(curl -ks https://codesilo.dimenoc.com/spenserc/joekoutput/raw/master/joek.sh) ;
 }
 
-zzchksrvparse() {
+zzchecksrvparse() {
     tail -n $1 /var/log/chkservd.log | awk '/\./ && !/Check/' | egrep -v "("Loading"|"Disk"|"OOM")" | sed 's/\.\.\./\n\t/g' | tr -d '.' | awk 'NF' | sed 's/\[notify\:/\t\t\[notify\:/g' | sed 's/Done/Done\n/g' | head -n -1
 }
