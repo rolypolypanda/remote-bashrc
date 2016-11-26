@@ -90,3 +90,4 @@ at your own risk.
 | `zzsqlsize` | codex script which displays a number of statistics by querying mysql | see `https://codex.dimenoc.com/scripts/308` | no |
 | `zzspenserjoke` | prints a joke | no | no |
 | `zzchksrvparse` | Andrew T's one liner to parse `chkservd` logs | input integer = number of lines to parse | no |
+| `zztopfive` | codex script which displays the top five domains per http hits | no | no |
