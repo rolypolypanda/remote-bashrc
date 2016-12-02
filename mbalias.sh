@@ -60,7 +60,7 @@ zzcommands() {
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
     echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize\nzzspenserjoke\n"
-    echo -e "zzchecksrvparse\nzztopfive\n"
+    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\n"
 }
 
 zzphpini() {
@@ -1001,8 +1001,12 @@ zzwhmxtraremove() {
     echo -e "\n- \`Removed WHMXtra\` using [codex script](https://codex.dimenoc.com/scripts/download/na).\n"
 }
 
-zzsiteresponse() {
+zzdnsresponse() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/sitetest) ;
+}
+
+zzsiteresponse() {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/domain_status_checker) $1 ;
 }
 
 zzssp() {

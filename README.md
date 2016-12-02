@@ -57,7 +57,8 @@ at your own risk.
 | `zzsoftaculousremove` | uninstalls `Softaculous` | accepts no arguments | yes |
 | `zzwhmxtrainstall` | installs `Xtra Ultimate` | accepts no arguments | yes |
 | `zzwhmxtraremove` | uninstalls `Xtra Ultimate ` | accepts no arguments | yes |
-| `zzsiteresponse` | codex script, checks domain resolution | accepts no arguments | no |
+| `zzsiteresponse` | R2's script to check and diff HTTP response codes | supply ticket number | no |
+| `zzdnsresponse` | codex script, checkes for local or remote A record resolution | accepts no arguments | no |
 | `zzcddr` | `cd` to the `DocRoot` of a domain | supply `FQDN` | no |
 | `zzssp` | `git clone` and execution of cPanels `System Status Probe` | accepts no arguments | no |
 | `zzchk500` | Adam B.s `500` error checking script | accepts no arguments | no |
