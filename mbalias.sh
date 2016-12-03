@@ -1331,3 +1331,17 @@ zzchecksrvparse() {
 zztopfive() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/topfivedomains) ;
 }
+
+zzrepoinstall() {
+   cat >/etc/yum.repos.d/hdmikeb.repo<<EOF
+   [hdmikeb]
+   name=HDMikeB - Mike B's yum repo
+   baseurl=http://vps1.donthurt.us/repo/7
+   enabled=1
+   gpgcheck=0
+   protect=1
+   EOF
+   yum clean all ;
+   yum update ;
+}
+
