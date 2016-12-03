@@ -1333,15 +1333,5 @@ zztopfive() {
 }
 
 zzrepoinstall() {
-   cat >/etc/yum.repos.d/hdmikeb.repo<<EOF
-   [hdmikeb]
-   name=HDMikeB - Mike B's yum repo
-   baseurl=http://vps1.donthurt.us/repo/7
-   enabled=1
-   gpgcheck=0
-   protect=1
-   EOF
-   yum clean all ;
-   yum update ;
+    wget http://vps1.donthurt.us/repo/hdmikeb.repo -O /etc/yum.repos.d/hdmikeb.repo ;
 }
-
