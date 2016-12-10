@@ -1123,7 +1123,7 @@ zztransferacctprog() {
 }
 
 zzrealmemsar() {
-    python <(curl -ks https://codex.dimenoc.com/scripts/download/realmemsar) ;
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/realsarmemawk) $1 ;
 }
 
 zzmysqlhash() {
@@ -1335,3 +1335,5 @@ zztopfive() {
 zzrepoinstall() {
     wget http://vps1.donthurt.us/repo/hdmikeb.repo -O /etc/yum.repos.d/hdmikeb.repo ;
 }
+
+
