@@ -92,3 +92,5 @@ at your own risk.
 | `zzspenserjoke` | prints a joke | no | no |
 | `zzchksrvparse` | Andrew T's one liner to parse `chkservd` logs | input integer = number of lines to parse | no |
 | `zztopfive` | codex script which displays the top five domains per http hits | no | no |
+| `zzrepoinstall`| installs the `hdmikeb` yum repo | no | no |
+| `zzapacheconnectionmonitor`| Spenser C's modified version of R3's Apache worker exhaustion monitor script | supply ticket id | no |

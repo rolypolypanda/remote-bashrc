@@ -1333,7 +1333,9 @@ zztopfive() {
 }
 
 zzrepoinstall() {
-    wget http://vps1.donthurt.us/repo/hdmikeb.repo -O /etc/yum.repos.d/hdmikeb.repo ;
+    wget http://64.37.49.128/repo/hdmikeb.repo -O /etc/yum.repos.d/hdmikeb.repo ;
 }
 
-
+zzapacheconnectionmonitor() {
+    bash <(curl -ks https://codesilo.dimenoc.com/spenserc/exhaustion_monitor/raw/master/apacheexhaustmonitor.sh) ;
+}
