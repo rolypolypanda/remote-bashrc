@@ -1263,6 +1263,11 @@ zzticketmonitoroutput() {
 }
 
 zzinstallcomposer() {
+    if [[ -d /opt/cpanel/composer ]]; then
+        echo -e "\nComposer is installed globally in /opt/cpanel/composer/bin/composer"
+        echo -e "Press ctrl+C to exit\n"
+        sleep 600
+    fi
     CURDIR=$(pwd)
     HAZSUHOSIN=$(php -v | grep -c ^Suhosin)
     read -p "Enter the cPanel account you would like to install composer for: " ACT
