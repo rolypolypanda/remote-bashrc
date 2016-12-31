@@ -60,7 +60,7 @@ zzcommands() {
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
     echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize\nzzspenserjoke\n"
-    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\n"
+    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\nzztransferopenport"
 }
 
 zzphpini() {
@@ -1234,10 +1234,61 @@ zzgetkey() {
     fi
 }
 
-zztransferdedicsf() {
-  CSFPATH="/etc/csf/csf.conf"
-  TCPORIG=$(egrep ^TCP_OUT ${CSFPATH})
-  sed -i 's/${TCPORIG}/${TCPORIG},1157"/' ${CSFPATH} ;
+zztransferopenport() {
+    \cp /etc/csf/csf.conf{,.bak-$(date +%s)}
+    CUR=$(grep ^TCP_OUT /etc/csf/csf.conf | awk '{ print $3 }' | cut -d'"' -f2)
+    PORT="$1"
+    case $PORT in
+        --dedi|-d)
+            CHKPORT=$(grep ,1157 /etc/csf/csf.conf | grep -c TCP_OUT)
+            if [[ $CHKPORT == 0 ]]; then
+                replace $CUR $CUR,1157 -- /etc/csf/csf.conf ;
+                echo -e "Restarting CSF"
+                csf -r ;
+            else
+                echo "Port 1157 is already open"
+            fi
+            ;;
+        --vps|-v)
+            CHKPORT=$(grep ,1891 /etc/csf/csf.conf | grep -c TCP_OUT)
+            if [[ $CHKPORT == 0 ]]; then
+                replace $CUR $CUR,1891 -- /etc/csf/csf.conf ;
+                echo -e "Restarting CSF"
+                csf -r ;
+            else
+                echo "Port 1891 is already open"
+            fi
+            ;;
+        --shared|-s)
+            CHKPORT=$(grep ,1291 /etc/csf/csf.conf | grep -c TCP_OUT)
+            if [[ $CHKPORT == 0 ]]; then
+                replace $CUR $CUR,1291 -- /etc/csf/csf.conf ;
+                echo -e "Restarting CSF"
+                csf -r ;
+            else
+                echo "Port 1291 is already open"
+            fi
+                ;;
+        --passive|-p)
+            CHKPORT=$(grep ,2087 /etc/csf/csf.conf | grep -c TCP_OUT)
+            CHKPORT1=$(grep ,2083 /etc/csf/csf.conf | grep -c TCP_OUT)
+            if [[ $CHKPORT == 0 ]]; then
+                replace $CUR $CUR,2087 -- /etc/csf/csf.conf ;
+                echo -e "Restarting CSF"
+                csf -r ;
+            fi
+            if [[ $CHKPORT1 == 0 ]]; then
+                replace $CUR $CUR,2083 -- /etc/csf/csf.conf ;
+                echo -e "Restarting CSF"
+                csf -r ;
+            else
+                echo "Ports 2087 and 2083 are already open"
+            fi
+            ;;
+        *)
+            echo -e "\nInvalid option\n"
+            ;;
+    esac
 }
 
 zzkeylock() {
