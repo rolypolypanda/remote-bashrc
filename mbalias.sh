@@ -1285,6 +1285,13 @@ zztransferopenport() {
                 echo "Ports 2087 and 2083 are already open"
             fi
             ;;
+        --help|-h)
+            echo "Usage:"
+            echo "--passive / -p Open cPanel ports"
+            echo "--dedi / -d Open port 1157"
+            echo "--vps / -v Open port 1891"
+            echo "--shared / -s Open port 1291"
+            ;;
         *)
             echo -e "\nInvalid option\n"
             ;;
