@@ -1226,12 +1226,9 @@ zzgetkey() {
     if [[ -f /root/.ssh/id_rsa.pub ]]; then
         cat /root/.ssh/id_rsa.pub ;
     else
-        read -p "No public RSA key found, would you like to generate a key? (Y/N) " YN
-            if [[ $YN == Y ]];then
-                ssh-keygen ;
+                ssh-keygen -b 4096 -f /root/.ssh/id_rsa;
                 cat /root/.ssh/id_rsa.pub ;
         fi
-    fi
 }
 
 zztransferopenport() {
