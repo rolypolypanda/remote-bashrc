@@ -60,7 +60,7 @@ zzcommands() {
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
     echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize\nzzspenserjoke\n"
-    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\nzztransferopenport"
+    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\nzztransferopenport\nzzclphp"
 }
 
 zzphpini() {
@@ -1398,4 +1398,8 @@ zzrepoinstall() {
 
 zzapacheconnectionmonitor() {
     bash <(curl -ks https://codesilo.dimenoc.com/spenserc/exhaustion_monitor/raw/master/apacheexhaustmonitor.sh) ;
+}
+
+zzclphp {
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/clephp) ;
 }

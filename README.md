@@ -95,3 +95,4 @@ at your own risk.
 | `zzrepoinstall`| installs the `hdmikeb` yum repo | no | no |
 | `zzapacheconnectionmonitor`| Spenser C's modified version of R3's Apache worker exhaustion monitor script | supply ticket id | no |
 | `zztransferopenport` | opens outbound TCP ports in CSF for our common dedi, vps and shared SSH ports | specify platform | no |
+| `zzclphp` | bash implementation of `CloudLinux's` `PHPSelector`, sourced from codex | menu driven | no |
