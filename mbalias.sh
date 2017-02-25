@@ -1400,6 +1400,6 @@ zzapacheconnectionmonitor() {
     bash <(curl -ks https://codesilo.dimenoc.com/spenserc/exhaustion_monitor/raw/master/apacheexhaustmonitor.sh) ;
 }
 
-zzclphp {
+zzclphp() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/clephp) ;
 }
