@@ -711,7 +711,7 @@ zzcronscan() {
 }
 
 zzrpmquery() {
-    rpm -aq --queryformat '%{installtime} (%{installtime:date}) %{name}\n' | grep -i $1
+    rpm -qa --qf '%{INSTALLTIME} (%{INSTALLTIME:date}): %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n' | grep -i $1 ;
 }
 
 zzeasybackup() {
