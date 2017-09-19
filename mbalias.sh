@@ -92,11 +92,11 @@ zzphpini() {
 
 zzphphandler() {
     echo -e "\* Checked the current PHP handler: \`/usr/local/cpanel/bin/rebuild_phpconf --current\`"
-    echo -e "\n"    
+
     echo -e "  \`\`\`"    
     echo -e "$(/usr/local/cpanel/bin/rebuild_phpconf --current)"
     echo -e "  \`\`\`"
-    echo -e "\n"
+
 }
 
 zzcddr() {
