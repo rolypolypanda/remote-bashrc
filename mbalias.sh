@@ -91,12 +91,10 @@ zzphpini() {
 }
 
 zzphphandler() {
-    echo -e "\* Checked the current PHP handler: \`/usr/local/cpanel/bin/rebuild_phpconf --current\`"
-
+    echo -e "\* Checked the current PHP handler: \`/usr/local/cpanel/bin/rebuild_phpconf --current\`\n"
     echo -e "  \`\`\`"    
     echo -e "$(/usr/local/cpanel/bin/rebuild_phpconf --current)"
-    echo -e "  \`\`\`"
-
+    echo -e "  \`\`\`\n"
 }
 
 zzcddr() {
@@ -1409,3 +1407,4 @@ zzapacheconnectionmonitor() {
 zzclphp() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/clephp) ;
 }
+
