@@ -6,7 +6,7 @@ at your own risk.
 | **command** | **description** | **usage** | **Note output** |
 | ------- | ----------- | ----- | --------- | --------------- |
 | `zzphpini` | creates a local `php.ini` | use by specifying `php` or `php53,54,etc` if using multi PHP | yes |
-| `zzphphandler` | displays current and avaliable PHP handlers | accepts no arguments | no |
+| `zzphphandler` | displays current and avaliable PHP handlers | accepts no arguments | yes |
 | `zzphpinfo` | creates a `phpinfo.php` file | accepts no arguments | yes |
 | `zzmemload` | shows number of `CPU` cores, `w` and `sar -q` over 5 seconds; displays free memory and swappiness value | accepts no arguments | yes |
 | `zzfixtmp` | sets `/tmp` permissions to `1777` and removes files older than `30` minutes | accepts no arguments | log |
@@ -29,7 +29,7 @@ at your own risk.
 | `zzaxonparse` | L2 Axon log parser | menu driven | no |
 | `zzxmlrpcget` | searches apache domlogs for xmlrpc.php and sorts by IP hits | enter domain name | no |
 | `zzcpucheck` | shows cpu core temperatures, cpu type, current and maximum clock speeds | accepts no arguments | yes |
-| `zztailapache` | alias to `tail -f` main Apache log with pipe to `grep` `67.23` | no | no |
+| `zztailapache` | alias to `tail -f` main Apache log | no | no |
 | `zztailmysql` | alias to `tail -f` MySQL log | pipe to standard Linux commands | no |
 | `zzmailperms` | corrects mail permissions on all cPanel accounts | menu driven | no |
 | `zzdusort` | from Kevin B.s aliases - sorts the output of du by size and taking into consideration type of measurement (K,M,G,T) | no | no |
