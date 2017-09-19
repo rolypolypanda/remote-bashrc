@@ -1,7 +1,8 @@
+#!/bin/sh -
 # mbalias.sh
 # Begin setup env.
 
-if [[ $(hostname | egrep -Ec '(snafu|mac|fedora-srv|fedora|devbox)') == 1 ]]; then
+if [[ $(hostname | egrep -Ec '(coreyhphillips)') == 1 ]]; then
     echo "You're at home, not setting up aliases, etc..." ;
 else
     eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)" ;
@@ -29,7 +30,7 @@ else
     alias zztopmail="bash <(curl -k -s https://scripts.dimenoc.com/files/Top_Mail_334.sh)" ;
     alias clera="clear" ;
     alias yes="no" ;
-    alias zztailapache="tail -f /etc/httpd/logs/error_log | grep 67.23" ;
+    alias zztailapache="tail -f /etc/httpd/logs/error_log" ;
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err" ;
 fi
 
@@ -90,7 +91,12 @@ zzphpini() {
 }
 
 zzphphandler() {
-    /usr/local/cpanel/bin/rebuild_phpconf --current ;
+    echo -e "\* Checked the current PHP handler: \`/usr/local/cpanel/bin/rebuild_phpconf --current\`"
+    echo -e "\n"    
+    echo -e "  \`\`\`"    
+    echo -e "$(/usr/local/cpanel/bin/rebuild_phpconf --current)"
+    echo -e "  \`\`\`"
+    echo -e "\n"
 }
 
 zzcddr() {
