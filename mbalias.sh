@@ -376,8 +376,8 @@ zzmysqltuneup() {
     sleep 5 ;
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID ;
-    mysqlcheck -rA | tee -a /home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log ;
-    mysqlcheck -oA | tee -a /home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log ;
+    mysqlcheck -A --auto-repair | tee -a /home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log ;
+   #mysqlcheck -oA | tee -a /home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log ;
     wall -n "MySQL table repair and optimize complete." ;
     wall -n "\`root@$(hostname):$(pwd) # mysqlcheck -rA\`"
     wall -n "\`root@$(hostname):$(pwd) # mysqlcheck -oA\`"
