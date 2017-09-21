@@ -2,9 +2,9 @@
 # mbalias.sh
 # Begin setup env.
 
-if [[ $(hostname | egrep -Ec '(coreyhphillips)') == 1 ]]; then
-    echo "You're at home, not setting up aliases, etc..." ;
-else
+#if [[ $(hostname | egrep -Ec '(coreyhphillips)') == 1 ]]; then
+#    echo "You're at home, not setting up aliases, etc..." ;
+#else
     eval "$(curl -ks https://codex.dimenoc.com/scripts/download/colorcodes)" ;
     echo -ne "\033k$HOSTNAME\033\\" ;
     export PS1='\[\e[1;32m\]\u\[\e[1;37m\]@\[\e[0;37m\]\H\[\e[0;36m\]:\w\[\e[0;0m\] \$ ' ;
@@ -32,7 +32,7 @@ else
     alias yes="no" ;
     alias zztailapache="tail -f /etc/httpd/logs/error_log" ;
     alias zztailmysql="tail -f /var/lib/mysql/$(hostname).err" ;
-fi
+#fi
 
 # Begin functions.
 zzgetvimrc() {
