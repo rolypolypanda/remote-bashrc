@@ -373,16 +373,12 @@ zzmysqltune() {
 
 zzmysqltuneup() {
     echo -e "\nMake sure to run in a screen session." ;
-    sleep 5 ;
+    sleep 1 ;
     read -p "Enter ticket ID number: " TID
     mkdir -p /home/.hd/logs/$TID ;
-    mysqlcheck -A --auto-repair | tee -a /home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log ;
-   #mysqlcheck -oA | tee -a /home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log ;
-    wall -n "MySQL table repair and optimize complete." ;
-    wall -n "\`root@$(hostname):$(pwd) # mysqlcheck -rA\`"
-    wall -n "\`root@$(hostname):$(pwd) # mysqlcheck -oA\`"
-    wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-repair-$(date +%s).log\`" ;
-    wall -n "Log located in \`/home/.hd/logs/$TID/mysqlcheck-optimize-$(date +%s).log\`" ;
+    nice -n 19 find /var/lib/mysql/ -type f -name '*.MYI' | xargs nice -19 myisamchk -r | tee -a /home/.hd/logs/$TID/myisamchk.$(date +%s).log ; 
+    nice -n 19 mysqlcheck -A --auto-repair | tee -a /home/.hd/logs/$TID/mysqlchk.$(date +%s).log ;
+    wall -n "MySQL table repair and optimize complete. Logs located at: /home/.hd/logs/$TID/myisamchk.$(date +%s).log and /home/.hd/logs/$TID/mysqlchk.$(date +%s).log" ;
 }
 
 zzapachetune() {
