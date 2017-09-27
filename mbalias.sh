@@ -1404,3 +1404,7 @@ zzclphp() {
     bash <(curl -ks https://codex.dimenoc.com/scripts/download/clephp) ;
 }
 
+zzoverloads() {
+    NPROC=$(grep -c proc /proc/cpuinfo) ;
+    sar -q | awk '{$5 > $NPROC}' ;
+}
