@@ -61,7 +61,7 @@ zzcommands() {
     echo -e "zzdomconn\nzzpatchsymlink\nzzchksymlink\nzzupdatemodsec\nzzpassiveports\nzztransferver\ntransferrsyncprog\ntransferacctprog\nzzrealmemsar"
     echo -e "zzmysqlhash\nzzmysqlerror\nzzrvsitebuilderuninstall\nzzrvsitebuilderinstall\nzzattractainstall\nzzattractauninstall\nzzgetkey\nzzkeylock"
     echo -e "zzunlock\nzzupdatetweak\nzzticketmonitoroutput\nzzinstallcomposer\nzzlargefileusage\nzzsuhosinsilencer\nzzquikchk\nzzsqlsize\nzzspenserjoke\n"
-    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\nzztransferopenport\nzzclphp"
+    echo -e "zzchecksrvparse\nzztopfive\nzzdnsresponse\nzztransferopenport\nzzclphp\nzzoverloads"
 }
 
 zzphpini() {
