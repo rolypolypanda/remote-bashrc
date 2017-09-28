@@ -18,6 +18,7 @@
     unalias mv
     unalias rm
     unalias ll
+    alias nano ="vim -u /home/.hd/user/michaelb/scripts/vimrc" ;
     alias ll="ls -lah" ;
     alias grep="egrep --color=auto" ;
     alias hist="history" ;
