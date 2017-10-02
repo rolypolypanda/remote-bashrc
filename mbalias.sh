@@ -546,7 +546,7 @@ zzmonitordisk() {
 }
 
 zzaxonparse() {
-    bash <(curl -ks https://codex.dimenoc.com/scripts/download/Axon) ;
+    bash <(curl -ks https://codex.dimenoc.com/scripts/download/revised_axon_parser) ;
 }
 
 zzxmlrpcget() {
