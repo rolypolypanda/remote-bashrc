@@ -97,3 +97,4 @@ at your own risk.
 | `zztransferopenport` | opens outbound TCP ports in CSF for our common dedi, vps and shared SSH ports | specify platform | no |
 | `zzclphp` | bash implementation of `CloudLinux's` `PHPSelector`, sourced from codex | menu driven | no |
 | `zzoverloads` | displays overload events from `sar -q` | no | no | 
+| `zzcpanelsess` | codex script which creates temporary session for a cPanel service for a given user | no | no |
