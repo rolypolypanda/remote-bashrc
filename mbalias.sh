@@ -1407,7 +1407,7 @@ zzclphp() {
 
 zzoverloads() {
     NPROC=$(grep -c proc /proc/cpuinfo) ;
-    sar -q | awk '{$5 > $NPROC}' ;
+    sar -q | awk '$5 > $NPROC' ;
 }
 
 zzcpanelsess() {
