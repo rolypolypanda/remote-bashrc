@@ -66,12 +66,17 @@ zzcommands() {
 }
 
 zzphpini() {
+    #If there is a local php.ini, move it to php.ini.bak and copy the global config
+    #to the local directory
     if [[ -f $(pwd)/php.ini ]]; then
         \mv -f $(pwd)/php.ini{,.bak-hd}
     fi
     \cp -f /usr/local/lib/$1.ini php.ini ;
+
+    #Check for a suPHP_ConfigPath defined in the local .htaccess file
     if [[ $(grep -c suPHP_ConfigPath $(pwd)/.htaccess) == 1 ]]; then
         echo "suPHP_ConfigPath is already set in $(pwd)/.htaccess."
+    #    
     else
         \mv .htaccess{,.bak-hd}
         echo -e "<IfModule mod_suphp.c>\nsuPHP_ConfigPath $(pwd)\n</IfModule>\n<Files php.ini>\norder allow,deny\ndeny from all\n</Files>\n" >> .htaccess ;
