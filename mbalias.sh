@@ -173,15 +173,15 @@ zzmailperms() {
 }
 
 zzmemload() {
-    echo -e "- Current server load \`(w / sar -q 1 5):\`" ;
-    echo "\`\`\`" ;
+    echo -e "* Current server load: \`(w / sar -q 1 5):\`" ;
+    echo "\n\`\`\`" ;
     CPUCOUNT=$(grep -c proc /proc/cpuinfo)
     echo -e "CPU count: $CPUCOUNT"
     w ;
     sar -q 1 5 ;
-    echo "\`\`\`" ;
-    echo -e "- Free memory \`(free -m):\`" ;
-    echo "\`\`\`" ;
+    echo "\`\`\\n`" ;
+    echo -e "* Free memory: \`(free -m):\`" ;
+    echo "\n\`\`\`" ;
     free -m ;
     echo "Swappiness Value: $(cat /proc/sys/vm/swappiness)"
     echo "\`\`\`" ;
