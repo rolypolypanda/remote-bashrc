@@ -388,7 +388,7 @@ zzmysqltuneup() {
 }
 
 zzapachetune() {
-    bash <(curl -ks http://lederhostin.com/scripts/apacheworkertune) ;
+    bash <(curl -ks https://codesilo.dimenoc.com/spenserc/apacheworkertune/raw/master/apacheworkertune) ;
 }
 
 zzsetdnsvps() {
