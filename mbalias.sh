@@ -179,7 +179,7 @@ zzmemload() {
     echo -e "CPU count: $CPUCOUNT"
     w ;
     sar -q 1 5 ;
-    echo "\`\`\\n`" ;
+    echo "\`\`\\n\`" ;
     echo -e "* Free memory: \`(free -m):\`" ;
     echo "\n\`\`\`" ;
     free -m ;
